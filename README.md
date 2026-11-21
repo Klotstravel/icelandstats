@@ -1,4 +1,4 @@
-# Исландия статистика — stats.klotstravel.com
+# Исландия статистика — icelandstats.klotstravel.com
 
 Публичная копия страницы «Исландия статистика» (Klots Travel). Данные — Statistics Iceland.
 

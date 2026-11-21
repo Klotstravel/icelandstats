@@ -118,7 +118,7 @@ window.__READY__ = true; window.__runAll();
 """
     out = pathlib.Path(out_dir); out.mkdir(parents=True, exist_ok=True)
     (out / 'index.html').write_text(html, encoding='utf-8')
-    (out / 'CNAME').write_text('stats.klotstravel.com\n', encoding='utf-8')
+    (out / 'CNAME').write_text('icelandstats.klotstravel.com\n', encoding='utf-8')
     (out / '.nojekyll').write_text('', encoding='utf-8')
     print('ok', out / 'index.html', round(len(html.encode()) / 1024), 'KB')
 
