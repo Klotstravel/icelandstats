@@ -1,0 +1,848 @@
+<meta name="dash-one-writer">
+<style>
+.is-wrap{font-family:var(--font-anthropic-sans);color:var(--color-fg);display:flex;flex-direction:column;gap:calc(var(--cds-gap-lg) / 2)}
+.is-title{font-family:var(--font-anthropic-serif);font-weight:400;font-size:var(--cds-font-size-title);margin:0}
+.is-sub{color:var(--color-fg-muted);margin:4px 0 0;font-size:var(--cds-font-size-body)}
+.is-card{background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:var(--cds-radius)}
+.is-card > summary{list-style:none;cursor:pointer;padding:var(--cds-pad-md) var(--cds-pad-lg);display:flex;align-items:center;gap:10px;user-select:none}
+.is-card > summary::-webkit-details-marker{display:none}
+.is-card > summary::before{content:"";width:7px;height:7px;border-right:1.5px solid var(--color-fg-muted);border-bottom:1.5px solid var(--color-fg-muted);transform:rotate(-45deg);flex:none;margin-right:2px}
+.is-card[open] > summary::before{transform:rotate(45deg)}
+.is-body{padding:0 var(--cds-pad-lg) var(--cds-pad-lg)}
+.is-h{font-size:var(--cds-font-size-heading);font-weight:var(--cds-font-weight-medium);margin:0}
+.is-group{font-family:var(--font-anthropic-serif);font-weight:400;font-size:calc(var(--cds-font-size-heading) * 1.3);margin:var(--cds-gap-lg) 0 0;padding-bottom:4px;border-bottom:1px solid var(--color-border-line)}
+.is-yearbar{display:flex;align-items:center;gap:6px;margin:0 0 12px}
+.is-years{display:flex;gap:4px;overflow-x:auto;scroll-behavior:smooth;flex:1;min-width:0;padding:2px 0;scrollbar-width:thin}
+.is-yb{flex:none;border:1px solid var(--color-border-line);background:transparent;color:var(--color-fg);border-radius:6px;padding:4px 9px;font:inherit;font-size:var(--cds-font-size-caption);font-variant-numeric:tabular-nums;cursor:pointer}
+.is-yb[aria-pressed="true"]{background:var(--color-fg);color:var(--color-bg);border-color:var(--color-fg)}
+.is-arrow{flex:none;border:1px solid var(--color-border-line);background:transparent;color:var(--color-fg);border-radius:6px;width:30px;height:28px;font:inherit;cursor:pointer}
+.is-rows{display:flex;flex-direction:column;gap:3px}
+.is-row{display:grid;grid-template-columns:64px minmax(80px,160px) minmax(0,1fr) auto;align-items:center;gap:8px;font-size:var(--cds-font-size-caption)}
+.is-row .r{font-variant-numeric:tabular-nums;white-space:nowrap;display:grid;grid-template-columns:20px 1fr;gap:4px}
+.is-row .r b{font-weight:var(--cds-font-weight-medium);text-align:right}
+.is-row .r .up{color:var(--color-ok)}
+.is-row .r .down{color:var(--color-bad)}
+.is-row .r .same{color:var(--color-fg-muted)}
+.is-row .n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.is-row .t{height:14px;position:relative}
+.is-row .b{position:absolute;left:0;top:0;bottom:0;border-radius:0 3px 3px 0}
+.is-row .v{font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right;min-width:112px}
+.is-row .v span{color:var(--color-fg-muted);display:inline-block;min-width:44px}
+.is-row.other .n{color:var(--color-fg-muted)}
+.is-h3{font-size:var(--cds-font-size-body);font-weight:var(--cds-font-weight-medium);margin:var(--cds-gap-lg) 0 8px;padding-top:var(--cds-pad-md);border-top:1px solid var(--color-border-line)}
+.is-take{margin:0 0 12px;font-size:var(--cds-font-size-body)}
+.is-take b{font-variant-numeric:tabular-nums}
+.is-chart{position:relative;min-height:340px}
+.is-note{color:var(--color-fg-muted);font-size:var(--cds-font-size-caption);margin:10px 0 0}
+.is-legend{display:flex;flex-wrap:wrap;gap:14px;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);margin:0 0 8px}
+.is-legend span{display:inline-flex;align-items:center;gap:5px}
+.is-sw{width:10px;height:10px;border-radius:2px;display:inline-block}
+.is-tip{position:absolute;pointer-events:none;background:var(--cds-surface-popover);border:1px solid var(--cds-border);box-shadow:var(--cds-shadow-popover);border-radius:6px;padding:6px 9px;font-size:var(--cds-font-size-caption);white-space:nowrap;font-variant-numeric:tabular-nums}
+.is-chart .tick text{fill:var(--cds-text-secondary);font-size:var(--cds-font-size-caption)}
+.is-err{color:var(--color-bad);font-size:var(--cds-font-size-caption)}
+.is-tw{overflow-x:auto}
+.is-tbl{min-width:560px;font-size:var(--cds-font-size-caption);font-variant-numeric:tabular-nums}
+.is-tr{display:grid;grid-template-columns:64px minmax(120px,1fr) 72px 54px 64px 48px 64px 48px;gap:6px;align-items:center;padding:4px 0;border-bottom:1px solid var(--color-border-line)}
+.is-tr.h{color:var(--color-fg-muted);font-weight:var(--cds-font-weight-medium)}
+.is-tr > div:nth-child(n+3){text-align:right;white-space:nowrap}
+.is-tr .n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:sticky;left:70px;background:var(--color-panel);z-index:1;box-shadow:6px 0 0 var(--color-panel)}
+.is-tr .r{white-space:nowrap;display:grid;grid-template-columns:24px 1fr;gap:4px;position:sticky;left:0;background:var(--color-panel);z-index:1;box-shadow:6px 0 0 var(--color-panel)}
+.is-tr.h > div:nth-child(1){position:sticky;left:0;background:var(--color-panel);z-index:1;box-shadow:6px 0 0 var(--color-panel)}
+.is-tr.h > div:nth-child(2){position:sticky;left:70px;background:var(--color-panel);z-index:1;box-shadow:6px 0 0 var(--color-panel)}
+.is-tr.isl .n,.is-tr.isl .r{font-weight:var(--cds-font-weight-medium)}
+.is-tr .r b{font-weight:var(--cds-font-weight-medium);text-align:right}
+.is-tr .r .up{color:var(--color-ok)}
+.is-tr .r .down{color:var(--color-bad)}
+.is-tr .r .same{color:var(--color-fg-muted)}
+.is-tr .p{color:var(--color-fg-muted)}
+.is-more{margin-top:10px}
+.is-tbl-y{min-width:540px}
+.is-ty{display:grid;grid-template-columns:36px 72px 124px 80px 56px 104px 56px;gap:6px;align-items:center;padding:4px 0;border-bottom:1px solid var(--color-border-line)}
+.is-ty.h{color:var(--color-fg-muted);font-weight:var(--cds-font-weight-medium)}
+.is-ty > div:nth-child(n+2){text-align:right;white-space:nowrap}
+.is-ty > div:nth-child(1){position:sticky;left:0;background:var(--color-panel);z-index:1;font-weight:var(--cds-font-weight-medium);box-shadow:6px 0 0 var(--color-panel)}
+.is-ty .p{color:var(--color-fg-muted)}
+.is-tg,.is-tv,.is-tx{display:grid;gap:6px;align-items:center;padding:4px 0;border-bottom:1px solid var(--color-border-line)}
+.is-tg{grid-template-columns:52px 96px 84px 112px 104px}
+.is-tv{grid-template-columns:64px minmax(170px,1fr) 80px 60px}
+.is-tx{grid-template-columns:60px 64px 56px 46px 64px 46px 82px 46px 60px 46px 60px 46px}
+.is-tbl-v{min-width:400px}
+.is-tbl-x{min-width:720px}
+.is-tg.h,.is-tv.h,.is-tx.h{color:var(--color-fg-muted);font-weight:var(--cds-font-weight-medium)}
+.is-tg > div:nth-child(n+2),.is-tx > div:nth-child(n+2),.is-tv > div:nth-child(n+3){text-align:right;white-space:nowrap}
+.is-tg > div:nth-child(1),.is-tx > div:nth-child(1),.is-tv > div:nth-child(1){position:sticky;left:0;background:var(--color-panel);z-index:1;box-shadow:6px 0 0 var(--color-panel)}
+.is-tg > div:nth-child(1),.is-tx > div:nth-child(1){font-weight:var(--cds-font-weight-medium)}
+.is-tv > div:nth-child(2){position:sticky;left:70px;background:var(--color-panel);z-index:1;box-shadow:6px 0 0 var(--color-panel);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.is-tv .r{white-space:nowrap;display:grid;grid-template-columns:24px 1fr;gap:4px}
+.is-tv .r b{font-weight:var(--cds-font-weight-medium);text-align:right}
+.is-tv .r .up,.is-tg .up{color:var(--color-ok)}
+.is-tv .r .down,.is-tg .down{color:var(--color-bad)}
+.is-tv .r .same{color:var(--color-fg-muted)}
+.is-tv.sub{color:var(--color-fg-muted)}
+.is-tv.sub > div:nth-child(2){padding-left:14px}
+.is-tx .p,.is-tv .p{color:var(--color-fg-muted)}
+</style>
+<div class="is-wrap">
+  <header id="top">
+    <h1 class="is-title">Исландия статистика</h1>
+  </header>
+
+  <h2 class="is-group" id="group-tourism">Туризм</h2>
+
+  <details class="is-card" id="foreigners-by-year">
+    <summary><h2 class="is-h">Иностранцы через Кеблавик, по годам</h2></summary>
+    <div class="is-body">
+    <p class="is-take">В 2025 году — <b data-draw="y2025" data-source="by_year" data-field="foreigners" data-where="year=2025">—</b>. Рекорд — <b data-draw="peakv" data-source="peak" data-field="foreigners" data-row="0">—</b> в <b data-draw="peaky" data-source="peak" data-field="year" data-row="0">—</b> году.</p>
+    <div class="is-legend">
+      <span><i class="is-sw" data-draw="sw1"></i>Полный год</span>
+      <span><i class="is-sw" style="background:var(--cds-chart-muted)"></i>Неполный год: 2002 (март–декабрь), 2026 (январь–сентябрь)</span>
+    </div>
+    <div class="is-chart" data-draw="yearchart" data-source="by_year"></div>
+    <p class="is-note">Источник: Statistics Iceland, таблица SAM02001 (данные Туристического совета Исландии). Считаются отъезды иностранцев через досмотр в Кеблавике, включая иностранцев, живущих в Исландии, и транзитных пассажиров, проходящих досмотр.</p>
+
+    <h3 class="is-h3" id="foreigners-by-month">По месяцам</h3>
+    <div class="is-yearbar">
+      <button type="button" class="is-arrow" data-mstep="-1" aria-label="Предыдущий год">‹</button>
+      <div class="is-years" data-draw="mbtns" data-source="by_year" role="group" aria-label="Год"></div>
+      <button type="button" class="is-arrow" data-mstep="1" aria-label="Следующий год">›</button>
+    </div>
+    <p class="is-take"><b data-draw="my">—</b>: всего <b data-draw="mytot" data-source="by_year" data-field="foreigners">—</b></p>
+    <div class="is-chart" data-draw="monthchart" data-source="by_month"></div>
+    </div>
+  </details>
+
+  <details class="is-card" id="foreigners-by-country">
+    <summary><h2 class="is-h">Иностранцы через Кеблавик, по странам</h2></summary>
+    <div class="is-body">
+      <div class="is-yearbar">
+        <button type="button" class="is-arrow" data-step="-1" aria-label="Предыдущий год">‹</button>
+        <div class="is-years" data-draw="yearbtns" data-source="by_year" role="group" aria-label="Год"></div>
+        <button type="button" class="is-arrow" data-step="1" aria-label="Следующий год">›</button>
+      </div>
+      <p class="is-take"><b data-draw="cy">—</b>: всего иностранцев <b data-draw="ctot" data-source="by_year" data-field="foreigners">—</b></p>
+      <div class="is-rows" data-draw="ctrychart" data-source="by_country country_share"></div>
+      <p class="is-note">В скобках — место в прошлом году: зелёное, если страна поднялась, красное — если опустилась. Доля — от всех иностранцев за год. * — страна учитывалась отдельно не весь год, остальная часть её пассажиров попала в «Прочие страны». Многие страны выделены отдельно только с июня 2017 года; до этого они входят в «Прочие страны». 2002 год — с марта, 2026 год — январь–сентябрь.</p>
+    </div>
+  </details>
+
+  <details class="is-card" id="cruise-by-year">
+    <summary><h2 class="is-h">Круизные туристы в порту Рейкьявика, по годам</h2></summary>
+    <div class="is-body">
+    <p class="is-take">В 2024 году — <b data-draw="cr2024" data-source="cruise" data-field="passengers" data-where="year=2024">—</b> пассажиров и <b data-draw="cr2024s" data-source="cruise" data-field="ship_arrivals" data-where="year=2024">—</b> заходов лайнеров. Рекорд — <b data-draw="crpeakv" data-source="cruise_peak" data-field="passengers" data-row="0">—</b> в <b data-draw="crpeaky" data-source="cruise_peak" data-field="year" data-row="0">—</b> году.</p>
+    <div class="is-yearbar" role="group" aria-label="Показатель">
+      <button type="button" class="is-yb" data-cmode="v" aria-pressed="true">Пассажиры</button>
+      <button type="button" class="is-yb" data-cmode="ships" aria-pressed="false">Заходы лайнеров</button>
+    </div>
+    <div class="is-chart" data-draw="cruisechart" data-source="cruise"></div>
+    <p class="is-note">Показаны годы с 2004-го. Источник: Statistics Iceland, таблица SAM02002 (с 2008 года — данные порта Faxaflóahafnir). Только иностранные пассажиры круизных лайнеров в Рейкьявике; заходы в Акюрейри, Исафьордюр, Сейдисфьордюр и другие порты сюда не входят. Круизных пассажиров считают как туристов одного дня, в цифры аэропорта Кеблавик они не попадают. Данных за 2025 год в таблице пока нет.</p>
+    </div>
+  </details>
+
+  <h2 class="is-group" id="group-population">Население</h2>
+
+  <details class="is-card" id="population-by-year">
+    <summary><h2 class="is-h">Население по годам</h2></summary>
+    <div class="is-body">
+      <div class="is-tw">
+        <div class="is-tbl is-tbl-y">
+          <div class="is-ty h"><div>Год</div><div>Население</div><div>Изм.</div><div>Иммигранты</div><div>% насел.</div><div>Иностр. граждане</div><div>% насел.</div></div>
+          <div data-draw="pytable" data-source="pop_hist"></div>
+        </div>
+      </div>
+      <div class="is-more">
+        <button type="button" class="is-yb" data-pyall="1"><span data-pylbl="more">Показать всю историю (с 1703 года)</span><span data-pylbl="less" hidden>Показать последние 30 лет</span></button>
+      </div>
+      <p class="is-note">Население — на 1 января. «Изм.» — изменение населения к 1 января предыдущего года, в людях и процентах. Ряд начинается с переписи 1703 года, следующая цифра — 1735 год. В 2011 году — разрыв ряда: статистика в 2024 году пересчитала население начиная с 2011 года по новой методике. Иммигранты (родившиеся за границей у родителей, тоже родившихся за границей) считаются с 1996 года. Иностранные граждане — с 1950 года, до 1996 года не за каждый год и на 1 декабря; их доля — по данным статистики. «—» — данных нет. Источник: Statistics Iceland, таблицы MAN00000, MAN43004 и MAN04001.</p>
+    </div>
+  </details>
+
+  <details class="is-card" id="immigrants">
+    <summary><h2 class="is-h">Население по странам</h2></summary>
+    <div class="is-body">
+      <div class="is-yearbar" role="group" aria-label="Разрез">
+        <button type="button" class="is-yb" data-rk="i" data-mode="origin" aria-pressed="true">Происхождение</button>
+        <button type="button" class="is-yb" data-rk="i" data-mode="citizenship" aria-pressed="false">Гражданство</button>
+        <button type="button" class="is-yb" data-rk="i" data-isl="1" aria-pressed="false" style="margin-left:auto">В т.ч. исландцы</button>
+      </div>
+      <div class="is-yearbar">
+        <button type="button" class="is-arrow" data-rk="i" data-ystep="-1" aria-label="Предыдущий год">‹</button>
+        <div class="is-years" data-draw="ibtns" data-source="immig" role="group" aria-label="Год"></div>
+        <button type="button" class="is-arrow" data-rk="i" data-ystep="1" aria-label="Следующий год">›</button>
+      </div>
+      <p class="is-take">На 1 января <b data-draw="iy">—</b>: всего <b data-draw="itot" data-source="immig" data-field="total">—</b></p>
+      <div class="is-tw">
+        <div class="is-tbl">
+          <div class="is-tr h"><div>Место</div><div>Страна</div><div>Всего</div><div>Доля</div><div>М</div><div>% М</div><div>Ж</div><div>% Ж</div></div>
+          <div data-draw="itable" data-source="immig"></div>
+        </div>
+      </div>
+      <div class="is-more">
+        <button type="button" class="is-yb" data-rk="i" data-more="1"><span data-rk="i" data-lbl="more">Показать все страны</span><span data-rk="i" data-lbl="less" hidden>Показать первые 30</span></button>
+      </div>
+      <p class="is-note">«Происхождение» — иммигранты, то есть люди, родившиеся за границей у родителей, тоже родившихся за границей; страна — место рождения. Сюда входят и те, кто уже получил исландское гражданство. «Гражданство» — жители Исландии с иностранным паспортом, по стране гражданства; кто стал гражданином Исландии, здесь не считается, зато входят дети иностранцев, родившиеся в Исландии. Доля — от всех иммигрантов (или всех иностранных граждан) в этом году; с кнопкой «В т.ч. исландцы» — от всего населения Исландии. В «Происхождении» строка «Исландия (не иммигранты)» — всё население минус иммигранты: сюда входят и дети иммигрантов, родившиеся в Исландии, и родившиеся за границей у исландцев. В «Гражданстве» «Исландия» — все граждане Исландии. % М и % Ж — доля мужчин и женщин внутри страны; небинарные люди есть в «Всего», поэтому М + Ж может быть чуть меньше. В скобках — место годом раньше: зелёное — поднялась, красное — опустилась. Источник: Statistics Iceland, таблицы MAN43004 и MAN04103.</p>
+    </div>
+  </details>
+
+  <details class="is-card" id="population-places">
+    <summary><h2 class="is-h">Население по муниципалитетам и городам</h2></summary>
+    <div class="is-body">
+      <div class="is-yearbar" role="group" aria-label="Разрез">
+        <button type="button" class="is-yb" data-rk="p" data-mode="municipality" aria-pressed="true">Муниципалитеты</button>
+        <button type="button" class="is-yb" data-rk="p" data-mode="locality" aria-pressed="false">Города и посёлки</button>
+      </div>
+      <div class="is-yearbar">
+        <button type="button" class="is-arrow" data-rk="p" data-ystep="-1" aria-label="Предыдущий год">‹</button>
+        <div class="is-years" data-draw="pbtns" data-source="pop" role="group" aria-label="Год"></div>
+        <button type="button" class="is-arrow" data-rk="p" data-ystep="1" aria-label="Следующий год">›</button>
+      </div>
+      <p class="is-take">На 1 января <b data-draw="py">—</b>: население Исландии <b data-draw="ptot" data-source="pop" data-field="total">—</b></p>
+      <div class="is-tw">
+        <div class="is-tbl">
+          <div class="is-tr h"><div>Место</div><div>Название</div><div>Всего</div><div>Доля</div><div>М</div><div>% М</div><div>Ж</div><div>% Ж</div></div>
+          <div data-draw="ptable" data-source="pop"></div>
+        </div>
+      </div>
+      <div class="is-more">
+        <button type="button" class="is-yb" data-rk="p" data-more="1"><span data-rk="p" data-lbl="more">Показать все</span><span data-rk="p" data-lbl="less" hidden>Показать первые 30</span></button>
+      </div>
+      <p class="is-note">«Муниципалитеты» — в границах на 1 января 2026 года, пересчитаны для всех лет. «Города и посёлки» — населённые пункты (byggðakjarnar) плюс сельская местность по регионам. Доля — от всего населения Исландии. % М и % Ж — доля мужчин и женщин внутри пункта. В скобках — место годом раньше. Источник: Statistics Iceland, таблицы MAN02005 и MAN030101.</p>
+    </div>
+  </details>
+
+  <h2 class="is-group" id="group-economy">Экономика</h2>
+
+  <details class="is-card" id="gdp-by-year">
+    <summary><h2 class="is-h">ВВП по годам</h2></summary>
+    <div class="is-body">
+      <div class="is-tw">
+        <div class="is-tbl is-tbl-y">
+          <div class="is-tg h"><div>Год</div><div>ВВП, млрд ISK</div><div>Реальный рост</div><div>ВВП на душу, млн ISK</div><div>Население (сред.)</div></div>
+          <div data-draw="gdptable" data-source="gdp"></div>
+        </div>
+      </div>
+      <p class="is-note">ВВП — в текущих ценах, в исландских кронах (ISK). Реальный рост — изменение объёма к прошлому году без учёта инфляции: зелёный — рост, красный — спад. ВВП на душу — ВВП, делённый на среднегодовое население. 2022–2025 — предварительные данные. Источник: Statistics Iceland, таблицы THJ01102 и THJ01000.</p>
+    </div>
+  </details>
+
+  <details class="is-card" id="gdp-by-industry">
+    <summary><h2 class="is-h">ВВП по отраслям</h2></summary>
+    <div class="is-body">
+      <div class="is-yearbar">
+        <button type="button" class="is-arrow" data-vstep="-1" aria-label="Предыдущий год">‹</button>
+        <div class="is-years" data-draw="vbtns" data-source="va" role="group" aria-label="Год"></div>
+        <button type="button" class="is-arrow" data-vstep="1" aria-label="Следующий год">›</button>
+      </div>
+      <p class="is-take"><b data-draw="vy">—</b> год: всего <b data-draw="vtot">—</b> млрд ISK</p>
+      <div class="is-tw">
+        <div class="is-tbl is-tbl-v">
+          <div class="is-tv h"><div>Место</div><div>Отрасль</div><div>Млрд ISK</div><div>Доля</div></div>
+          <div data-draw="vtable" data-source="va"></div>
+        </div>
+      </div>
+      <p class="is-note">Валовая добавленная стоимость отраслей в текущих ценах; доля — от суммы по всем отраслям (без налогов на продукты, поэтому сумма чуть меньше ВВП). Строки «в т.ч.» — часть отрасли над ними, в рейтинге не участвуют. В скобках — место годом раньше: зелёное — поднялась, красное — опустилась. Источник: Statistics Iceland, таблица THJ08420.</p>
+    </div>
+  </details>
+
+  <details class="is-card" id="exports-by-year">
+    <summary><h2 class="is-h">Экспортная выручка по отраслям</h2></summary>
+    <div class="is-body">
+      <div class="is-tw">
+        <div class="is-tbl is-tbl-x">
+          <div class="is-tx h"><div>Год</div><div>Всего</div><div>Рыба</div><div>%</div><div>Промышл.</div><div>%</div><div>в т.ч. алюминий</div><div>%</div><div>Туризм</div><div>%</div><div>Прочее</div><div>%</div></div>
+          <div data-draw="xtable" data-source="exports"></div>
+        </div>
+      </div>
+      <p class="is-note">Млрд ISK, экспорт товаров и услуг. «Туризм» — расходы иностранных туристов в Исландии плюс выручка исландских авиакомпаний от перевозки иностранных пассажиров. «Промышл.» — промышленные товары, из них алюминий показан отдельно. % — доля от всего экспорта за год. 2026* — только I–II кварталы, предварительно. 2009–2012 — из архивной таблицы UTA05001, сгруппированы в те же статьи («Прочее» = прочие товары + прочие услуги); итоги совпадают с экспортом в национальных счетах, разрыва между 2012 и 2013 нет. Раньше 2009 года выручка от туризма отдельно не публикуется. Источник: Statistics Iceland, таблицы UTA05001 и UTA05003.</p>
+    </div>
+  </details>
+</div>
+<script>
+window.isFmt = function(v){ v=+v; if(!isFinite(v)) return '—'; return v>=1e6 ? (v/1e6).toFixed(2).replace('.',',')+' млн' : Math.round(v/1e3)+' тыс.'; };
+window.isNum = function(v, div){ const x = +v / div; const dec = div === 1e6 ? 2 : (x > 0 && x < 10 ? 1 : 0); return x.toFixed(dec).replace('.', ','); };
+window.isUnit = function(svg, text){ svg.append('text').attr('x', 4).attr('y', 14).style('font-size', '11px').style('fill', 'var(--cds-text-secondary)').text(text); };
+dash.calc('peak', {
+  title: 'Рекордный год',
+  description: 'Год с наибольшим числом иностранцев.',
+  inputs: ['by_year'],
+  fn: (by_year) => {
+    const r = by_year.map(d => ({year: String(d.year), foreigners: +d.foreigners})).sort((a,b)=>b.foreigners-a.foreigners)[0];
+    return r ? [r] : [];
+  }
+});
+dash.draw('y2025', el => {
+  const s = dash.data('by_year');
+  if (s.status !== 'ok') { el.textContent = '—'; return; }
+  const r = s.data.find(d => String(d.year) === '2025');
+  el.textContent = r ? isFmt(r.foreigners) : '—';
+});
+dash.draw('peakv', el => {
+  const s = dash.data('peak');
+  el.textContent = (s.status === 'ok' && s.data && s.data[0]) ? isFmt(s.data[0].foreigners) : '—';
+});
+dash.draw('peaky', el => {
+  const s = dash.data('peak');
+  el.textContent = (s.status === 'ok' && s.data && s.data[0]) ? s.data[0].year : '—';
+});
+dash.draw('sw1', el => { el.style.background = dash.colors[0]; });
+dash.draw('yearchart', el => {
+  const s = dash.data('by_year');
+  el.replaceChildren();
+  if (s.status === 'error') { const p=document.createElement('p'); p.className='is-err'; p.textContent='Не удалось загрузить данные по годам.'; el.appendChild(p); return; }
+  if (s.status !== 'ok') { el.textContent = '—'; return; }
+  const rows = s.data.map(d => ({year: String(d.year), v: +d.foreigners, partial: +d.months < 12, months: +d.months, period: d.period}));
+  const W = Math.max(280, el.clientWidth), H = 340;
+  const narrow = W / rows.length < 26;
+  const m = {top: narrow ? 50 : 30, right: 4, bottom: 34, left: 40};
+  const x = d3.scaleBand().domain(rows.map(d=>d.year)).range([m.left, W-m.right]).padding(0.22);
+  const y = d3.scaleLinear().domain([0, d3.max(rows, d=>d.v)]).nice().range([H-m.bottom, m.top]);
+  const svg = d3.select(el).append('svg').attr('width','100%').attr('viewBox',`0 0 ${W} ${H}`)
+    .attr('role','img').attr('aria-label','Столбчатая диаграмма: число иностранцев, уехавших из Исландии через Кеблавик, по годам с 2002 по 2026');
+  svg.append('g').attr('transform',`translate(${m.left},0)`)
+    .call(d3.axisLeft(y).ticks(5).tickSize(-(W-m.left-m.right)).tickFormat(v => v===0?'0':(v/1e6).toFixed(1).replace('.',',')))
+    .call(g=>g.select('.domain').remove())
+    .call(g=>g.selectAll('line').style('stroke','var(--cds-chart-grid)'));
+  isUnit(svg, 'млн');
+  const step = narrow ? Math.ceil(rows.length / Math.floor((W-m.left)/34)) : 1;
+  svg.append('g').attr('transform',`translate(0,${H-m.bottom})`)
+    .call(d3.axisBottom(x).tickSize(0).tickPadding(8).tickValues(rows.map(d=>d.year).filter((_,i)=>i%step===0)).tickFormat(t => t + (rows.find(r=>r.year===t).partial?'*':'')))
+    .call(g=>g.select('.domain').style('stroke','var(--cds-chart-axis)'));
+  const bw = x.bandwidth(), r = Math.min(4, bw/2);
+  svg.append('g').selectAll('path').data(rows).join('path')
+    .attr('d', d => { const x0=x(d.year), y0=y(d.v); return `M${x0},${y(0)}V${y0+r}Q${x0},${y0} ${x0+r},${y0}H${x0+bw-r}Q${x0+bw},${y0} ${x0+bw},${y0+r}V${y(0)}Z`; })
+    .style('fill', d => d.partial ? 'var(--cds-chart-muted)' : dash.colors[0]);
+  const lab = svg.append('g').style('font-size','11px').style('font-variant-numeric','tabular-nums').style('fill','var(--color-fg)');
+  rows.forEach(d => {
+    const cx = x(d.year)+bw/2, t = isNum(d.v, 1e6);
+    if (narrow) {
+      lab.append('text').attr('transform',`translate(${cx+4},${y(d.v)-4}) rotate(-90)`).attr('text-anchor','start').text(t);
+    } else {
+      lab.append('text').attr('x',cx).attr('y',y(d.v)-5).attr('text-anchor','middle').text(t);
+    }
+  });
+  const tip = document.createElement('div'); tip.className='is-tip'; tip.hidden = true; el.appendChild(tip);
+  svg.append('g').selectAll('rect').data(rows).join('rect')
+    .attr('x', d=>x(d.year)-x.step()*x.paddingInner()/2).attr('width', x.step()).attr('y', m.top).attr('height', H-m.top-m.bottom)
+    .style('fill','transparent')
+    .on('pointerenter pointermove', (ev,d) => {
+      tip.replaceChildren();
+      const l1=document.createElement('div'); l1.textContent = d.year + (d.partial ? ' (' + d.period + ')' : '');
+      const l2=document.createElement('div'); l2.textContent = d3.format(',')(d.v).replace(/,/g,' ') + ' чел.';
+      tip.append(l1,l2); tip.hidden=false;
+      const [px,py] = d3.pointer(ev, el); const tw = tip.offsetWidth;
+      tip.style.left = Math.min(Math.max(0, px-tw/2), el.clientWidth-tw) + 'px';
+      tip.style.top = Math.max(0, py-56) + 'px';
+    })
+    .on('pointerleave', () => { tip.hidden = true; });
+});
+dash.calc('cruise_peak', {
+  title: 'Рекордный год круизов',
+  description: 'Год с наибольшим числом круизных пассажиров в Рейкьявике.',
+  inputs: ['cruise'],
+  fn: (cruise) => {
+    const r = cruise.map(d => ({year: String(d.year), passengers: +d.passengers})).sort((a,b)=>b.passengers-a.passengers)[0];
+    return r ? [r] : [];
+  }
+});
+dash.draw('cr2024', el => {
+  const s = dash.data('cruise');
+  const r = s.status === 'ok' ? s.data.find(d => String(d.year) === '2024') : null;
+  el.textContent = r ? isFmt(r.passengers) : '—';
+});
+dash.draw('cr2024s', el => {
+  const s = dash.data('cruise');
+  const r = s.status === 'ok' ? s.data.find(d => String(d.year) === '2024') : null;
+  el.textContent = r ? String(+r.ship_arrivals) : '—';
+});
+dash.draw('crpeakv', el => {
+  const s = dash.data('cruise_peak');
+  el.textContent = (s.status === 'ok' && s.data && s.data[0]) ? isFmt(s.data[0].passengers) : '—';
+});
+dash.draw('crpeaky', el => {
+  const s = dash.data('cruise_peak');
+  el.textContent = (s.status === 'ok' && s.data && s.data[0]) ? s.data[0].year : '—';
+});
+window.isK = function(v){ v=+v; if(v>=1e6) return (v/1e6).toFixed(2).replace('.',',')+' млн'; if(v>=1e4) return Math.round(v/1e3)+' тыс.'; if(v>=1e3) return (v/1e3).toFixed(1).replace('.',',')+' тыс.'; return String(Math.round(v)); };
+dash.draw('cruisechart', el => {
+  const s = dash.data('cruise');
+  el.replaceChildren();
+  if (s.status === 'error') { const p=document.createElement('p'); p.className='is-err'; p.textContent='Не удалось загрузить данные по круизам.'; el.appendChild(p); return; }
+  if (s.status !== 'ok') { el.textContent = '—'; return; }
+  const mode = isState.cmode || 'v';
+  const rows = s.data.filter(d => +d.year >= 2004).map(d => ({year: String(d.year), v: +d.passengers, ships: +d.ship_arrivals}));
+  const val = d => mode === 'ships' ? d.ships : d.v;
+  const fmt = v => mode === 'ships' ? String(v) : isNum(v, 1e3);
+  const W = Math.max(280, el.clientWidth), H = 340;
+  const narrow = W / rows.length < 26;
+  const m = {top: narrow ? 46 : 30, right: 4, bottom: 34, left: 40};
+  const x = d3.scaleBand().domain(rows.map(d=>d.year)).range([m.left, W-m.right]).padding(0.2);
+  const y = d3.scaleLinear().domain([0, d3.max(rows, val)]).nice().range([H-m.bottom, m.top]);
+  const svg = d3.select(el).append('svg').attr('width','100%').attr('viewBox',`0 0 ${W} ${H}`)
+    .attr('role','img').attr('aria-label', (mode === 'ships' ? 'Столбчатая диаграмма: число заходов круизных лайнеров' : 'Столбчатая диаграмма: иностранные пассажиры круизных лайнеров') + ' в порту Рейкьявика по годам с 2004 по 2024');
+  svg.append('g').attr('transform',`translate(${m.left},0)`)
+    .call(d3.axisLeft(y).ticks(5).tickSize(-(W-m.left-m.right)).tickFormat(v => v===0?'0':(mode==='ships'?String(v):String(Math.round(v/1e3)))))
+    .call(g=>g.select('.domain').remove())
+    .call(g=>g.selectAll('line').style('stroke','var(--cds-chart-grid)'));
+  isUnit(svg, mode === 'ships' ? 'заходов' : 'тыс.');
+  const every = Math.max(1, Math.ceil(rows.length / Math.floor((W-m.left-m.right)/36)));
+  svg.append('g').attr('transform',`translate(0,${H-m.bottom})`)
+    .call(d3.axisBottom(x).tickSize(0).tickPadding(8).tickValues(rows.map(d=>d.year).filter((_,i)=>(rows.length-1-i)%every===0)))
+    .call(g=>g.select('.domain').style('stroke','var(--cds-chart-axis)'));
+  const bw = x.bandwidth(), r = Math.min(3, bw/2);
+  svg.append('g').selectAll('path').data(rows).join('path')
+    .attr('d', d => { const x0=x(d.year), y0=Math.min(y(val(d)), y(0)-0.5); return `M${x0},${y(0)}V${y0+r}Q${x0},${y0} ${x0+r},${y0}H${x0+bw-r}Q${x0+bw},${y0} ${x0+bw},${y0+r}V${y(0)}Z`; })
+    .style('fill', dash.colors[0]);
+  const lab = svg.append('g').style('font-size','11px').style('font-variant-numeric','tabular-nums').style('fill','var(--color-fg)');
+  rows.forEach(d => {
+    const cx = x(d.year)+bw/2, t = fmt(val(d)), yy = y(val(d));
+    const k = t.lastIndexOf(' ');
+    if (narrow) {
+      lab.append('text').attr('transform',`translate(${cx+4},${yy-4}) rotate(-90)`).attr('text-anchor','start').text(t);
+    } else if (k > 0) {
+      lab.append('text').attr('x',cx).attr('y',yy-17).attr('text-anchor','middle').text(t.slice(0,k));
+      lab.append('text').attr('x',cx).attr('y',yy-5).attr('text-anchor','middle').text(t.slice(k+1));
+    } else {
+      lab.append('text').attr('x',cx).attr('y',yy-5).attr('text-anchor','middle').text(t);
+    }
+  });
+  const tip = document.createElement('div'); tip.className='is-tip'; tip.hidden = true; el.appendChild(tip);
+  svg.append('g').selectAll('rect').data(rows).join('rect')
+    .attr('x', d=>x(d.year)-x.step()*x.paddingInner()/2).attr('width', x.step()).attr('y', m.top).attr('height', H-m.top-m.bottom)
+    .style('fill','transparent')
+    .on('pointerenter pointermove', (ev,d) => {
+      tip.replaceChildren();
+      const l1=document.createElement('div'); l1.textContent = d.year;
+      const l2=document.createElement('div'); l2.textContent = d3.format(',')(d.v).replace(/,/g,' ') + ' пассажиров';
+      const l3=document.createElement('div'); l3.textContent = d.ships + ' заходов лайнеров';
+      tip.append(l1,l2,l3); tip.hidden=false;
+      const [px,py] = d3.pointer(ev, el); const tw = tip.offsetWidth;
+      tip.style.left = Math.min(Math.max(0, px-tw/2), el.clientWidth-tw) + 'px';
+      tip.style.top = Math.max(0, py-70) + 'px';
+    })
+    .on('pointerleave', () => { tip.hidden = true; });
+});
+window.isState = window.isState || {year: '2025'};
+window.isRedrawCountry = function(){ ['yearbtns','cy','ctot','ctrychart'].forEach(n => dash.draw(n)); };
+dash.calc('country_share', {
+  title: 'Доля страны среди иностранцев',
+  description: 'Пассажиры страны за год, делённые на всех иностранцев за тот же год, в процентах.',
+  inputs: ['by_country', 'by_year'],
+  fn: (by_country, by_year) => {
+    const tot = new Map(by_year.map(d => [String(d.year), +d.foreigners]));
+    return by_country.map(d => ({year: String(d.year), country: d.country, share: tot.get(String(d.year)) ? Math.round(+d.passengers / tot.get(String(d.year)) * 1000) / 10 : null}));
+  }
+});
+document.querySelectorAll('.is-arrow[data-step]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const s = dash.data('by_year');
+    if (s.status !== 'ok') return;
+    const ys = s.data.map(d => String(d.year));
+    const i = ys.indexOf(isState.year);
+    const j = Math.min(ys.length - 1, Math.max(0, (i < 0 ? ys.length - 1 : i) + (+btn.dataset.step)));
+    isState.year = ys[j];
+    isRedrawCountry();
+  });
+});
+dash.draw('yearbtns', el => {
+  const s = dash.data('by_year');
+  el.replaceChildren();
+  if (s.status !== 'ok') return;
+  let sel = null;
+  s.data.forEach(d => {
+    const y = String(d.year);
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'is-yb';
+    b.textContent = y + (+d.months < 12 ? '*' : '');
+    b.setAttribute('aria-pressed', y === isState.year ? 'true' : 'false');
+    b.addEventListener('click', () => { isState.year = y; isRedrawCountry(); });
+    el.appendChild(b);
+    if (y === isState.year) sel = b;
+  });
+  if (sel) el.scrollLeft = Math.max(0, sel.offsetLeft - el.offsetLeft - el.clientWidth / 2 + sel.offsetWidth / 2);
+});
+dash.draw('cy', el => {
+  const s = dash.data('by_year');
+  const r = s.status === 'ok' ? s.data.find(d => String(d.year) === isState.year) : null;
+  el.textContent = r ? (r.year + ' год' + (+r.months < 12 ? ' (' + r.period + ')' : '')) : '—';
+});
+dash.draw('ctot', el => {
+  const s = dash.data('by_year');
+  const r = s.status === 'ok' ? s.data.find(d => String(d.year) === isState.year) : null;
+  el.dataset.where = 'year=' + isState.year;
+  el.textContent = r ? isK(r.foreigners) : '—';
+});
+dash.draw('ctrychart', el => {
+  const s = dash.data('by_country'), sh = dash.data('country_share');
+  el.replaceChildren();
+  if (s.status === 'error') { const p=document.createElement('p'); p.className='is-err'; p.textContent='Не удалось загрузить данные по странам.'; el.appendChild(p); return; }
+  if (s.status !== 'ok') { el.textContent = '—'; return; }
+  const shares = new Map(sh.status === 'ok' && sh.data ? sh.data.filter(d => d.year === isState.year).map(d => [d.country, d.share]) : []);
+  const rows = s.data.filter(d => String(d.year) === isState.year).map(d => ({country: d.country, v: +d.passengers, complete: +d.complete === 1, from: d.from_month}));
+  const other = rows.filter(d => d.country === 'Прочие страны');
+  const all = rows.filter(d => d.country !== 'Прочие страны').sort((a,b) => b.v - a.v).concat(other);
+  const max = d3.max(all, d => d.v) || 1;
+  const mon = ['','января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+  const prevYear = String(+isState.year - 1);
+  const prevRank = new Map(s.data.filter(d => String(d.year) === prevYear && d.country !== 'Прочие страны').sort((a,b) => +b.passengers - +a.passengers).map((d, i) => [d.country, i + 1]));
+  all.forEach((d, idx) => {
+    const row = document.createElement('div'); row.className = 'is-row' + (d.country === 'Прочие страны' ? ' other' : '');
+    const rk = document.createElement('div'); rk.className = 'r';
+    const rb = document.createElement('b'); const rp = document.createElement('span');
+    if (d.country !== 'Прочие страны') {
+      const cur = idx + 1, pr = prevRank.get(d.country);
+      rb.textContent = String(cur);
+      if (pr != null) { rp.textContent = '(' + pr + ')'; rp.className = pr > cur ? 'up' : (pr < cur ? 'down' : 'same'); }
+    }
+    rk.append(rb, rp);
+    row.appendChild(rk);
+    const n = document.createElement('div'); n.className = 'n';
+    n.textContent = d.country + (d.complete ? '' : '*');
+    const t = document.createElement('div'); t.className = 't';
+    const b = document.createElement('div'); b.className = 'b';
+    b.style.width = (d.v / max * 100) + '%';
+    b.style.background = d.country === 'Прочие страны' ? 'var(--cds-chart-muted)' : dash.colors[0];
+    t.appendChild(b);
+    const v = document.createElement('div'); v.className = 'v';
+    const p = document.createElement('span');
+    const share = shares.get(d.country);
+    p.textContent = share == null ? '' : share.toFixed(1).replace('.', ',') + '%';
+    v.append(isK(d.v) + '  ', p);
+    row.append(n, t, v);
+    el.appendChild(row);
+  });
+  const inc = all.filter(d => !d.complete && d.from);
+  if (inc.length) {
+    const q = document.createElement('p'); q.className = 'is-note';
+    q.textContent = '* Учитывается отдельно: ' + inc.map(d => d.country + ' — с ' + mon[+String(d.from).slice(5)] + ' ' + String(d.from).slice(0, 4)).join('; ') + '.';
+    el.appendChild(q);
+  }
+});
+isState.cmode = isState.cmode || 'v';
+document.querySelectorAll('.is-yb[data-cmode]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    isState.cmode = btn.dataset.cmode;
+    document.querySelectorAll('.is-yb[data-cmode]').forEach(b => b.setAttribute('aria-pressed', b.dataset.cmode === isState.cmode ? 'true' : 'false'));
+    dash.draw('cruisechart');
+  });
+});
+isState.myear = isState.myear || '2025';
+window.isRedrawMonth = function(){ ['mbtns','my','mytot','monthchart'].forEach(n => dash.draw(n)); };
+document.querySelectorAll('.is-arrow[data-mstep]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const s = dash.data('by_year');
+    if (s.status !== 'ok') return;
+    const ys = s.data.map(d => String(d.year));
+    const i = ys.indexOf(isState.myear);
+    const j = Math.min(ys.length - 1, Math.max(0, (i < 0 ? ys.length - 1 : i) + (+btn.dataset.mstep)));
+    isState.myear = ys[j];
+    isRedrawMonth();
+  });
+});
+dash.draw('mbtns', el => {
+  const s = dash.data('by_year');
+  el.replaceChildren();
+  if (s.status !== 'ok') return;
+  let sel = null;
+  s.data.forEach(d => {
+    const y = String(d.year);
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'is-yb';
+    b.textContent = y + (+d.months < 12 ? '*' : '');
+    b.setAttribute('aria-pressed', y === isState.myear ? 'true' : 'false');
+    b.addEventListener('click', () => { isState.myear = y; isRedrawMonth(); });
+    el.appendChild(b);
+    if (y === isState.myear) sel = b;
+  });
+  if (sel) el.scrollLeft = Math.max(0, sel.offsetLeft - el.offsetLeft - el.clientWidth / 2 + sel.offsetWidth / 2);
+});
+dash.draw('my', el => {
+  const s = dash.data('by_year');
+  const r = s.status === 'ok' ? s.data.find(d => String(d.year) === isState.myear) : null;
+  el.textContent = r ? (r.year + ' год' + (+r.months < 12 ? ' (' + r.period + ')' : '')) : '—';
+});
+dash.draw('mytot', el => {
+  const s = dash.data('by_year');
+  const r = s.status === 'ok' ? s.data.find(d => String(d.year) === isState.myear) : null;
+  el.dataset.where = 'year=' + isState.myear;
+  el.textContent = r ? isK(r.foreigners) : '—';
+});
+dash.draw('monthchart', el => {
+  const s = dash.data('by_month');
+  el.replaceChildren();
+  if (s.status === 'error') { const p=document.createElement('p'); p.className='is-err'; p.textContent='Не удалось загрузить данные по месяцам.'; el.appendChild(p); return; }
+  if (s.status !== 'ok') { el.textContent = '—'; return; }
+  const names = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+  const full = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
+  const byKey = new Map(s.data.map(d => [String(d.year) + '-' + (+d.m), +d.foreigners]));
+  const yr = +isState.myear;
+  const rows = names.map((n, i) => ({m: i + 1, name: n, v: byKey.get(yr + '-' + (i + 1)), prev: byKey.get((yr - 1) + '-' + (i + 1))}));
+  const W = Math.max(280, el.clientWidth), H = 340;
+  const narrow = W / 12 < 28;
+  const m = {top: narrow ? 46 : 30, right: 4, bottom: 30, left: 40};
+  const x = d3.scaleBand().domain(names).range([m.left, W-m.right]).padding(0.22);
+  const ymax = d3.max(s.data, d => +d.foreigners);
+  const y = d3.scaleLinear().domain([0, ymax]).nice().range([H-m.bottom, m.top]);
+  const svg = d3.select(el).append('svg').attr('width','100%').attr('viewBox',`0 0 ${W} ${H}`)
+    .attr('role','img').attr('aria-label','Столбчатая диаграмма: иностранцы, уехавшие через Кеблавик, по месяцам ' + yr + ' года');
+  svg.append('g').attr('transform',`translate(${m.left},0)`)
+    .call(d3.axisLeft(y).ticks(5).tickSize(-(W-m.left-m.right)).tickFormat(v => v===0?'0':String(Math.round(v/1e3))))
+    .call(g=>g.select('.domain').remove())
+    .call(g=>g.selectAll('line').style('stroke','var(--cds-chart-grid)'));
+  isUnit(svg, 'тыс.');
+  svg.append('g').attr('transform',`translate(0,${H-m.bottom})`)
+    .call(d3.axisBottom(x).tickSize(0).tickPadding(8))
+    .call(g=>g.select('.domain').style('stroke','var(--cds-chart-axis)'));
+  const bw = x.bandwidth(), r = Math.min(4, bw/2);
+  const has = rows.filter(d => d.v != null);
+  svg.append('g').selectAll('path').data(has).join('path')
+    .attr('d', d => { const x0=x(d.name), y0=Math.min(y(d.v), y(0)-0.5); return `M${x0},${y(0)}V${y0+r}Q${x0},${y0} ${x0+r},${y0}H${x0+bw-r}Q${x0+bw},${y0} ${x0+bw},${y0+r}V${y(0)}Z`; })
+    .style('fill', dash.colors[0]);
+  const lab = svg.append('g').style('font-size','11px').style('font-variant-numeric','tabular-nums').style('fill','var(--color-fg)');
+  rows.forEach(d => {
+    const cx = x(d.name)+bw/2;
+    if (d.v == null) { lab.append('text').attr('x',cx).attr('y',y(0)-6).attr('text-anchor','middle').style('fill','var(--color-fg-muted)').text('нет'); return; }
+    const t = isNum(d.v, 1e3);
+    if (narrow) {
+      lab.append('text').attr('transform',`translate(${cx+4},${y(d.v)-4}) rotate(-90)`).attr('text-anchor','start').text(t);
+    } else {
+      lab.append('text').attr('x',cx).attr('y',y(d.v)-5).attr('text-anchor','middle').text(t);
+    }
+  });
+  const tip = document.createElement('div'); tip.className='is-tip'; tip.hidden = true; el.appendChild(tip);
+  svg.append('g').selectAll('rect').data(has).join('rect')
+    .attr('x', d=>x(d.name)-x.step()*x.paddingInner()/2).attr('width', x.step()).attr('y', m.top).attr('height', H-m.top-m.bottom)
+    .style('fill','transparent')
+    .on('pointerenter pointermove', (ev,d) => {
+      tip.replaceChildren();
+      const l1=document.createElement('div'); l1.textContent = full[d.m-1] + ' ' + yr;
+      const l2=document.createElement('div'); l2.textContent = d3.format(',')(d.v).replace(/,/g,' ') + ' чел.';
+      tip.append(l1,l2);
+      if (d.prev) { const ch = (d.v / d.prev - 1) * 100; const l3=document.createElement('div'); l3.style.color='var(--cds-text-secondary)'; l3.textContent = (ch>=0?'+':'') + ch.toFixed(1).replace('.',',') + '% к тому же месяцу ' + (yr-1) + ' г.'; tip.append(l3); }
+      tip.hidden=false;
+      const [px,py] = d3.pointer(ev, el); const tw = tip.offsetWidth;
+      tip.style.left = Math.min(Math.max(0, px-tw/2), el.clientWidth-tw) + 'px';
+      tip.style.top = Math.max(0, py-72) + 'px';
+    })
+    .on('pointerleave', () => { tip.hidden = true; });
+});
+isState.pyall = isState.pyall || false;
+document.querySelectorAll('.is-yb[data-pyall]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    isState.pyall = !isState.pyall;
+    document.querySelectorAll('[data-pylbl]').forEach(sp => { sp.hidden = (sp.dataset.pylbl === 'more') === isState.pyall; });
+    dash.draw('pytable');
+  });
+});
+dash.draw('pytable', el => {
+  const s = dash.data('pop_hist');
+  el.replaceChildren();
+  if (s.status === 'error') { const p = document.createElement('p'); p.className = 'is-err'; p.textContent = 'Не удалось загрузить данные.'; el.appendChild(p); return; }
+  if (s.status !== 'ok' || !s.data) { el.textContent = '—'; return; }
+  const has = v => v !== null && v !== undefined && v !== '' && isFinite(+v);
+  const fN = v => has(v) ? d3.format(',')(Math.round(+v)).replace(/,/g, ' ') : '—';
+  const fP = v => has(v) ? (+v).toFixed(1).replace('.', ',') + '%' : '—';
+  const rows = s.data.slice().sort((a, b) => +b.year - +a.year);
+  const byYear = new Map(rows.map(r => [+r.year, r]));
+  (isState.pyall ? rows : rows.slice(0, 30)).forEach(r => {
+    const tr = document.createElement('div'); tr.className = 'is-ty';
+    const prev = byYear.get(+r.year - 1);
+    let ch = '—';
+    if (prev && has(prev.population) && +prev.population > 0) {
+      const d = +r.population - +prev.population, pc = d / +prev.population * 100;
+      ch = (d > 0 ? '+' : d < 0 ? '−' : '') + d3.format(',')(Math.abs(d)).replace(/,/g, ' ') + ' (' + (pc > 0 ? '+' : pc < 0 ? '−' : '') + Math.abs(pc).toFixed(2).replace('.', ',') + '%)';
+    }
+    [[r.year, ''], [fN(r.population), ''], [ch, 'p'], [fN(r.immigrants), ''], [fP(r.imm_share), 'p'], [fN(r.foreigners), ''], [fP(r.for_share), 'p']].forEach(([t, c]) => {
+      const td = document.createElement('div'); if (c) td.className = c; td.textContent = t; tr.appendChild(td);
+    });
+    el.appendChild(tr);
+  });
+});
+window.isB = v => (+v).toFixed(1).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+window.isCell = (tr, text, cls) => { const td = document.createElement('div'); if (cls) td.className = cls; td.textContent = text; tr.appendChild(td); return td; };
+dash.draw('gdptable', el => {
+  const s = dash.data('gdp');
+  el.replaceChildren();
+  if (s.status === 'error') { const p = document.createElement('p'); p.className = 'is-err'; p.textContent = 'Не удалось загрузить данные.'; el.appendChild(p); return; }
+  if (s.status !== 'ok') { el.textContent = '—'; return; }
+  s.data.slice().sort((a, b) => +b.year - +a.year).forEach(r => {
+    const tr = document.createElement('div'); tr.className = 'is-tg';
+    const g = +r.growth;
+    isCell(tr, String(r.year));
+    isCell(tr, d3.format(',')(Math.round(+r.gdp_bn)).replace(/,/g, ' '));
+    isCell(tr, (g > 0 ? '+' : '') + g.toFixed(1).replace('.', ',') + '%', g > 0 ? 'up' : (g < 0 ? 'down' : ''));
+    isCell(tr, (+r.gdp_per_capita_mln).toFixed(2).replace('.', ','));
+    isCell(tr, d3.format(',')(+r.mean_pop).replace(/,/g, ' '));
+    el.appendChild(tr);
+  });
+});
+isState.vyear = isState.vyear || null;
+window.isVYears = function() {
+  const s = dash.data('va');
+  if (s.status !== 'ok') return [];
+  const ys = Array.from(new Set(s.data.map(d => String(d.year)))).sort();
+  if (!isState.vyear || ys.indexOf(isState.vyear) < 0) isState.vyear = ys[ys.length - 1];
+  return ys;
+};
+window.isVRedraw = function() { ['vbtns', 'vy', 'vtot', 'vtable'].forEach(n => dash.draw(n)); };
+document.querySelectorAll('.is-arrow[data-vstep]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const ys = isVYears(); if (!ys.length) return;
+    const i = ys.indexOf(isState.vyear);
+    isState.vyear = ys[Math.min(ys.length - 1, Math.max(0, i + (+btn.dataset.vstep)))];
+    isVRedraw();
+  });
+});
+dash.draw('vbtns', el => {
+  el.replaceChildren();
+  const ys = isVYears(); let sel = null;
+  ys.forEach(y => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'is-yb'; b.textContent = y;
+    b.setAttribute('aria-pressed', y === isState.vyear ? 'true' : 'false');
+    b.addEventListener('click', () => { isState.vyear = y; isVRedraw(); });
+    el.appendChild(b); if (y === isState.vyear) sel = b;
+  });
+  if (sel) el.scrollLeft = Math.max(0, sel.offsetLeft - el.offsetLeft - el.clientWidth / 2 + sel.offsetWidth / 2);
+});
+dash.draw('vy', el => { isVYears(); el.textContent = isState.vyear || '—'; });
+dash.draw('vtot', el => {
+  const s = dash.data('va'); isVYears();
+  if (s.status !== 'ok') { el.textContent = '—'; return; }
+  el.textContent = isB(d3.sum(s.data.filter(d => String(d.year) === isState.vyear && !d.parent), d => +d.value));
+});
+dash.draw('vtable', el => {
+  const s = dash.data('va');
+  el.replaceChildren();
+  if (s.status === 'error') { const p = document.createElement('p'); p.className = 'is-err'; p.textContent = 'Не удалось загрузить данные.'; el.appendChild(p); return; }
+  if (s.status !== 'ok') { el.textContent = '—'; return; }
+  isVYears();
+  const y = isState.vyear, py = String(+y - 1);
+  const rows = s.data.filter(d => String(d.year) === y);
+  const main = rows.filter(d => !d.parent && +d.value > 0).sort((a, b) => +b.value - +a.value);
+  const sum = d3.sum(main, d => +d.value) || 1;
+  const prevRank = new Map(s.data.filter(d => String(d.year) === py && !d.parent && +d.value > 0).sort((a, b) => +b.value - +a.value).map((d, i) => [d.code, i + 1]));
+  main.forEach((d, idx) => {
+    const tr = document.createElement('div'); tr.className = 'is-tv';
+    const rk = document.createElement('div'); rk.className = 'r';
+    const rb = document.createElement('b'); rb.textContent = String(idx + 1);
+    const rp = document.createElement('span'); const pr = prevRank.get(d.code);
+    if (pr != null) { rp.textContent = '(' + pr + ')'; rp.className = pr > idx + 1 ? 'up' : (pr < idx + 1 ? 'down' : 'same'); }
+    rk.append(rb, rp); tr.appendChild(rk);
+    isCell(tr, d.name); isCell(tr, isB(d.value)); isCell(tr, (+d.value / sum * 100).toFixed(1).replace('.', ',') + '%', 'p');
+    el.appendChild(tr);
+    rows.filter(c => c.parent === d.code).sort((a, b) => +b.value - +a.value).forEach(c => {
+      const st = document.createElement('div'); st.className = 'is-tv sub';
+      isCell(st, ''); isCell(st, c.name); isCell(st, isB(c.value)); isCell(st, (+c.value / sum * 100).toFixed(1).replace('.', ',') + '%', 'p');
+      el.appendChild(st);
+    });
+  });
+});
+dash.draw('xtable', el => {
+  const s = dash.data('exports');
+  el.replaceChildren();
+  if (s.status === 'error') { const p = document.createElement('p'); p.className = 'is-err'; p.textContent = 'Не удалось загрузить данные.'; el.appendChild(p); return; }
+  if (s.status !== 'ok') { el.textContent = '—'; return; }
+  const pct = (a, t) => (+a / +t * 100).toFixed(1).replace('.', ',') + '%';
+  s.data.slice().sort((a, b) => +b.year - +a.year).forEach(r => {
+    const tr = document.createElement('div'); tr.className = 'is-tx';
+    isCell(tr, String(r.year) + (+r.quarters < 4 ? '*' : ''));
+    isCell(tr, isB(r.total));
+    ['marine', 'manufacturing', 'aluminium', 'tourism', 'other'].forEach(k => { isCell(tr, isB(r[k])); isCell(tr, pct(r[k], r.total), 'p'); });
+    el.appendChild(tr);
+  });
+});
+window.isRK = window.isRK || {i: {ds: 'immig', mode: 'origin', year: null, all: false}, p: {ds: 'pop', mode: 'municipality', year: null, all: false}};
+window.isN = v => d3.format(',')(Math.round(+v)).replace(/,/g, ' ');
+window.isPct = v => isFinite(v) ? v.toFixed(1).replace('.', ',') + '%' : '';
+window.isRkRows = function(k) {
+  const c = isRK[k], s = dash.data(c.ds);
+  if (s.status !== 'ok') return null;
+  return s.data.filter(d => d.mode === c.mode && (c.isl || +d.iceland !== 1));
+};
+document.querySelectorAll('.is-yb[data-rk][data-isl]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const k = btn.dataset.rk;
+    isRK[k].isl = !isRK[k].isl;
+    btn.setAttribute('aria-pressed', isRK[k].isl ? 'true' : 'false');
+    isRkRedraw(k);
+  });
+});
+window.isRkYears = function(k) {
+  const rows = isRkRows(k);
+  if (!rows) return [];
+  const ys = Array.from(new Set(rows.map(d => String(d.year)))).sort();
+  const c = isRK[k];
+  if (!c.year || ys.indexOf(c.year) < 0) c.year = ys[ys.length - 1];
+  return ys;
+};
+window.isRkRedraw = function(k) { ['btns', 'y', 'tot', 'table'].forEach(n => dash.draw(k + n)); };
+document.querySelectorAll('.is-yb[data-rk][data-mode]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const k = btn.dataset.rk;
+    isRK[k].mode = btn.dataset.mode;
+    document.querySelectorAll('.is-yb[data-rk="' + k + '"][data-mode]').forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === isRK[k].mode ? 'true' : 'false'));
+    isRkRedraw(k);
+  });
+});
+document.querySelectorAll('.is-arrow[data-rk][data-ystep]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const k = btn.dataset.rk, ys = isRkYears(k);
+    if (!ys.length) return;
+    const i = ys.indexOf(isRK[k].year);
+    isRK[k].year = ys[Math.min(ys.length - 1, Math.max(0, i + (+btn.dataset.ystep)))];
+    isRkRedraw(k);
+  });
+});
+document.querySelectorAll('.is-yb[data-rk][data-more]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const k = btn.dataset.rk;
+    isRK[k].all = !isRK[k].all;
+    document.querySelectorAll('[data-rk="' + k + '"][data-lbl]').forEach(sp => { sp.hidden = (sp.dataset.lbl === 'more') === isRK[k].all; });
+    dash.draw(k + 'table');
+  });
+});
+['i', 'p'].forEach(k => {
+  dash.draw(k + 'btns', el => {
+    el.replaceChildren();
+    const ys = isRkYears(k);
+    let sel = null;
+    ys.forEach(y => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'is-yb'; b.textContent = y;
+      b.setAttribute('aria-pressed', y === isRK[k].year ? 'true' : 'false');
+      b.addEventListener('click', () => { isRK[k].year = y; isRkRedraw(k); });
+      el.appendChild(b);
+      if (y === isRK[k].year) sel = b;
+    });
+    if (sel) el.scrollLeft = Math.max(0, sel.offsetLeft - el.offsetLeft - el.clientWidth / 2 + sel.offsetWidth / 2);
+  });
+  dash.draw(k + 'y', el => { isRkYears(k); el.textContent = isRK[k].year || '—'; });
+  dash.draw(k + 'tot', el => {
+    const rows = isRkRows(k); isRkYears(k);
+    if (!rows) { el.textContent = '—'; return; }
+    el.textContent = isN(d3.sum(rows.filter(d => String(d.year) === isRK[k].year), d => +d.total));
+  });
+  dash.draw(k + 'table', el => {
+    const s = dash.data(isRK[k].ds);
+    el.replaceChildren();
+    if (s.status === 'error') { const p = document.createElement('p'); p.className = 'is-err'; p.textContent = 'Не удалось загрузить данные.'; el.appendChild(p); return; }
+    const rows = isRkRows(k); isRkYears(k);
+    if (!rows) { el.textContent = '—'; return; }
+    const y = isRK[k].year, py = String(+y - 1);
+    const cur = rows.filter(d => String(d.year) === y).map(d => ({name: d.name, t: +d.total, m: +d.male, f: +d.female, isl: +d.iceland === 1})).sort((a, b) => b.t - a.t);
+    const prevRank = new Map(rows.filter(d => String(d.year) === py).sort((a, b) => +b.total - +a.total).map((d, i) => [d.name, i + 1]));
+    const sum = d3.sum(cur, d => d.t) || 1;
+    (isRK[k].all ? cur : cur.slice(0, 30)).forEach((d, idx) => {
+      const tr = document.createElement('div'); tr.className = 'is-tr' + (d.isl ? ' isl' : '');
+      const rk = document.createElement('div'); rk.className = 'r';
+      const rb = document.createElement('b'); rb.textContent = String(idx + 1);
+      const rp = document.createElement('span'); const pr = prevRank.get(d.name);
+      if (pr != null) { rp.textContent = '(' + pr + ')'; rp.className = pr > idx + 1 ? 'up' : (pr < idx + 1 ? 'down' : 'same'); }
+      rk.append(rb, rp);
+      const cells = [d.name, isN(d.t), isPct(d.t / sum * 100), isN(d.m), isPct(d.m / d.t * 100), isN(d.f), isPct(d.f / d.t * 100)];
+      const cls = ['n', '', 'p', '', 'p', '', 'p'];
+      tr.appendChild(rk);
+      cells.forEach((c, j) => { const td = document.createElement('div'); if (cls[j]) td.className = cls[j]; td.textContent = c; tr.appendChild(td); });
+      el.appendChild(tr);
+    });
+  });
+});
+</script>
