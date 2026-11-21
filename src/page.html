@@ -84,6 +84,18 @@
 .is-brand{margin:0 0 6px;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
 .is-brand a{color:var(--color-fg);font-weight:var(--cds-font-weight-medium);text-decoration:none}
 @media (max-width:600px){.is-card > summary{padding:10px 12px}.is-body{padding:0 12px 14px}}
+.is-th,.is-th2{display:grid;gap:6px;align-items:center;padding:4px 0;border-bottom:1px solid var(--color-border-line)}
+.is-th{grid-template-columns:48px repeat(3,minmax(150px,1fr)) 64px}
+.is-th2{grid-template-columns:minmax(140px,1fr) 60px 196px 80px 168px 64px}
+.is-tbl-h{min-width:620px}
+.is-tbl-h2{min-width:760px}
+.is-th.h,.is-th2.h{color:var(--color-fg-muted);font-weight:var(--cds-font-weight-medium)}
+.is-th > div:nth-child(n+2),.is-th2 > div:nth-child(n+2){text-align:right;white-space:nowrap}
+.is-th > div:nth-child(1),.is-th2 > div:nth-child(1){position:sticky;left:0;background:var(--color-panel);z-index:1;box-shadow:6px 0 0 var(--color-panel)}
+.is-th > div:nth-child(1){font-weight:var(--cds-font-weight-medium)}
+.is-th .p,.is-th2 .p{color:var(--color-fg-muted)}
+.is-th2 .up{color:var(--color-ok)}
+.is-th2 .down{color:var(--color-bad)}
 </style>
 <div class="is-wrap">
   <header id="top">
@@ -210,6 +222,50 @@
         <button type="button" class="is-yb" data-rk="p" data-more="1"><span data-rk="p" data-lbl="more">Показать все</span><span data-rk="p" data-lbl="less" hidden>Показать первые 30</span></button>
       </div>
       <p class="is-note">«Муниципалитеты» — в границах на 1 января 2026 года, пересчитаны для всех лет. «Города и посёлки» — населённые пункты (byggðakjarnar) плюс сельская местность по регионам. Доля — от всего населения Исландии. % М и % Ж — доля мужчин и женщин внутри пункта. В скобках — место годом раньше. Источник: Statistics Iceland, таблицы MAN02005 и MAN030101.</p>
+    </div>
+  </details>
+
+  <h2 class="is-group" id="group-housing">Жильё</h2>
+
+  <details class="is-card" id="housing-by-year">
+    <summary><h2 class="is-h">Цена м² квартиры по годам</h2></summary>
+    <div class="is-body">
+      <div class="is-tw">
+        <div class="is-tbl is-tbl-h">
+          <div class="is-th h"><div>Год</div><div>Вся Исландия</div><div>Столичный регион</div><div>Остальная Исландия</div><div>Сделок</div></div>
+          <div data-draw="hytable" data-source="housing eur_isk"></div>
+        </div>
+      </div>
+      <p class="is-note">Медиана цены за м² квартиры в многоквартирном доме, т.ISK — тысячи исландских крон; в скобках — в евро по среднему курсу того же года (Eurostat). «Сделок» — число сделок с квартирами по всей Исландии. Столичный регион — Рейкьявик, Копавогюр, Сельтьярнарнес, Гардабайр, Хабнарфьордюр, Мосфельсбайр и Кьёус. 2026* — по 20 ноября, курс — среднее за январь–октябрь. Считаются только обычные рыночные сделки с готовым жильём: без сделок между родственниками, продаж банками, обменов и т. п. Источник: на основе данных HMS (реестр сделок Kaupskrá fasteigna); курс — Eurostat.</p>
+    </div>
+  </details>
+
+  <details class="is-card" id="housing-types">
+    <summary><h2 class="is-h">Цены на жильё: типы, спальни, год постройки</h2></summary>
+    <div class="is-body">
+      <div class="is-yearbar" role="group" aria-label="Регион">
+        <button type="button" class="is-yb" data-hreg="all" aria-pressed="true">Вся Исландия</button>
+        <button type="button" class="is-yb" data-hreg="cap" aria-pressed="false">Столичный регион</button>
+        <button type="button" class="is-yb" data-hreg="out" aria-pressed="false">Остальная Исландия</button>
+      </div>
+      <div class="is-yearbar" role="group" aria-label="Разрез">
+        <button type="button" class="is-yb" data-hdim="type" aria-pressed="true">Тип жилья</button>
+        <button type="button" class="is-yb" data-hdim="bedrooms" aria-pressed="false">Спальни (квартиры)</button>
+        <button type="button" class="is-yb" data-hdim="age" aria-pressed="false">Год постройки (квартиры)</button>
+      </div>
+      <div class="is-yearbar">
+        <button type="button" class="is-arrow" data-hstep="-1" aria-label="Предыдущий год">‹</button>
+        <div class="is-years" data-draw="hbtns" data-source="housing" role="group" aria-label="Год"></div>
+        <button type="button" class="is-arrow" data-hstep="1" aria-label="Следующий год">›</button>
+      </div>
+      <p class="is-take"><b data-draw="hy">—</b>: сделок <b data-draw="htot" data-source="housing" data-field="n">—</b></p>
+      <div class="is-tw">
+        <div class="is-tbl is-tbl-h2">
+          <div class="is-th2 h"><div data-draw="hcol">Тип</div><div>Сделок</div><div>Медиана цены</div><div>Площадь, м²</div><div>Цена м²</div><div>Изм. м²</div></div>
+          <div data-draw="htable" data-source="housing eur_isk"></div>
+        </div>
+      </div>
+      <p class="is-note">Медианы по сделкам выбранного года: цена, площадь и цена за м². Цены в т.ISK (тысячах исландских крон), в скобках — в евро по среднему курсу того же года. «Изм. м²» — изменение медианы цены за м² к прошлому году. «Спальни» и «Год постройки» — только квартиры в многоквартирных домах. Число спален: в реестре это «число комнат», но, судя по площадям, гостиная в нём не считается. Если сделок меньше 5, медианы не показываются. 2026* — по 20 ноября. Считаются только обычные рыночные сделки с готовым жильём. Источник: на основе данных HMS (реестр сделок Kaupskrá fasteigna); курс — Eurostat.</p>
     </div>
   </details>
 
@@ -847,6 +903,110 @@ document.querySelectorAll('.is-yb[data-rk][data-more]').forEach(btn => {
       cells.forEach((c, j) => { const td = document.createElement('div'); if (cls[j]) td.className = cls[j]; td.textContent = c; tr.appendChild(td); });
       el.appendChild(tr);
     });
+  });
+});
+window.isHousing = function() {
+  const s = dash.data('housing'), e = dash.data('eur_isk');
+  if (s.status !== 'ok') return null;
+  const rate = new Map(e.status === 'ok' ? e.data.map(d => [String(d.year), +d.isk_per_eur]) : []);
+  return {rows: s.data, rate: rate};
+};
+window.isTI = v => d3.format(',')(Math.round(+v)).replace(/,/g, ' ');
+window.isHMoney = function(tisk, year, H) {
+  if (tisk === '' || tisk == null || !isFinite(+tisk)) return '—';
+  const r = H.rate.get(String(year)), eur = r ? +tisk * 1000 / r : null;
+  const e = eur == null ? '' : (eur >= 1e5 ? ' (' + isTI(eur / 1000) + ' тыс. EUR)' : ' (' + isTI(eur) + ' EUR)');
+  return isTI(tisk) + ' т.ISK' + e;
+};
+dash.draw('hytable', el => {
+  const H = isHousing();
+  el.replaceChildren();
+  if (!H) { const s = dash.data('housing'); if (s.status === 'error') { const p = document.createElement('p'); p.className = 'is-err'; p.textContent = 'Не удалось загрузить данные.'; el.appendChild(p); } else el.textContent = '—'; return; }
+  const apt = H.rows.filter(d => d.dim === 'type' && d.cat === 'Квартира');
+  const by = new Map(apt.map(d => [d.year + '|' + d.region, d]));
+  const years = Array.from(new Set(apt.map(d => String(d.year)))).sort().reverse();
+  const through = apt.length ? String(apt[0].through) : '';
+  years.forEach(y => {
+    const tr = document.createElement('div'); tr.className = 'is-th';
+    isCell(tr, y + (through.slice(0, 4) === y && through.slice(5) !== '12-31' ? '*' : ''));
+    ['all', 'cap', 'out'].forEach(rg => { const d = by.get(y + '|' + rg); isCell(tr, d ? isHMoney(d.m2, y, H) : '—'); });
+    const a = by.get(y + '|all'); isCell(tr, a ? isTI(a.n) : '—', 'p');
+    el.appendChild(tr);
+  });
+});
+isState.hreg = isState.hreg || 'all';
+isState.hdim = isState.hdim || 'type';
+isState.hyear = isState.hyear || null;
+window.isHYears = function() {
+  const H = isHousing(); if (!H) return [];
+  const ys = Array.from(new Set(H.rows.map(d => String(d.year)))).sort();
+  if (!isState.hyear || ys.indexOf(isState.hyear) < 0) isState.hyear = ys.indexOf('2025') >= 0 ? '2025' : ys[ys.length - 1];
+  return ys;
+};
+window.isHRedraw = function() { ['hbtns', 'hy', 'htot', 'hcol', 'htable'].forEach(n => dash.draw(n)); };
+document.querySelectorAll('.is-yb[data-hreg]').forEach(btn => btn.addEventListener('click', () => {
+  isState.hreg = btn.dataset.hreg;
+  document.querySelectorAll('.is-yb[data-hreg]').forEach(b => b.setAttribute('aria-pressed', b.dataset.hreg === isState.hreg ? 'true' : 'false'));
+  isHRedraw();
+}));
+document.querySelectorAll('.is-yb[data-hdim]').forEach(btn => btn.addEventListener('click', () => {
+  isState.hdim = btn.dataset.hdim;
+  document.querySelectorAll('.is-yb[data-hdim]').forEach(b => b.setAttribute('aria-pressed', b.dataset.hdim === isState.hdim ? 'true' : 'false'));
+  isHRedraw();
+}));
+document.querySelectorAll('.is-arrow[data-hstep]').forEach(btn => btn.addEventListener('click', () => {
+  const ys = isHYears(); if (!ys.length) return;
+  const i = ys.indexOf(isState.hyear);
+  isState.hyear = ys[Math.min(ys.length - 1, Math.max(0, i + (+btn.dataset.hstep)))];
+  isHRedraw();
+}));
+dash.draw('hbtns', el => {
+  el.replaceChildren();
+  const ys = isHYears(), H = isHousing(); let sel = null;
+  const through = H && H.rows.length ? String(H.rows[0].through) : '';
+  ys.forEach(y => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'is-yb';
+    b.textContent = y + (through.slice(0, 4) === y && through.slice(5) !== '12-31' ? '*' : '');
+    b.setAttribute('aria-pressed', y === isState.hyear ? 'true' : 'false');
+    b.addEventListener('click', () => { isState.hyear = y; isHRedraw(); });
+    el.appendChild(b); if (y === isState.hyear) sel = b;
+  });
+  if (sel) el.scrollLeft = Math.max(0, sel.offsetLeft - el.offsetLeft - el.clientWidth / 2 + sel.offsetWidth / 2);
+});
+dash.draw('hy', el => {
+  isHYears(); const H = isHousing();
+  const through = H && H.rows.length ? String(H.rows[0].through) : '';
+  const reg = {all: 'вся Исландия', cap: 'столичный регион', out: 'остальная Исландия'}[isState.hreg];
+  el.textContent = isState.hyear ? isState.hyear + ' год' + (through.slice(0, 4) === isState.hyear && through.slice(5) !== '12-31' ? ' (по ' + through.slice(8, 10) + '.' + through.slice(5, 7) + ')' : '') + ', ' + reg : '—';
+});
+dash.draw('hcol', el => { el.textContent = {type: 'Тип жилья', bedrooms: 'Спален', age: 'Построен'}[isState.hdim]; });
+window.isHSel = function(year) {
+  const H = isHousing(); if (!H) return [];
+  return H.rows.filter(d => String(d.year) === String(year) && d.region === isState.hreg && d.dim === isState.hdim).sort((a, b) => +a.order - +b.order);
+};
+dash.draw('htot', el => {
+  isHYears();
+  const r = isHSel(isState.hyear);
+  el.dataset.where = 'year=' + isState.hyear;
+  el.textContent = r.length ? isTI(d3.sum(r, d => +d.n)) : '—';
+});
+dash.draw('htable', el => {
+  const H = isHousing();
+  el.replaceChildren();
+  if (!H) { const s = dash.data('housing'); if (s.status === 'error') { const p = document.createElement('p'); p.className = 'is-err'; p.textContent = 'Не удалось загрузить данные.'; el.appendChild(p); } else el.textContent = '—'; return; }
+  isHYears();
+  const y = isState.hyear, prev = new Map(isHSel(+y - 1).map(d => [d.cat, d]));
+  const has = v => v !== '' && v != null && isFinite(+v);
+  isHSel(y).forEach(d => {
+    const tr = document.createElement('div'); tr.className = 'is-th2';
+    isCell(tr, d.cat); isCell(tr, isTI(d.n), 'p'); isCell(tr, isHMoney(d.price, y, H));
+    isCell(tr, has(d.size) ? (+d.size).toFixed(0) : '—'); isCell(tr, isHMoney(d.m2, y, H));
+    const p = prev.get(d.cat);
+    if (p && has(p.m2) && has(d.m2) && +p.m2 > 0) {
+      const ch = (+d.m2 / +p.m2 - 1) * 100;
+      isCell(tr, (ch > 0 ? '+' : ch < 0 ? '−' : '') + Math.abs(ch).toFixed(1).replace('.', ',') + '%', ch > 0 ? 'up' : (ch < 0 ? 'down' : 'p'));
+    } else isCell(tr, '—', 'p');
+    el.appendChild(tr);
   });
 });
 </script>

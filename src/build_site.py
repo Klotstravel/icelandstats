@@ -17,6 +17,8 @@ DATASETS = {
     'va': 'value_added_by_industry.csv',
     'exports': 'exports_by_year.csv',
     'pop_hist': 'population_history.csv',
+    'housing': 'housing.csv',
+    'eur_isk': 'eur_isk.csv',
 }
 
 THEME = """
