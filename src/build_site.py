@@ -23,7 +23,7 @@ THEME = """
 :root{
   --font-anthropic-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-anthropic-serif: Georgia, "Times New Roman", serif;
-  --color-bg:#faf9f5; --color-fg:#1f1e1d; --color-fg-muted:#6b6a66; --color-panel:#ffffff;
+  --color-bg:#ffffff; --color-fg:#1f1e1d; --color-fg-muted:#6b6a66; --color-panel:#ffffff;
   --color-border-line:#e6e3da; --color-ok:#2e8540; --color-bad:#c4392f;
   --cds-gap-lg:24px; --cds-pad-md:12px; --cds-pad-lg:18px; --cds-radius:10px;
   --cds-font-size-title:30px; --cds-font-size-heading:17px; --cds-font-size-body:15px; --cds-font-size-caption:13px;
@@ -32,13 +32,6 @@ THEME = """
   --cds-surface-popover:#ffffff; --cds-border:#e0ddd4; --cds-shadow-popover:0 4px 14px rgba(0,0,0,.10);
   --chart-1:#3b6fd4;
 }
-@media (prefers-color-scheme: dark){:root{
-  --color-bg:#1f1e1d; --color-fg:#f1efe8; --color-fg-muted:#a3a19a; --color-panel:#2a2927;
-  --color-border-line:#3d3b38; --color-ok:#5cc274; --color-bad:#ef6f63;
-  --cds-chart-muted:#5a5853; --cds-chart-grid:#3a3936; --cds-chart-axis:#5c5a55; --cds-text-secondary:#a3a19a;
-  --cds-surface-popover:#2f2e2b; --cds-border:#47453f; --cds-shadow-popover:0 4px 14px rgba(0,0,0,.4);
-  --chart-1:#6f9bf0;
-}}
 html{background:var(--color-bg)}
 body{margin:0;padding:20px 16px 40px;background:var(--color-bg)}
 .is-wrap{max-width:980px;margin:0 auto}
@@ -118,7 +111,7 @@ window.__READY__ = true; window.__runAll();
 """
     out = pathlib.Path(out_dir); out.mkdir(parents=True, exist_ok=True)
     (out / 'index.html').write_text(html, encoding='utf-8')
-    (out / 'CNAME').write_text('icelandstats.klotstravel.com\n', encoding='utf-8')
+    (out / 'CNAME').write_text('icelandstats.klotstravel.com', encoding='utf-8')
     (out / '.nojekyll').write_text('', encoding='utf-8')
     print('ok', out / 'index.html', round(len(html.encode()) / 1024), 'KB')
 
