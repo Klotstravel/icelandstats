@@ -34,6 +34,7 @@ THEME = """
 }
 html{background:var(--color-bg)}
 body{margin:0;padding:20px 16px 40px;background:var(--color-bg)}
+@media (max-width:600px){body{padding:14px 8px 32px}}
 .is-wrap{max-width:980px;margin:0 auto}
 .site-foot{max-width:980px;margin:24px auto 0;color:var(--color-fg-muted);font:13px var(--font-anthropic-sans)}
 .site-foot a{color:inherit}
@@ -95,6 +96,12 @@ def main(page_path, csv_dir, out_dir):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Исландия статистика — Klots Travel</title>
 <meta name="description" content="Статистика Исландии на русском: туристы через Кеблавик по годам, месяцам и странам, круизы, население, иммигранты, ВВП и экспорт. Данные Statistics Iceland.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Исландия статистика — туристы, население, экономика">
+<meta property="og:description" content="Сколько туристов приезжает в Исландию, из каких стран и в какие месяцы; население, иммигранты, ВВП и экспорт. Данные Statistics Iceland на русском.">
+<meta property="og:image" content="https://icelandstats.klotstravel.com/og.png">
+<meta property="og:url" content="https://icelandstats.klotstravel.com/">
+<meta name="twitter:card" content="summary_large_image">
 <style>{THEME}</style>
 </head>
 <body>
