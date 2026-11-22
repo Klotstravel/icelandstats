@@ -19,6 +19,9 @@ DATASETS = {
     'pop_hist': 'population_history.csv',
     'housing': 'housing.csv',
     'eur_isk': 'eur_isk.csv',
+    'hotel_occ': 'hotel_occupancy.csv',
+    'rentals': 'rental_cars.csv',
+    'turnover': 'tourism_turnover.csv',
 }
 
 THEME = """

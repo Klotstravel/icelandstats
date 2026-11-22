@@ -97,6 +97,15 @@
 .is-th .p,.is-th2 .p{color:var(--color-fg-muted)}
 .is-th2 .up{color:var(--color-ok)}
 .is-th2 .down{color:var(--color-bad)}
+.is-tt{display:grid;grid-template-columns:52px 64px 60px 60px 80px 72px 84px 84px 60px 64px 60px 60px;gap:6px;align-items:center;padding:4px 0;border-bottom:1px solid var(--color-border-line)}
+.is-tbl-tt{min-width:860px}
+.is-tt.h{color:var(--color-fg-muted);font-weight:var(--cds-font-weight-medium);align-items:end}
+.is-tt.h > div{white-space:normal !important;line-height:1.2}
+.is-tt > div:nth-child(n+2){text-align:right;white-space:nowrap}
+.is-tt > div:nth-child(1){position:sticky;left:0;background:var(--color-panel);z-index:1;box-shadow:6px 0 0 var(--color-panel);font-weight:var(--cds-font-weight-medium)}
+.is-tt .up{color:var(--color-ok)}
+.is-tt .down{color:var(--color-bad)}
+.is-tt .p{color:var(--color-fg-muted)}
 </style>
 <div class="is-wrap">
   <header id="top">
@@ -152,6 +161,60 @@
     </div>
     <div class="is-chart" data-draw="cruisechart" data-source="cruise"></div>
     <p class="is-note">Показаны годы с 2004-го. Источник: Statistics Iceland, таблица SAM02002 (с 2008 года — данные порта Faxaflóahafnir). Только иностранные пассажиры круизных лайнеров в Рейкьявике; заходы в Акюрейри, Исафьордюр, Сейдисфьордюр и другие порты сюда не входят. Круизных пассажиров считают как туристов одного дня, в цифры аэропорта Кеблавик они не попадают. Данных за 2025 год в таблице пока нет.</p>
+    </div>
+  </details>
+
+  <details class="is-card" id="hotel-occupancy">
+    <summary><h2 class="is-h">Заполняемость гостиниц по месяцам</h2></summary>
+    <div class="is-body">
+      <div class="is-yearbar" role="group" aria-label="Регион" style="flex-wrap:wrap">
+        <button type="button" class="is-yb" data-oreg="all" aria-pressed="true">Вся Исландия</button>
+        <button type="button" class="is-yb" data-oreg="cap" aria-pressed="false">Столичный регион</button>
+        <button type="button" class="is-yb" data-oreg="south" aria-pressed="false">Юг</button>
+        <button type="button" class="is-yb" data-oreg="sw" aria-pressed="false">Рейкьянес</button>
+        <button type="button" class="is-yb" data-oreg="west" aria-pressed="false">Запад и Вестфирдир</button>
+        <button type="button" class="is-yb" data-oreg="north" aria-pressed="false">Север</button>
+        <button type="button" class="is-yb" data-oreg="east" aria-pressed="false">Восток</button>
+      </div>
+      <div class="is-yearbar">
+        <button type="button" class="is-arrow" data-ostep="-1" aria-label="Предыдущий год">‹</button>
+        <div class="is-years" data-draw="obtns" data-source="hotel_occ" role="group" aria-label="Год"></div>
+        <button type="button" class="is-arrow" data-ostep="1" aria-label="Следующий год">›</button>
+      </div>
+      <p class="is-take" data-draw="otake" data-source="hotel_occ">—</p>
+      <div class="is-chart" data-draw="ochart" data-source="hotel_occ"></div>
+      <p class="is-note">Доля занятых номеров в гостиницах за месяц, в процентах; в подсказке — также доля занятых мест (кроватей) и тот же месяц прошлого года. Только гостиницы (hotels), без гестхаусов, апартаментов и Airbnb. Регионы «Рейкьянес» (Suðurnes) и «Запад и Вестфирдир» считаются отдельно с 2007 года. 2026 — предварительные данные, по сентябрь. Источник: Statistics Iceland, таблица SAM01104.</p>
+    </div>
+  </details>
+
+  <details class="is-card" id="rental-cars">
+    <summary><h2 class="is-h">Арендные машины по месяцам</h2></summary>
+    <div class="is-body">
+      <div class="is-legend">
+        <span><i class="is-sw" data-draw="rsw"></i>В эксплуатации</span>
+        <span><i class="is-sw" style="background:var(--cds-chart-muted)"></i>Сняты с учёта на время (стоят)</span>
+      </div>
+      <div class="is-yearbar">
+        <button type="button" class="is-arrow" data-rstep="-1" aria-label="Предыдущий год">‹</button>
+        <div class="is-years" data-draw="rbtns" data-source="rentals" role="group" aria-label="Год"></div>
+        <button type="button" class="is-arrow" data-rstep="1" aria-label="Следующий год">›</button>
+      </div>
+      <p class="is-take" data-draw="rtake" data-source="rentals">—</p>
+      <div class="is-chart" data-draw="rchart" data-source="rentals"></div>
+      <p class="is-note">Число зарегистрированных машин прокатных компаний на конец месяца. Высота столбца — весь парк; тёмная часть — машины в эксплуатации, светлая — временно снятые с учёта (обычно зимой их ставят на прикол, чтобы не платить налоги и страховку). Над столбцом — машины в эксплуатации, тыс. Данные с июля 2010 года по октябрь 2026 года. Источник: Statistics Iceland, таблица SAM08049.</p>
+    </div>
+  </details>
+
+  <details class="is-card" id="tourism-turnover">
+    <summary><h2 class="is-h">Оборот туристических отраслей по годам</h2></summary>
+    <div class="is-body">
+      <div class="is-tw">
+        <div class="is-tbl is-tbl-tt">
+          <div class="is-tt h"><div>Год</div><div>Всего</div><div>Изм.</div><div>Авиа</div><div>Гостиницы, жильё</div><div>Рестораны</div><div>Турфирмы (Исландия)</div><div>Турфирмы (за рубеж)</div><div>Прокат</div><div>Автобусы</div><div>Морские</div><div>Спа, бани</div></div>
+          <div data-draw="tttable" data-source="turnover"></div>
+        </div>
+      </div>
+      <p class="is-note">Млрд ISK без НДС, по декларациям НДС компаний; каждая компания отнесена к своей основной отрасли. «Изм.» — изменение оборота «Всего» к прошлому году. «Прокат» — прокат машин и снаряжения; «Турфирмы (за рубеж)» — продажа поездок за границу. Не входят отрасли, освобождённые от НДС: внутренние регулярные авиарейсы, общественный транспорт, такси, паромы. 2026* — январь–август, предварительно. Источник: Statistics Iceland, таблица SAM08050.</p>
     </div>
   </details>
 
@@ -1007,6 +1070,153 @@ dash.draw('htable', el => {
       const ch = (+d.m2 / +p.m2 - 1) * 100;
       isCell(tr, (ch > 0 ? '+' : ch < 0 ? '−' : '') + Math.abs(ch).toFixed(1).replace('.', ',') + '%', ch > 0 ? 'up' : (ch < 0 ? 'down' : 'p'));
     } else isCell(tr, '—', 'p');
+    el.appendChild(tr);
+  });
+});
+window.isMonNames = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+window.isMonFull = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
+window.isMonIn = ['январе','феврале','марте','апреле','мае','июне','июле','августе','сентябре','октябре','ноябре','декабре'];
+window.isMonthBars = function(el, o) {
+  // o: {vals[12], base[12] (необязательно, полная высота), ymax, fmt, axisFmt, unit, aria, tip(i)}
+  el.replaceChildren();
+  const W = Math.max(280, el.clientWidth), H = 320;
+  const narrow = W / 12 < 30;
+  const m = {top: narrow ? 46 : 30, right: 4, bottom: 30, left: 30};
+  const x = d3.scaleBand().domain(isMonNames).range([m.left, W - m.right]).padding(0.22);
+  const y = d3.scaleLinear().domain([0, o.ymax]).nice().range([H - m.bottom, m.top]);
+  const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', o.aria);
+  svg.append('g').attr('transform', `translate(${m.left},0)`)
+    .call(d3.axisLeft(y).ticks(5).tickSize(-(W - m.left - m.right)).tickFormat(o.axisFmt))
+    .call(g => g.select('.domain').remove()).call(g => g.selectAll('line').style('stroke', 'var(--cds-chart-grid)'));
+  isUnit(svg, o.unit);
+  svg.append('g').attr('transform', `translate(0,${H - m.bottom})`).call(d3.axisBottom(x).tickSize(0).tickPadding(8))
+    .call(g => g.select('.domain').style('stroke', 'var(--cds-chart-axis)'));
+  const bw = x.bandwidth(), r = Math.min(4, bw / 2);
+  const bar = (x0, y0) => `M${x0},${y(0)}V${y0 + r}Q${x0},${y0} ${x0 + r},${y0}H${x0 + bw - r}Q${x0 + bw},${y0} ${x0 + bw},${y0 + r}V${y(0)}Z`;
+  const g = svg.append('g'), lab = svg.append('g').style('font-size', '11px').style('font-variant-numeric', 'tabular-nums').style('fill', 'var(--color-fg)');
+  o.vals.forEach((v, i) => {
+    const cx = x(isMonNames[i]) + bw / 2;
+    if (v == null || !isFinite(v)) { lab.append('text').attr('x', cx).attr('y', y(0) - 6).attr('text-anchor', 'middle').style('fill', 'var(--color-fg-muted)').text('нет'); return; }
+    const top = o.base && o.base[i] != null ? o.base[i] : v;
+    if (o.base && o.base[i] != null) g.append('path').attr('d', bar(x(isMonNames[i]), Math.min(y(top), y(0) - 0.5))).style('fill', 'var(--cds-chart-muted)');
+    if (o.base) g.append('rect').attr('x', x(isMonNames[i])).attr('width', bw).attr('y', Math.min(y(v), y(0) - 0.5)).attr('height', Math.max(0.5, y(0) - y(v))).style('fill', dash.colors[0]);
+    if (!o.base) g.append('path').attr('d', bar(x(isMonNames[i]), Math.min(y(v), y(0) - 0.5))).style('fill', dash.colors[0]);
+    const t = o.fmt(v), ty = y(top);
+    if (narrow) lab.append('text').attr('transform', `translate(${cx + 4},${ty - 4}) rotate(-90)`).attr('text-anchor', 'start').text(t);
+    else lab.append('text').attr('x', cx).attr('y', ty - 5).attr('text-anchor', 'middle').text(t);
+  });
+  const tip = document.createElement('div'); tip.className = 'is-tip'; tip.hidden = true; el.appendChild(tip);
+  svg.append('g').selectAll('rect').data(d3.range(12).filter(i => o.vals[i] != null && isFinite(o.vals[i]))).join('rect')
+    .attr('x', i => x(isMonNames[i]) - x.step() * x.paddingInner() / 2).attr('width', x.step()).attr('y', m.top).attr('height', H - m.top - m.bottom).style('fill', 'transparent')
+    .on('pointerenter pointermove', (ev, i) => {
+      tip.replaceChildren(); o.tip(i).forEach((line, k) => { const d = document.createElement('div'); d.textContent = line; if (k > 1) d.style.color = 'var(--cds-text-secondary)'; tip.appendChild(d); });
+      tip.hidden = false;
+      const [px, py] = d3.pointer(ev, el); const tw = tip.offsetWidth;
+      tip.style.left = Math.min(Math.max(0, px - tw / 2), el.clientWidth - tw) + 'px'; tip.style.top = Math.max(0, py - 80) + 'px';
+    })
+    .on('pointerleave', () => { tip.hidden = true; });
+};
+window.isYearRibbon = function(el, ys, cur, onPick, star) {
+  el.replaceChildren(); let sel = null;
+  ys.forEach(y => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'is-yb'; b.textContent = y + (star && star(y) ? '*' : '');
+    b.setAttribute('aria-pressed', y === cur ? 'true' : 'false'); b.addEventListener('click', () => onPick(y));
+    el.appendChild(b); if (y === cur) sel = b;
+  });
+  if (sel) el.scrollLeft = Math.max(0, sel.offsetLeft - el.offsetLeft - el.clientWidth / 2 + sel.offsetWidth / 2);
+};
+window.isPc = v => (+v).toFixed(1).replace('.', ',');
+// --- заполняемость гостиниц ---
+isState.oreg = isState.oreg || 'all'; isState.oyear = isState.oyear || null;
+window.isORows = function() { const s = dash.data('hotel_occ'); return s.status === 'ok' ? s.data.filter(d => d.region === isState.oreg) : null; };
+window.isOYears = function() {
+  const r = isORows(); if (!r) return [];
+  const ys = Array.from(new Set(r.map(d => String(d.year)))).sort();
+  if (!isState.oyear || ys.indexOf(isState.oyear) < 0) isState.oyear = ys.indexOf('2025') >= 0 ? '2025' : ys[ys.length - 1];
+  return ys;
+};
+window.isORedraw = function() { ['obtns', 'otake', 'ochart'].forEach(n => dash.draw(n)); };
+document.querySelectorAll('.is-yb[data-oreg]').forEach(btn => btn.addEventListener('click', () => {
+  isState.oreg = btn.dataset.oreg;
+  document.querySelectorAll('.is-yb[data-oreg]').forEach(b => b.setAttribute('aria-pressed', b.dataset.oreg === isState.oreg ? 'true' : 'false'));
+  isORedraw();
+}));
+document.querySelectorAll('.is-arrow[data-ostep]').forEach(btn => btn.addEventListener('click', () => {
+  const ys = isOYears(); if (!ys.length) return; const i = ys.indexOf(isState.oyear);
+  isState.oyear = ys[Math.min(ys.length - 1, Math.max(0, i + (+btn.dataset.ostep)))]; isORedraw();
+}));
+dash.draw('obtns', el => { const ys = isOYears(); isYearRibbon(el, ys, isState.oyear, y => { isState.oyear = y; isORedraw(); }, y => y === '2026'); });
+dash.draw('otake', el => {
+  const r = isORows(); isOYears(); if (!r) { el.textContent = '—'; return; }
+  const reg = document.querySelector('.is-yb[data-oreg="' + isState.oreg + '"]');
+  const t = r.find(d => String(d.year) === isState.oyear && +d.m === 0);
+  const mon = r.filter(d => String(d.year) === isState.oyear && +d.m > 0);
+  const pk = mon.length ? mon.reduce((a, b) => (+b.rooms > +a.rooms ? b : a)) : null;
+  el.replaceChildren();
+  const b1 = document.createElement('b'); b1.textContent = isState.oyear + ', ' + (reg ? reg.textContent : '');
+  el.append(b1, ': ' + (t ? 'в среднем за год занято ' : ''));
+  if (t) { const b2 = document.createElement('b'); b2.textContent = isPc(t.rooms) + '%'; el.append(b2, ' номеров'); }
+  if (pk) { el.append((t ? '; ' : '') + 'максимум — '); const b3 = document.createElement('b'); b3.textContent = isPc(pk.rooms) + '%'; el.append(b3, ' в ' + isMonIn[+pk.m - 1] + '.'); }
+});
+dash.draw('ochart', el => {
+  const s = dash.data('hotel_occ');
+  if (s.status === 'error') { el.replaceChildren(); const p = document.createElement('p'); p.className = 'is-err'; p.textContent = 'Не удалось загрузить данные.'; el.appendChild(p); return; }
+  const r = isORows(); isOYears(); if (!r) { el.textContent = '—'; return; }
+  const yr = +isState.oyear, key = new Map(r.filter(d => +d.m > 0).map(d => [d.year + '-' + d.m, d]));
+  const cur = d3.range(1, 13).map(mm => key.get(yr + '-' + mm)), prev = d3.range(1, 13).map(mm => key.get((yr - 1) + '-' + mm));
+  isMonthBars(el, {vals: cur.map(d => d ? +d.rooms : null), ymax: 100, fmt: isPc, axisFmt: v => String(v), unit: '%',
+    aria: 'Столбчатая диаграмма: заполняемость номеров в гостиницах по месяцам ' + yr + ' года',
+    tip: i => { const d = cur[i], p = prev[i]; const L = [isMonFull[i] + ' ' + yr, 'Номера: ' + isPc(d.rooms) + '%, места: ' + isPc(d.beds) + '%']; if (p) L.push((yr - 1) + ': номера ' + isPc(p.rooms) + '%'); return L; }});
+});
+// --- арендные машины ---
+isState.ryear = isState.ryear || null;
+window.isRYears = function() {
+  const s = dash.data('rentals'); if (s.status !== 'ok') return [];
+  const ys = Array.from(new Set(s.data.map(d => String(d.year)))).sort();
+  if (!isState.ryear || ys.indexOf(isState.ryear) < 0) isState.ryear = ys.indexOf('2025') >= 0 ? '2025' : ys[ys.length - 1];
+  return ys;
+};
+window.isRRedraw = function() { ['rbtns', 'rtake', 'rchart'].forEach(n => dash.draw(n)); };
+document.querySelectorAll('.is-arrow[data-rstep]').forEach(btn => btn.addEventListener('click', () => {
+  const ys = isRYears(); if (!ys.length) return; const i = ys.indexOf(isState.ryear);
+  isState.ryear = ys[Math.min(ys.length - 1, Math.max(0, i + (+btn.dataset.rstep)))]; isRRedraw();
+}));
+dash.draw('rsw', el => { el.style.background = dash.colors[0]; });
+dash.draw('rbtns', el => { const ys = isRYears(); isYearRibbon(el, ys, isState.ryear, y => { isState.ryear = y; isRRedraw(); }, y => y === '2010' || y === '2026'); });
+dash.draw('rtake', el => {
+  const s = dash.data('rentals'); isRYears(); if (s.status !== 'ok') { el.textContent = '—'; return; }
+  const r = s.data.filter(d => String(d.year) === isState.ryear && d.listed !== '' && d.listed != null);
+  el.replaceChildren(); if (!r.length) { el.textContent = '—'; return; }
+  const mx = r.reduce((a, b) => (+b.listed > +a.listed ? b : a)), mn = r.reduce((a, b) => (+b.listed < +a.listed ? b : a));
+  const b1 = document.createElement('b'); b1.textContent = isState.ryear; const b2 = document.createElement('b'); b2.textContent = isTI(mx.listed); const b3 = document.createElement('b'); b3.textContent = isTI(mn.listed);
+  el.append(b1, ': больше всего машин в эксплуатации в ' + isMonIn[+mx.m - 1] + ' — ', b2, ', меньше всего в ' + isMonIn[+mn.m - 1] + ' — ', b3, '.');
+});
+dash.draw('rchart', el => {
+  const s = dash.data('rentals');
+  if (s.status === 'error') { el.replaceChildren(); const p = document.createElement('p'); p.className = 'is-err'; p.textContent = 'Не удалось загрузить данные.'; el.appendChild(p); return; }
+  if (s.status !== 'ok') { el.textContent = '—'; return; }
+  isRYears();
+  const yr = +isState.ryear, key = new Map(s.data.map(d => [d.year + '-' + d.m, d]));
+  const cur = d3.range(1, 13).map(mm => key.get(yr + '-' + mm)), prev = d3.range(1, 13).map(mm => key.get((yr - 1) + '-' + mm));
+  const num = v => (v === '' || v == null || !isFinite(+v)) ? null : +v;
+  isMonthBars(el, {vals: cur.map(d => d ? num(d.listed) : null), base: cur.map(d => d ? num(d.total) : null), ymax: d3.max(s.data, d => +d.total),
+    fmt: v => (v / 1000).toFixed(1).replace('.', ','), axisFmt: v => v === 0 ? '0' : String(Math.round(v / 1000)), unit: 'тыс.',
+    aria: 'Столбчатая диаграмма: арендные машины по месяцам ' + yr + ' года',
+    tip: i => { const d = cur[i], p = prev[i]; const L = [isMonFull[i] + ' ' + yr, 'Всего ' + isTI(d.total) + ', в эксплуатации ' + (num(d.listed) == null ? '—' : isTI(d.listed))]; if (p && num(p.total)) L.push((yr - 1) + ': всего ' + isTI(p.total)); return L; }});
+});
+// --- оборот туристических отраслей ---
+dash.draw('tttable', el => {
+  const s = dash.data('turnover'); el.replaceChildren();
+  if (s.status === 'error') { const p = document.createElement('p'); p.className = 'is-err'; p.textContent = 'Не удалось загрузить данные.'; el.appendChild(p); return; }
+  if (s.status !== 'ok') { el.textContent = '—'; return; }
+  const rows = s.data.slice().sort((a, b) => +b.year - +a.year), by = new Map(rows.map(r => [+r.year, r]));
+  rows.forEach(r => {
+    const tr = document.createElement('div'); tr.className = 'is-tt';
+    isCell(tr, String(r.year) + (+r.periods < 6 ? '*' : '')); isCell(tr, isB(r.total));
+    const p = by.get(+r.year - 1);
+    if (p && +r.periods === 6 && +p.periods === 6 && +p.total > 0) { const ch = (+r.total / +p.total - 1) * 100; isCell(tr, (ch > 0 ? '+' : ch < 0 ? '−' : '') + Math.abs(ch).toFixed(1).replace('.', ',') + '%', ch > 0 ? 'up' : (ch < 0 ? 'down' : 'p')); }
+    else isCell(tr, '—', 'p');
+    ['air', 'accom', 'food', 'agency_is', 'agency_abroad', 'rental', 'land', 'sea', 'spa'].forEach(k => isCell(tr, isB(r[k])));
     el.appendChild(tr);
   });
 });
