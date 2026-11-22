@@ -556,29 +556,9 @@
         <button type="button" class="is-arrow" data-cstep="1" aria-label="Вперёд">›</button>
       </div>
       <p class="is-take" data-draw="ctake" data-source="climate temp">—</p>
+      <div class="is-legend" data-draw="clegend" data-source="climate temp"></div>
       <div class="is-chart" data-draw="cchart" data-source="climate temp"></div>
-      <p class="is-note">«Норма» — среднее за 30 лет, 1995–2024; можно выбрать и любой год с 1949-го. Температура — средняя за месяц, °C; в подсказке — средний дневной максимум и ночной минимум, а также самая высокая и самая низкая температура месяца (у нормы — рекорды 1995–2024). Солнечные часы — сколько часов за месяц светило солнце (измеряется только в Рейкьявике и Акюрейри). Осадки — сумма за месяц, мм. Ветер — средняя скорость за месяц, м/с. В подсказке — норма для сравнения. Источник: Statistics Iceland (данные Метеорологической службы Исландии), таблицы UMH11165, UMH11120, UMH11150; температура — Метеорологическая служба Исландии (Veðurstofa Íslands), помесячные данные станций, по октябрь 2026 года.</p>
-    </div>
-  </details>
-
-  <details class="is-card" id="protected-areas">
-    <summary><h2 class="is-h">Охраняемые природные территории</h2></summary>
-    <div class="is-body">
-      <p class="is-take" data-draw="ptake2" data-source="protected">—</p>
-      <div class="is-tw">
-        <div class="is-tbl is-tbl-pa">
-          <div class="is-pa h"><div>Тип</div><div>Территорий</div><div>Площадь, км²</div><div>% площади страны</div></div>
-          <div data-draw="patable" data-source="protected"></div>
-        </div>
-      </div>
-      <h3 class="is-h3">Как росла площадь охраняемых территорий</h3>
-      <div class="is-tw">
-        <div class="is-tbl is-tbl-pa">
-          <div class="is-pa h"><div>Год</div><div>Территорий</div><div>Площадь, км²</div><div>% площади страны</div></div>
-          <div data-draw="pahist" data-source="protected"></div>
-        </div>
-      </div>
-      <p class="is-note">Площадь Исландии — 103 000 км². Самая большая охраняемая территория — национальный парк Ватнайёкюдль (около 14 тыс. км², почти седьмая часть страны). В истории показаны годы, когда что-то менялось. Данные по 2020 год. Источник: Statistics Iceland, таблица UMH01101.</p>
+      <p class="is-note">«Норма» — среднее за 30 лет, 1995–2024; можно выбрать и любой год с 2015-го. Температура, °C: столбцы — средний дневной максимум («днём») и средний ночной минимум («ночью») за месяц, линия — средняя температура за сутки; в подсказке — ещё самая высокая и самая низкая температура месяца (у нормы — рекорды 1995–2024). Солнечные часы — сколько часов за месяц светило солнце (измеряется только в Рейкьявике и Акюрейри). Осадки — сумма за месяц, мм. Ветер — средняя скорость за месяц, м/с. В подсказке — норма для сравнения. Источник: Statistics Iceland (данные Метеорологической службы Исландии), таблицы UMH11165, UMH11120, UMH11150; температура — Метеорологическая служба Исландии (Veðurstofa Íslands), помесячные данные станций, по октябрь 2026 года.</p>
     </div>
   </details>
 
@@ -1583,7 +1563,7 @@ window.isCStations = function() {
 };
 window.isCYears = function() {
   const r = isCRows(); if (!r) return []; isCStations();
-  const ys = Array.from(new Set(r.filter(d => d.station === isState.cst && d.year !== 'norm').map(d => String(d.year)))).sort();
+  const ys = Array.from(new Set(r.filter(d => d.station === isState.cst && d.year !== 'norm' && +d.year >= 2015).map(d => String(d.year)))).sort();
   const all = ['norm'].concat(ys);
   if (all.indexOf(isState.cyear) < 0) isState.cyear = 'norm';
   return all;
@@ -1594,7 +1574,55 @@ window.isCVals = function(year) {
   return v;
 };
 window.isCAgg = function(v) { const ok = v.filter(x => x != null); if (ok.length < 12) return null; return isCMET[isState.cmet].agg === 'sum' ? d3.sum(ok) : d3.mean(ok); };
-window.isCRedraw = function() { ['cstations', 'cbtns', 'ctake', 'cchart'].forEach(n => dash.draw(n)); };
+window.isCRedraw = function() { ['cstations', 'cbtns', 'ctake', 'clegend', 'cchart'].forEach(n => dash.draw(n)); };
+dash.draw('clegend', el => {
+  el.replaceChildren(); el.hidden = isState.cmet !== 'temp'; if (el.hidden) return;
+  [['днём (средний максимум)', isTDay, 'bar'], ['ночью (средний минимум)', dash.colors[0], 'bar'], ['средняя за сутки', 'var(--color-fg)', 'line']].forEach(([t, c, k]) => {
+    const s = document.createElement('span'), i = document.createElement('i'); i.className = 'is-sw'; i.style.background = c;
+    if (k === 'line') { i.style.height = '3px'; i.style.borderRadius = '2px'; } s.append(i, t); el.appendChild(s); });
+});
+window.isTempBars = function(el, o) {
+  // o: {tx[12], tn[12], t[12], ymin, ymax, aria, tip(i)} — столбцы «днём» и «ночью», средняя — линией
+  el.replaceChildren();
+  const W = Math.max(280, el.clientWidth), H = 320, narrow = W / 12 < 44;
+  const m = {top: 30, right: 4, bottom: 30, left: 30};
+  const x = d3.scaleBand().domain(isMonNames).range([m.left, W - m.right]).padding(0.18);
+  const y = d3.scaleLinear().domain([o.ymin, o.ymax]).nice().range([H - m.bottom, m.top]);
+  const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', o.aria);
+  svg.append('g').attr('transform', `translate(${m.left},0)`)
+    .call(d3.axisLeft(y).ticks(6).tickSize(-(W - m.left - m.right)).tickFormat(v => String(v)))
+    .call(g => g.select('.domain').remove()).call(g => g.selectAll('line').style('stroke', 'var(--cds-chart-grid)'));
+  isUnit(svg, '°C');
+  svg.append('g').attr('transform', `translate(0,${H - m.bottom})`).call(d3.axisBottom(x).tickSize(0).tickPadding(8))
+    .call(g => g.select('.domain').style('stroke', 'var(--cds-chart-axis)'));
+  if (y.domain()[0] < 0) svg.append('line').attr('x1', m.left).attr('x2', W - m.right).attr('y1', y(0)).attr('y2', y(0)).style('stroke', 'var(--cds-chart-axis)');
+  const bw = x.bandwidth() / 2, g = svg.append('g');
+  [[o.tx, isTDay, 0], [o.tn, dash.colors[0], 1]].forEach(([arr, col, k]) => arr.forEach((v, i) => {
+    if (v == null || !isFinite(v)) return;
+    g.append('rect').attr('x', x(isMonNames[i]) + k * bw + 0.5).attr('width', Math.max(1, bw - 1)).attr('y', Math.min(y(v), y(0))).attr('height', Math.max(0.5, Math.abs(y(v) - y(0)))).attr('rx', 2).style('fill', col);
+  }));
+  const cx = i => x(isMonNames[i]) + x.bandwidth() / 2;
+  svg.append('path').datum(o.t).attr('d', d3.line().defined(v => v != null && isFinite(v)).x((v, i) => cx(i)).y(v => y(v)))
+    .style('fill', 'none').style('stroke', 'var(--color-fg)').style('stroke-width', 2);
+  const pts = d3.range(12).filter(i => o.t[i] != null && isFinite(o.t[i]));
+  svg.append('g').selectAll('circle').data(pts).join('circle').attr('cx', i => cx(i)).attr('cy', i => y(o.t[i])).attr('r', 3.5)
+    .style('fill', 'var(--color-fg)').style('stroke', 'var(--color-panel)').style('stroke-width', 1.5);
+  if (!narrow) svg.append('g').selectAll('text').data(pts).join('text').attr('x', i => cx(i)).attr('y', i => y(o.t[i]) - 8).attr('text-anchor', 'middle')
+    .style('font-size', '11px').style('font-variant-numeric', 'tabular-nums').style('fill', 'var(--color-fg)')
+    .style('paint-order', 'stroke').style('stroke', 'var(--color-panel)').style('stroke-width', 3).text(i => isCMET.temp.fmt(o.t[i]));
+  const tip = document.createElement('div'); tip.className = 'is-tip'; tip.hidden = true; el.appendChild(tip);
+  svg.append('g').selectAll('rect').data(pts).join('rect')
+    .attr('x', i => x(isMonNames[i]) - x.step() * x.paddingInner() / 2).attr('width', x.step()).attr('y', m.top).attr('height', H - m.top - m.bottom).style('fill', 'transparent')
+    .on('pointerenter pointermove', (ev, i) => {
+      tip.replaceChildren(); o.tip(i).forEach((line, k) => { const d = document.createElement('div'); d.textContent = line; if (k > 1) d.style.color = 'var(--cds-text-secondary)'; tip.appendChild(d); });
+      tip.hidden = false;
+      const [px, py] = d3.pointer(ev, el); const tw = tip.offsetWidth;
+      tip.style.left = Math.min(Math.max(0, px - tw / 2), el.clientWidth - tw) + 'px'; tip.style.top = Math.max(0, py - 80) + 'px';
+    })
+    .on('pointerleave', () => { tip.hidden = true; });
+};
+window.isTDay = '#e07b39';
+
 document.querySelectorAll('.is-yb[data-cmet]').forEach(btn => btn.addEventListener('click', () => {
   isState.cmet = btn.dataset.cmet;
   document.querySelectorAll('.is-yb[data-cmet]').forEach(b => b.setAttribute('aria-pressed', b.dataset.cmet === isState.cmet ? 'true' : 'false'));
@@ -1648,42 +1676,23 @@ dash.draw('cchart', el => {
   if (s.status === 'error') { el.replaceChildren(); const p = document.createElement('p'); p.className = 'is-err'; p.textContent = 'Не удалось загрузить данные.'; el.appendChild(p); return; }
   const r = isCRows(); if (!r) { el.textContent = '—'; return; } isCYears();
   const M = isCMET[isState.cmet], v = isCVals(isState.cyear), n = isCVals('norm');
+  if (isState.cmet === 'temp') {
+    const num = z => (z === '' || z == null || !isFinite(+z)) ? null : +z, rows = d3.range(1, 13).map(k => isCRow(isState.cyear, k));
+    const tx = rows.map(d => d ? num(d.tx) : null), tn = rows.map(d => d ? num(d.tn) : null), tt = rows.map(d => d ? num(d.value) : null);
+    const st = r.filter(d => d.station === isState.cst), hi = d3.max(st, d => num(d.tx)), lo = d3.min(st, d => num(d.tn));
+    isTempBars(el, {tx, tn, t: tt, ymax: hi, ymin: Math.min(0, lo), aria: 'График температуры по месяцам: днём, ночью и средняя, ' + isCST[isState.cst],
+      tip: i => { const d = rows[i], L = [isMonFull[i] + (isState.cyear === 'norm' ? ', норма' : ' ' + isState.cyear), 'в среднем ' + M.fmt(tt[i]) + ' °C'];
+        if (tx[i] != null && tn[i] != null) L.push('днём ' + M.fmt(tx[i]) + ', ночью ' + M.fmt(tn[i]) + ' °C');
+        if (d && num(d.txx) != null && num(d.tnn) != null) L.push((isState.cyear === 'norm' ? 'рекорды: от ' : 'от ') + M.fmt(+d.tnn) + ' до ' + M.fmt(+d.txx) + ' °C');
+        if (isState.cyear !== 'norm' && n[i] != null) L.push('Норма: ' + M.fmt(n[i]) + ' °C'); return L; }});
+    return;
+  }
   const mx = d3.max(r.filter(d => d.station === isState.cst && d.value !== ''), d => +d.value), mn0 = d3.min(r.filter(d => d.station === isState.cst && d.value !== ''), d => +d.value);
   isMonthBars(el, {vals: v, ymax: mx, ymin: isState.cmet === 'temp' ? Math.min(0, mn0) : 0, fmt: M.fmt, axisFmt: v => String(v), unit: M.u,
     aria: 'Столбчатая диаграмма: ' + M.w + ' по месяцам, ' + isCST[isState.cst],
     tip: i => { const L = [isMonFull[i] + (isState.cyear === 'norm' ? ', норма' : ' ' + isState.cyear), (isState.cmet === 'temp' ? 'в среднем ' : '') + M.fmt(v[i]) + ' ' + M.u];
       if (isState.cmet === 'temp') { const d = isCRow(isState.cyear, i + 1); if (d) { if (d.tx !== '' && d.tn !== '') L.push('днём ' + M.fmt(+d.tx) + ', ночью ' + M.fmt(+d.tn) + ' °C'); if (d.txx !== '' && d.tnn !== '') L.push((isState.cyear === 'norm' ? 'рекорды: от ' : 'от ') + M.fmt(+d.tnn) + ' до ' + M.fmt(+d.txx) + ' °C'); } }
       if (isState.cyear !== 'norm' && n[i] != null) L.push('Норма: ' + M.fmt(n[i]) + ' ' + M.u); return L; }});
-});
-// --- охраняемые территории ---
-window.isPAT = [['np', 'Национальные парки'], ['reserve', 'Заповедники'], ['monument', 'Памятники природы'], ['country', 'Парки отдыха (fólkvangar)'], ['habitat', 'Охраняемые местообитания'], ['landscape', 'Охраняемые ландшафты'], ['sectoral', 'По отдельным законам (Тингвеллир, Миватн и др.)'], ['masterplan', 'По генплану охраны природы и энергетики']];
-window.isPAArea = 103000;
-window.isPAPct = km => ((+km / isPAArea) * 100).toFixed(1).replace('.', ',') + '%';
-window.isPAKm = km => isTI(km);
-window.isPALast = function() { const s = dash.data('protected'); if (s.status !== 'ok') return null; return String(d3.max(s.data, d => +d.year)); };
-dash.draw('ptake2', el => {
-  const s = dash.data('protected'); if (s.status !== 'ok') { el.textContent = '—'; return; }
-  const y = isPALast(), t = s.data.find(d => String(d.year) === y && d.type === 'total');
-  el.replaceChildren(); if (!t) { el.textContent = '—'; return; }
-  const b1 = document.createElement('b'); b1.textContent = y; const b2 = document.createElement('b'); b2.textContent = isTI(t.n);
-  const b3 = document.createElement('b'); b3.textContent = isPAKm(t.km2) + ' км²'; const b4 = document.createElement('b'); b4.textContent = isPAPct(t.km2);
-  el.append(b1, ': охраняемых природных территорий — ', b2, ', их общая площадь — ', b3, ', это ', b4, ' площади страны.');
-});
-dash.draw('patable', el => {
-  const s = dash.data('protected'); el.replaceChildren();
-  if (s.status === 'error') { const p = document.createElement('p'); p.className = 'is-err'; p.textContent = 'Не удалось загрузить данные.'; el.appendChild(p); return; }
-  if (s.status !== 'ok') { el.textContent = '—'; return; }
-  const y = isPALast(), by = new Map(s.data.filter(d => String(d.year) === y).map(d => [d.type, d]));
-  isPAT.forEach(([k, name]) => { const d = by.get(k); if (!d) return; const tr = document.createElement('div'); tr.className = 'is-pa';
-    isCell(tr, name); isCell(tr, isTI(d.n)); isCell(tr, isPAKm(d.km2)); isCell(tr, isPAPct(d.km2), 'p'); el.appendChild(tr); });
-  const t = by.get('total'); if (t) { const tr = document.createElement('div'); tr.className = 'is-pa'; tr.style.fontWeight = 'var(--cds-font-weight-medium)';
-    isCell(tr, 'Всего'); isCell(tr, isTI(t.n)); isCell(tr, isPAKm(t.km2)); isCell(tr, isPAPct(t.km2)); el.appendChild(tr); }
-});
-dash.draw('pahist', el => {
-  const s = dash.data('protected'); el.replaceChildren(); if (s.status !== 'ok') { el.textContent = '—'; return; }
-  const r = s.data.filter(d => d.type === 'total').sort((a, b) => +b.year - +a.year);
-  r.forEach(d => { const tr = document.createElement('div'); tr.className = 'is-pa';
-    isCell(tr, String(d.year)); isCell(tr, isTI(d.n)); isCell(tr, isPAKm(d.km2)); isCell(tr, isPAPct(d.km2), 'p'); el.appendChild(tr); });
 });
 // --- скот ---
 isState.lreg = isState.lreg || 'all';
