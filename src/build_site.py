@@ -114,7 +114,7 @@ def main(page_path, csv_dir, out_dir):
 </head>
 <body>
 {page_body}
-<footer class="site-foot">Данные: <a href="https://www.statice.is/">Statistics Iceland (Hagstofa Íslands)</a>. Страница обновлена {today}. <a href="https://klotstravel.com">Klots Travel</a> — авторские туры в Исландию малыми группами.</footer>
+<footer class="site-foot">Данные: <a href="https://www.statice.is/">Statistics Iceland (Hagstofa Íslands)</a>. Страница обновлена {today}.</footer>
 <script>{d3js}</script>
 <script>{data_js}</script>
 <script>{SHIM}</script>

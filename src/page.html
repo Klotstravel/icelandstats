@@ -82,8 +82,11 @@
 .is-tv.sub{color:var(--color-fg-muted)}
 .is-tv.sub > div:nth-child(2){padding-left:14px}
 .is-tx .p,.is-tv .p{color:var(--color-fg-muted)}
-.is-brand{margin:0 0 6px;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
-.is-brand a{color:var(--color-fg);font-weight:var(--cds-font-weight-medium);text-decoration:none}
+.is-brand{margin:0 0 8px;font-size:var(--cds-font-size-heading)}
+.is-brand a{color:var(--color-fg-muted);text-decoration:none}
+.is-brand a b{color:var(--color-fg);font-weight:var(--cds-font-weight-medium)}
+.is-brand a:hover{text-decoration:underline}
+.is-brand.bottom{margin:var(--cds-gap-lg) 0 0;padding-top:var(--cds-pad-md);border-top:1px solid var(--color-border-line)}
 @media (max-width:600px){.is-card > summary{padding:10px 12px}.is-body{padding:0 12px 14px}}
 .is-th,.is-th2{display:grid;gap:6px;align-items:center;padding:4px 0;border-bottom:1px solid var(--color-border-line)}
 .is-th{grid-template-columns:48px repeat(3,minmax(150px,1fr)) 64px}
@@ -109,7 +112,7 @@
 </style>
 <div class="is-wrap">
   <header id="top">
-    <p class="is-brand"><a href="https://klotstravel.com" target="_blank" rel="noopener">Klots Travel</a> · авторские туры в Исландию малыми группами</p>
+    <p class="is-brand"><a href="https://klotstravel.com" target="_blank" rel="noopener"><b>Klots Travel</b> · туры в Исландию и не только</a></p>
     <h1 class="is-title">Исландия статистика</h1>
   </header>
 
@@ -379,6 +382,7 @@
       <p class="is-note">Млрд ISK, экспорт товаров и услуг. «Туризм» — расходы иностранных туристов в Исландии плюс выручка исландских авиакомпаний от перевозки иностранных пассажиров. «Промышл.» — промышленные товары, из них алюминий показан отдельно. % — доля от всего экспорта за год. 2026* — только I–II кварталы, предварительно. 2009–2012 — из архивной таблицы UTA05001, сгруппированы в те же статьи («Прочее» = прочие товары + прочие услуги); итоги совпадают с экспортом в национальных счетах, разрыва между 2012 и 2013 нет. Раньше 2009 года выручка от туризма отдельно не публикуется. Источник: Statistics Iceland, таблицы UTA05001 и UTA05003.</p>
     </div>
   </details>
+  <p class="is-brand bottom"><a href="https://klotstravel.com" target="_blank" rel="noopener"><b>Klots Travel</b> · туры в Исландию и не только</a></p>
 </div>
 <script>
 window.isFmt = function(v){ v=+v; if(!isFinite(v)) return '—'; return v>=1e6 ? (v/1e6).toFixed(2).replace('.',',')+' млн' : Math.round(v/1e3)+' тыс.'; };
