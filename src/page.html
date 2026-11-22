@@ -161,6 +161,14 @@
 .is-el > div:nth-child(n+2){text-align:right;white-space:nowrap}
 .is-el > div:nth-child(1){position:sticky;left:0;background:var(--color-panel);z-index:1;box-shadow:6px 0 0 var(--color-panel);font-weight:var(--cds-font-weight-medium)}
 .is-el .p{color:var(--color-fg-muted)}.is-el .up{color:var(--color-ok)}.is-el .down{color:var(--color-bad)}
+.is-wh{display:grid;grid-template-columns:48px 80px 96px 72px 64px minmax(140px,1fr);gap:6px;align-items:center;padding:4px 0;border-bottom:1px solid var(--color-border-line)}
+.is-tbl-wh{min-width:540px}
+.is-wh.h{color:var(--color-fg-muted);font-weight:var(--cds-font-weight-medium);align-items:end}
+.is-wh.h > div{white-space:normal !important;line-height:1.2}
+.is-wh > div:nth-child(n+2):nth-child(-n+5){text-align:right;white-space:nowrap}
+.is-wh > div:nth-child(6){color:var(--color-fg-muted);padding-left:12px}
+.is-wh > div:nth-child(1){position:sticky;left:0;background:var(--color-panel);z-index:1;box-shadow:6px 0 0 var(--color-panel);font-weight:var(--cds-font-weight-medium)}
+.is-wh .p{color:var(--color-fg-muted)}
 </style>
 <div class="is-wrap">
   <header id="top">
@@ -635,6 +643,20 @@
         </div>
       </div>
       <p class="is-note">Лосось — сколько поймано за год, штук; на удочку всё больше рыбы отпускают обратно (в скобках — доля от пойманной на удочку). Охота — сколько животных и птиц добыто за год: северные олени (живут только на востоке, охота по квотам), тупики, тундряные куропатки, гуси (серые и короткоклювые), песцы. «—» — данных нет. Данные по 2022 год. Источник: Statistics Iceland, таблицы LAN10302 и LAN10303.</p>
+    </div>
+  </details>
+
+  <details class="is-card" id="whales">
+    <summary><h2 class="is-h">Китобойный промысел: сколько китов добыли</h2></summary>
+    <div class="is-body">
+      <p class="is-take" data-draw="whtake" data-source="whales">—</p>
+      <div class="is-tw">
+        <div class="is-tbl is-tbl-wh">
+          <div class="is-wh h"><div>Год</div><div>Финвалы</div><div>Малые полосатики</div><div>Сейвалы</div><div>Всего</div><div>Промысел</div></div>
+          <div data-draw="whtable" data-source="whales"></div>
+        </div>
+      </div>
+      <p class="is-note">Сколько китов добыла Исландия за год (вместе с ранеными и потерянными). С 1986 года действует мораторий Международной китобойной комиссии (IWC) на коммерческий промысел: в 1986–1989 и 2003–2007 Исландия добывала китов по научной программе, с 2006 года — коммерчески, заявив оговорку к мораторию. В 1990–2002 годах промысла не было. Финвалов добывает одна компания — Hvalur hf.; в 2007–2008, 2011–2012, 2016–2017, 2019–2021, 2024 и 2025 годах она не выходила на промысел. Ловят только финвалов и малых полосатиков, остальные виды под защитой. «—» — данных нет: за 2023–2026 годы по малым полосатикам у меня нет сводки. Источники: IWC, таблица «Total catches» (1986–2022); 2023 и 2026 — сообщения Hvalur hf. и прессы (24 и 93 финвала).</p>
     </div>
   </details>
 
@@ -2048,6 +2070,31 @@ dash.draw('eltable', el => {
     isCell(tr, isElPct(d.hydro, d.total)); isCell(tr, isElPct(d.geo, d.total)); isCell(tr, isElPct(d.wind, d.total), 'p'); isCell(tr, isElPct(d.fuel, d.total), 'p');
     isCell(tr, pp ? isTI(Math.round(+d.total * 1e6 / pp)) : '—', pp ? '' : 'p');
     isCell(tr, isElN(d.cap_total) == null ? '—' : isTI(Math.round(+d.cap_total)), isElN(d.cap_total) == null ? 'p' : '');
+    el.appendChild(tr);
+  });
+});
+// --- киты ---
+window.isWhT = {sci: 'научный', com: 'коммерческий', mix: 'научный и коммерческий', none: 'не было'};
+window.isWhN = v => (v === '' || v == null || !isFinite(+v)) ? null : +v;
+dash.draw('whtake', el => {
+  const s = dash.data('whales'); if (s.status !== 'ok') { el.textContent = '—'; return; }
+  const r = s.data.slice().sort((a, b) => +a.year - +b.year), l = r[r.length - 1];
+  const fin = r.filter(d => +d.year >= 2006).reduce((a, d) => a + (isWhN(d.fin) || 0), 0);
+  el.replaceChildren();
+  const b1 = document.createElement('b'); b1.textContent = l.year; const b2 = document.createElement('b'); const n = +l.fin, n10 = n % 10, n100 = n % 100; b2.textContent = isTI(n) + (n10 === 1 && n100 !== 11 ? ' финвал' : (n10 >= 2 && n10 <= 4 && (n100 < 12 || n100 > 14)) ? ' финвала' : ' финвалов');
+  const b3 = document.createElement('b'); b3.textContent = isTI(fin);
+  el.append(b1, ': ', b2, ' — первый сезон после 2023 года (в 2024 и 2025 годах охоты не было). Всего с 2006 года добыто ', b3, ' финвалов.');
+});
+dash.draw('whtable', el => {
+  const s = dash.data('whales'); el.replaceChildren();
+  if (s.status === 'error') { const p = document.createElement('p'); p.className = 'is-err'; p.textContent = 'Не удалось загрузить данные.'; el.appendChild(p); return; }
+  if (s.status !== 'ok') { el.textContent = '—'; return; }
+  const f = v => isWhN(v) == null ? '—' : isTI(v);
+  s.data.slice().sort((a, b) => +b.year - +a.year).forEach(d => {
+    const tr = document.createElement('div'); tr.className = 'is-wh';
+    const parts = [d.fin, d.minke, d.sei].map(isWhN), tot = parts.some(v => v == null) ? (parts.filter(v => v != null).reduce((a, b) => a + b, 0) || null) : parts.reduce((a, b) => a + b, 0);
+    isCell(tr, String(d.year)); isCell(tr, f(d.fin), +d.fin ? '' : 'p'); isCell(tr, f(d.minke), +d.minke ? '' : 'p'); isCell(tr, f(d.sei), +d.sei ? '' : 'p');
+    isCell(tr, tot == null ? '—' : isTI(tot) + (parts.some(v => v == null) ? '+' : ''), tot ? '' : 'p'); isCell(tr, isWhT[d.type] || '');
     el.appendChild(tr);
   });
 });

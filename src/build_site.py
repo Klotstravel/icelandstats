@@ -35,6 +35,7 @@ DATASETS = {
     'visitors49': 'visitors_1949.csv',
     'temp': 'temperature.csv',
     'electricity': 'electricity.csv',
+    'whales': 'whales.csv',
 }
 
 THEME = """
