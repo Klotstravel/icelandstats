@@ -57,7 +57,8 @@
 .is-tr .p{color:var(--color-fg-muted)}
 .is-more{margin-top:10px}
 .is-tbl-y{min-width:540px}
-.is-ty{display:grid;grid-template-columns:36px 72px 124px 80px 56px 104px 56px;gap:6px;align-items:center;padding:4px 0;border-bottom:1px solid var(--color-border-line)}
+.is-tbl-py{min-width:880px}
+.is-ty{display:grid;grid-template-columns:36px 72px 124px 84px 64px 124px 120px 64px 124px;gap:6px;align-items:center;padding:4px 0;border-bottom:1px solid var(--color-border-line)}
 .is-ty.h{color:var(--color-fg-muted);font-weight:var(--cds-font-weight-medium)}
 .is-ty > div:nth-child(n+2){text-align:right;white-space:nowrap}
 .is-ty > div:nth-child(1){position:sticky;left:0;background:var(--color-panel);z-index:1;font-weight:var(--cds-font-weight-medium);box-shadow:6px 0 0 var(--color-panel)}
@@ -160,8 +161,8 @@
     <summary><h2 class="is-h">Население по годам</h2></summary>
     <div class="is-body">
       <div class="is-tw">
-        <div class="is-tbl is-tbl-y">
-          <div class="is-ty h"><div>Год</div><div>Население</div><div>Изм.</div><div>Иммигранты</div><div>% насел.</div><div>Иностр. граждане</div><div>% насел.</div></div>
+        <div class="is-tbl is-tbl-py">
+          <div class="is-ty h"><div>Год</div><div>Население</div><div>Изм.</div><div>Иммигранты</div><div>% насел.</div><div>Изм.</div><div>Иностр. граждане</div><div>% насел.</div><div>Изм.</div></div>
           <div data-draw="pytable" data-source="pop_hist"></div>
         </div>
       </div>
@@ -705,12 +706,12 @@ dash.draw('pytable', el => {
   (isState.pyall ? rows : rows.slice(0, 30)).forEach(r => {
     const tr = document.createElement('div'); tr.className = 'is-ty';
     const prev = byYear.get(+r.year - 1);
-    let ch = '—';
-    if (prev && has(prev.population) && +prev.population > 0) {
-      const d = +r.population - +prev.population, pc = d / +prev.population * 100;
-      ch = (d > 0 ? '+' : d < 0 ? '−' : '') + d3.format(',')(Math.abs(d)).replace(/,/g, ' ') + ' (' + (pc > 0 ? '+' : pc < 0 ? '−' : '') + Math.abs(pc).toFixed(2).replace('.', ',') + '%)';
-    }
-    [[r.year, ''], [fN(r.population), ''], [ch, 'p'], [fN(r.immigrants), ''], [fP(r.imm_share), 'p'], [fN(r.foreigners), ''], [fP(r.for_share), 'p']].forEach(([t, c]) => {
+    const chg = f => {
+      if (!prev || !has(prev[f]) || !has(r[f]) || +prev[f] <= 0) return '—';
+      const d = +r[f] - +prev[f], pc = d / +prev[f] * 100;
+      return (d > 0 ? '+' : d < 0 ? '−' : '') + d3.format(',')(Math.abs(d)).replace(/,/g, ' ') + ' (' + (pc > 0 ? '+' : pc < 0 ? '−' : '') + Math.abs(pc).toFixed(2).replace('.', ',') + '%)';
+    };
+    [[r.year, ''], [fN(r.population), ''], [chg('population'), 'p'], [fN(r.immigrants), ''], [fP(r.imm_share), 'p'], [chg('immigrants'), 'p'], [fN(r.foreigners), ''], [fP(r.for_share), 'p'], [chg('foreigners'), 'p']].forEach(([t, c]) => {
       const td = document.createElement('div'); if (c) td.className = c; td.textContent = t; tr.appendChild(td);
     });
     el.appendChild(tr);
