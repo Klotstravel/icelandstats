@@ -1,0 +1,925 @@
+dim,grp,who,key,value
+nights,all,All,Did not stay overnight,0.019
+nights,all,All,1 night,0.021
+nights,all,All,2-3 nights,0.133
+nights,all,All,4-5 nights,0.216
+nights,all,All,6-8 nights,0.329
+nights,all,All,9-12 nights,0.191
+nights,all,All,>13 nights,0.091
+nights,all,All,Average,7
+nights,nat,Australia,Did not stay overnight,0
+nights,nat,Australia,1 night,0.008
+nights,nat,Australia,2-3 nights,0.092
+nights,nat,Australia,4-5 nights,0.282
+nights,nat,Australia,6-8 nights,0.287
+nights,nat,Australia,9-12 nights,0.178
+nights,nat,Australia,>13 nights,0.152
+nights,nat,Australia,Average,8.1
+nights,nat,USA,Did not stay overnight,0.024
+nights,nat,USA,1 night,0.048
+nights,nat,USA,2-3 nights,0.16
+nights,nat,USA,4-5 nights,0.212
+nights,nat,USA,6-8 nights,0.334
+nights,nat,USA,9-12 nights,0.177
+nights,nat,USA,>13 nights,0.045
+nights,nat,USA,Average,6.2
+nights,nat,United Kingdom,Did not stay overnight,0.009
+nights,nat,United Kingdom,1 night,0.011
+nights,nat,United Kingdom,2-3 nights,0.35
+nights,nat,United Kingdom,4-5 nights,0.32
+nights,nat,United Kingdom,6-8 nights,0.229
+nights,nat,United Kingdom,9-12 nights,0.049
+nights,nat,United Kingdom,>13 nights,0.034
+nights,nat,United Kingdom,Average,5
+nights,nat,Denmark,Did not stay overnight,0.027
+nights,nat,Denmark,1 night,0.024
+nights,nat,Denmark,2-3 nights,0.124
+nights,nat,Denmark,4-5 nights,0.296
+nights,nat,Denmark,6-8 nights,0.374
+nights,nat,Denmark,9-12 nights,0.052
+nights,nat,Denmark,>13 nights,0.103
+nights,nat,Denmark,Average,6.9
+nights,nat,France,Did not stay overnight,0.014
+nights,nat,France,1 night,0.003
+nights,nat,France,2-3 nights,0.04
+nights,nat,France,4-5 nights,0.108
+nights,nat,France,6-8 nights,0.311
+nights,nat,France,9-12 nights,0.278
+nights,nat,France,>13 nights,0.246
+nights,nat,France,Average,9.6
+nights,nat,Netherlands,Did not stay overnight,0.018
+nights,nat,Netherlands,1 night,0.001
+nights,nat,Netherlands,2-3 nights,0.076
+nights,nat,Netherlands,4-5 nights,0.174
+nights,nat,Netherlands,6-8 nights,0.341
+nights,nat,Netherlands,9-12 nights,0.197
+nights,nat,Netherlands,>13 nights,0.193
+nights,nat,Netherlands,Average,8.4
+nights,nat,India,Did not stay overnight,0.029
+nights,nat,India,1 night,0.006
+nights,nat,India,2-3 nights,0.139
+nights,nat,India,4-5 nights,0.205
+nights,nat,India,6-8 nights,0.416
+nights,nat,India,9-12 nights,0.169
+nights,nat,India,>13 nights,0.037
+nights,nat,India,Average,6.5
+nights,nat,Italy,Did not stay overnight,0.002
+nights,nat,Italy,1 night,0.003
+nights,nat,Italy,2-3 nights,0.052
+nights,nat,Italy,4-5 nights,0.123
+nights,nat,Italy,6-8 nights,0.465
+nights,nat,Italy,9-12 nights,0.289
+nights,nat,Italy,>13 nights,0.066
+nights,nat,Italy,Average,7.9
+nights,nat,Canada,Did not stay overnight,0.03
+nights,nat,Canada,1 night,0.035
+nights,nat,Canada,2-3 nights,0.108
+nights,nat,Canada,4-5 nights,0.234
+nights,nat,Canada,6-8 nights,0.343
+nights,nat,Canada,9-12 nights,0.176
+nights,nat,Canada,>13 nights,0.074
+nights,nat,Canada,Average,6.7
+nights,nat,China,Did not stay overnight,0.032
+nights,nat,China,1 night,0
+nights,nat,China,2-3 nights,0.038
+nights,nat,China,4-5 nights,0.384
+nights,nat,China,6-8 nights,0.381
+nights,nat,China,9-12 nights,0.09
+nights,nat,China,>13 nights,0.076
+nights,nat,China,Average,6.3
+nights,nat,Norway,Did not stay overnight,0.015
+nights,nat,Norway,1 night,0.011
+nights,nat,Norway,2-3 nights,0.243
+nights,nat,Norway,4-5 nights,0.199
+nights,nat,Norway,6-8 nights,0.328
+nights,nat,Norway,9-12 nights,0.132
+nights,nat,Norway,>13 nights,0.071
+nights,nat,Norway,Average,6.6
+nights,nat,Poland,Did not stay overnight,0.013
+nights,nat,Poland,1 night,0.01
+nights,nat,Poland,2-3 nights,0.144
+nights,nat,Poland,4-5 nights,0.23
+nights,nat,Poland,6-8 nights,0.335
+nights,nat,Poland,9-12 nights,0.211
+nights,nat,Poland,>13 nights,0.056
+nights,nat,Poland,Average,6.8
+nights,nat,Spain,Did not stay overnight,0.003
+nights,nat,Spain,1 night,0.002
+nights,nat,Spain,2-3 nights,0.029
+nights,nat,Spain,4-5 nights,0.157
+nights,nat,Spain,6-8 nights,0.395
+nights,nat,Spain,9-12 nights,0.34
+nights,nat,Spain,>13 nights,0.074
+nights,nat,Spain,Average,8.1
+nights,nat,Switzerland,Did not stay overnight,0.007
+nights,nat,Switzerland,1 night,0
+nights,nat,Switzerland,2-3 nights,0.045
+nights,nat,Switzerland,4-5 nights,0.096
+nights,nat,Switzerland,6-8 nights,0.273
+nights,nat,Switzerland,9-12 nights,0.355
+nights,nat,Switzerland,>13 nights,0.225
+nights,nat,Switzerland,Average,10.3
+nights,nat,Sweden,Did not stay overnight,0.028
+nights,nat,Sweden,1 night,0.001
+nights,nat,Sweden,2-3 nights,0.252
+nights,nat,Sweden,4-5 nights,0.314
+nights,nat,Sweden,6-8 nights,0.341
+nights,nat,Sweden,9-12 nights,0.042
+nights,nat,Sweden,>13 nights,0.021
+nights,nat,Sweden,Average,5.3
+nights,nat,Germany,Did not stay overnight,0.016
+nights,nat,Germany,1 night,0.01
+nights,nat,Germany,2-3 nights,0.033
+nights,nat,Germany,4-5 nights,0.114
+nights,nat,Germany,6-8 nights,0.241
+nights,nat,Germany,9-12 nights,0.327
+nights,nat,Germany,>13 nights,0.258
+nights,nat,Germany,Average,9.9
+nights,age,< 24 years,Did not stay overnight,0.038
+nights,age,< 24 years,1 night,0.026
+nights,age,< 24 years,2-3 nights,0.12
+nights,age,< 24 years,4-5 nights,0.268
+nights,age,< 24 years,6-8 nights,0.317
+nights,age,< 24 years,9-12 nights,0.166
+nights,age,< 24 years,>13 nights,0.065
+nights,age,< 24 years,Average,6.7
+nights,age,25-34 years,Did not stay overnight,0.017
+nights,age,25-34 years,1 night,0.014
+nights,age,25-34 years,2-3 nights,0.103
+nights,age,25-34 years,4-5 nights,0.202
+nights,age,25-34 years,6-8 nights,0.387
+nights,age,25-34 years,9-12 nights,0.198
+nights,age,25-34 years,>13 nights,0.079
+nights,age,25-34 years,Average,7.1
+nights,age,35-44 years,Did not stay overnight,0.02
+nights,age,35-44 years,1 night,0.025
+nights,age,35-44 years,2-3 nights,0.151
+nights,age,35-44 years,4-5 nights,0.199
+nights,age,35-44 years,6-8 nights,0.332
+nights,age,35-44 years,9-12 nights,0.184
+nights,age,35-44 years,>13 nights,0.089
+nights,age,35-44 years,Average,6.9
+nights,age,45-54 years,Did not stay overnight,0.016
+nights,age,45-54 years,1 night,0.02
+nights,age,45-54 years,2-3 nights,0.164
+nights,age,45-54 years,4-5 nights,0.213
+nights,age,45-54 years,6-8 nights,0.28
+nights,age,45-54 years,9-12 nights,0.19
+nights,age,45-54 years,>13 nights,0.117
+nights,age,45-54 years,Average,7.1
+nights,age,> 55 years,Did not stay overnight,0.009
+nights,age,> 55 years,1 night,0.025
+nights,age,> 55 years,2-3 nights,0.157
+nights,age,> 55 years,4-5 nights,0.231
+nights,age,> 55 years,6-8 nights,0.258
+nights,age,> 55 years,9-12 nights,0.205
+nights,age,> 55 years,>13 nights,0.115
+nights,age,> 55 years,Average,7.2
+regions,all,All,Reykjavík capital area,0.882
+regions,all,All,Reykjanes,0.651
+regions,all,All,West Iceland,0.5
+regions,all,All,West-fjords,0.159
+regions,all,All,North Iceland,0.354
+regions,all,All,East Iceland,0.315
+regions,all,All,South Iceland,0.803
+regions,nat,Australia,Reykjavík capital area,0.86
+regions,nat,Australia,Reykjanes,0.649
+regions,nat,Australia,West Iceland,0.548
+regions,nat,Australia,West-fjords,0.231
+regions,nat,Australia,North Iceland,0.435
+regions,nat,Australia,East Iceland,0.363
+regions,nat,Australia,South Iceland,0.862
+regions,nat,USA,Reykjavík capital area,0.875
+regions,nat,USA,Reykjanes,0.622
+regions,nat,USA,West Iceland,0.428
+regions,nat,USA,West-fjords,0.161
+regions,nat,USA,North Iceland,0.278
+regions,nat,USA,East Iceland,0.232
+regions,nat,USA,South Iceland,0.751
+regions,nat,United Kingdom,Reykjavík capital area,0.88
+regions,nat,United Kingdom,Reykjanes,0.572
+regions,nat,United Kingdom,West Iceland,0.312
+regions,nat,United Kingdom,West-fjords,0.065
+regions,nat,United Kingdom,North Iceland,0.158
+regions,nat,United Kingdom,East Iceland,0.097
+regions,nat,United Kingdom,South Iceland,0.649
+regions,nat,Denmark,Reykjavík capital area,0.862
+regions,nat,Denmark,Reykjanes,0.599
+regions,nat,Denmark,West Iceland,0.407
+regions,nat,Denmark,West-fjords,0.126
+regions,nat,Denmark,North Iceland,0.242
+regions,nat,Denmark,East Iceland,0.159
+regions,nat,Denmark,South Iceland,0.772
+regions,nat,France,Reykjavík capital area,0.884
+regions,nat,France,Reykjanes,0.703
+regions,nat,France,West Iceland,0.638
+regions,nat,France,West-fjords,0.166
+regions,nat,France,North Iceland,0.493
+regions,nat,France,East Iceland,0.476
+regions,nat,France,South Iceland,0.921
+regions,nat,Netherlands,Reykjavík capital area,0.747
+regions,nat,Netherlands,Reykjanes,0.736
+regions,nat,Netherlands,West Iceland,0.519
+regions,nat,Netherlands,West-fjords,0.201
+regions,nat,Netherlands,North Iceland,0.373
+regions,nat,Netherlands,East Iceland,0.304
+regions,nat,Netherlands,South Iceland,0.784
+regions,nat,India,Reykjavík capital area,0.93
+regions,nat,India,Reykjanes,0.624
+regions,nat,India,West Iceland,0.579
+regions,nat,India,West-fjords,0.222
+regions,nat,India,North Iceland,0.425
+regions,nat,India,East Iceland,0.417
+regions,nat,India,South Iceland,0.867
+regions,nat,Italy,Reykjavík capital area,0.902
+regions,nat,Italy,Reykjanes,0.742
+regions,nat,Italy,West Iceland,0.668
+regions,nat,Italy,West-fjords,0.193
+regions,nat,Italy,North Iceland,0.5
+regions,nat,Italy,East Iceland,0.501
+regions,nat,Italy,South Iceland,0.91
+regions,nat,Canada,Reykjavík capital area,0.831
+regions,nat,Canada,Reykjanes,0.653
+regions,nat,Canada,West Iceland,0.446
+regions,nat,Canada,West-fjords,0.128
+regions,nat,Canada,North Iceland,0.329
+regions,nat,Canada,East Iceland,0.319
+regions,nat,Canada,South Iceland,0.721
+regions,nat,China,Reykjavík capital area,0.964
+regions,nat,China,Reykjanes,0.577
+regions,nat,China,West Iceland,0.518
+regions,nat,China,West-fjords,0.131
+regions,nat,China,North Iceland,0.358
+regions,nat,China,East Iceland,0.357
+regions,nat,China,South Iceland,0.927
+regions,nat,Norway,Reykjavík capital area,0.918
+regions,nat,Norway,Reykjanes,0.657
+regions,nat,Norway,West Iceland,0.359
+regions,nat,Norway,West-fjords,0.17
+regions,nat,Norway,North Iceland,0.294
+regions,nat,Norway,East Iceland,0.305
+regions,nat,Norway,South Iceland,0.67
+regions,nat,Poland,Reykjavík capital area,0.848
+regions,nat,Poland,Reykjanes,0.815
+regions,nat,Poland,West Iceland,0.581
+regions,nat,Poland,West-fjords,0.171
+regions,nat,Poland,North Iceland,0.428
+regions,nat,Poland,East Iceland,0.379
+regions,nat,Poland,South Iceland,0.863
+regions,nat,Spain,Reykjavík capital area,0.922
+regions,nat,Spain,Reykjanes,0.794
+regions,nat,Spain,West Iceland,0.698
+regions,nat,Spain,West-fjords,0.171
+regions,nat,Spain,North Iceland,0.539
+regions,nat,Spain,East Iceland,0.545
+regions,nat,Spain,South Iceland,0.952
+regions,nat,Switzerland,Reykjavík capital area,0.888
+regions,nat,Switzerland,Reykjanes,0.681
+regions,nat,Switzerland,West Iceland,0.634
+regions,nat,Switzerland,West-fjords,0.224
+regions,nat,Switzerland,North Iceland,0.565
+regions,nat,Switzerland,East Iceland,0.466
+regions,nat,Switzerland,South Iceland,0.861
+regions,nat,Sweden,Reykjavík capital area,0.868
+regions,nat,Sweden,Reykjanes,0.633
+regions,nat,Sweden,West Iceland,0.364
+regions,nat,Sweden,West-fjords,0.084
+regions,nat,Sweden,North Iceland,0.189
+regions,nat,Sweden,East Iceland,0.115
+regions,nat,Sweden,South Iceland,0.659
+regions,nat,Germany,Reykjavík capital area,0.862
+regions,nat,Germany,Reykjanes,0.673
+regions,nat,Germany,West Iceland,0.593
+regions,nat,Germany,West-fjords,0.19
+regions,nat,Germany,North Iceland,0.519
+regions,nat,Germany,East Iceland,0.466
+regions,nat,Germany,South Iceland,0.868
+regions,age,< 24 years,Reykjavík capital area,0.88
+regions,age,< 24 years,Reykjanes,0.652
+regions,age,< 24 years,West Iceland,0.456
+regions,age,< 24 years,West-fjords,0.149
+regions,age,< 24 years,North Iceland,0.324
+regions,age,< 24 years,East Iceland,0.286
+regions,age,< 24 years,South Iceland,0.826
+regions,age,25-34 years,Reykjavík capital area,0.904
+regions,age,25-34 years,Reykjanes,0.686
+regions,age,25-34 years,West Iceland,0.545
+regions,age,25-34 years,West-fjords,0.155
+regions,age,25-34 years,North Iceland,0.37
+regions,age,25-34 years,East Iceland,0.346
+regions,age,25-34 years,South Iceland,0.845
+regions,age,35-44 years,Reykjavík capital area,0.879
+regions,age,35-44 years,Reykjanes,0.636
+regions,age,35-44 years,West Iceland,0.486
+regions,age,35-44 years,West-fjords,0.139
+regions,age,35-44 years,North Iceland,0.33
+regions,age,35-44 years,East Iceland,0.292
+regions,age,35-44 years,South Iceland,0.789
+regions,age,45-54 years,Reykjavík capital area,0.857
+regions,age,45-54 years,Reykjanes,0.64
+regions,age,45-54 years,West Iceland,0.478
+regions,age,45-54 years,West-fjords,0.134
+regions,age,45-54 years,North Iceland,0.344
+regions,age,45-54 years,East Iceland,0.31
+regions,age,45-54 years,South Iceland,0.772
+regions,age,> 55 years,Reykjavík capital area,0.865
+regions,age,> 55 years,Reykjanes,0.598
+regions,age,> 55 years,West Iceland,0.477
+regions,age,> 55 years,West-fjords,0.228
+regions,age,> 55 years,North Iceland,0.38
+regions,age,> 55 years,East Iceland,0.306
+regions,age,> 55 years,South Iceland,0.737
+activity,all,All,Nature bath,0.549
+activity,all,All,Spa or wellness,0.391
+activity,all,All,Museum,0.307
+activity,all,All,Sight-seeing tour by coach ¹,0.294
+activity,all,All,Whale watching,0.26
+activity,all,All,Glacier walking or ice climbing,0.23
+activity,all,All,Guided hiking or mountain trip,0.229
+activity,all,All,Swimming,0.202
+activity,all,All,Caving or ice caving,0.163
+activity,all,All,Northern lights tour,0.151
+activity,all,All,Seal watching,0.149
+activity,all,All,Meet the locals,0.139
+activity,all,All,Bird-watching,0.132
+activity,all,All,Boad trip²,0.086
+activity,all,All,Horse riding,0.085
+activity,all,All,Glacier snowmo-bile- and jeep tours,0.055
+activity,all,All,Cultural event ³,0.046
+activity,all,All,Diving or snorkeling,0.044
+activity,all,All,Local town festival,0.033
+activity,all,All,River rafting or kayaking tour,0.03
+activity,all,All,Sight-seeing flight,0.022
+activity,all,All,"Cycle-, 4-wheel- or segway tour",0.019
+activity,all,All,"Fishing, hunting",0.015
+activity,all,All,Golfing,0.01
+activity,all,All,Music festival,0.009
+activity,all,All,Skiing or snow-boarding,0.006
+activity,all,All,Other,0.169
+activity,nat,Australia,Nature bath,0.603
+activity,nat,Australia,Spa or wellness,0.396
+activity,nat,Australia,Museum,0.303
+activity,nat,Australia,Sight-seeing tour by coach ¹,0.415
+activity,nat,Australia,Whale watching,0.113
+activity,nat,Australia,Glacier walking or ice climbing,0.279
+activity,nat,Australia,Guided hiking or mountain trip,0.273
+activity,nat,Australia,Swimming,0.139
+activity,nat,Australia,Caving or ice caving,0.221
+activity,nat,Australia,Northern lights tour,0.205
+activity,nat,Australia,Seal watching,0.07
+activity,nat,Australia,Meet the locals,0.059
+activity,nat,Australia,Bird-watching,0.098
+activity,nat,Australia,Boad trip²,0.077
+activity,nat,Australia,Horse riding,0.075
+activity,nat,Australia,Glacier snowmo-bile- and jeep tours,0.059
+activity,nat,Australia,Cultural event ³,0.099
+activity,nat,Australia,Diving or snorkeling,0.134
+activity,nat,Australia,Local town festival,0.019
+activity,nat,Australia,River rafting or kayaking tour,0.012
+activity,nat,Australia,Sight-seeing flight,0.002
+activity,nat,Australia,"Cycle-, 4-wheel- or segway tour",0.019
+activity,nat,Australia,"Fishing, hunting",0.028
+activity,nat,Australia,Golfing,0.014
+activity,nat,Australia,Music festival,0.017
+activity,nat,Australia,Skiing or snow-boarding,0.012
+activity,nat,Australia,Other,0.128
+activity,nat,USA,Nature bath,0.573
+activity,nat,USA,Spa or wellness,0.417
+activity,nat,USA,Museum,0.365
+activity,nat,USA,Sight-seeing tour by coach ¹,0.331
+activity,nat,USA,Whale watching,0.194
+activity,nat,USA,Glacier walking or ice climbing,0.202
+activity,nat,USA,Guided hiking or mountain trip,0.219
+activity,nat,USA,Swimming,0.257
+activity,nat,USA,Caving or ice caving,0.16
+activity,nat,USA,Northern lights tour,0.115
+activity,nat,USA,Seal watching,0.069
+activity,nat,USA,Meet the locals,0.219
+activity,nat,USA,Bird-watching,0.127
+activity,nat,USA,Boad trip²,0.109
+activity,nat,USA,Horse riding,0.103
+activity,nat,USA,Glacier snowmo-bile- and jeep tours,0.055
+activity,nat,USA,Cultural event ³,0.045
+activity,nat,USA,Diving or snorkeling,0.059
+activity,nat,USA,Local town festival,0.047
+activity,nat,USA,River rafting or kayaking tour,0.031
+activity,nat,USA,Sight-seeing flight,0.029
+activity,nat,USA,"Cycle-, 4-wheel- or segway tour",0.014
+activity,nat,USA,"Fishing, hunting",0.019
+activity,nat,USA,Golfing,0.018
+activity,nat,USA,Music festival,0.009
+activity,nat,USA,Skiing or snow-boarding,0.004
+activity,nat,USA,Other,0.188
+activity,nat,United Kingdom,Nature bath,0.496
+activity,nat,United Kingdom,Spa or wellness,0.415
+activity,nat,United Kingdom,Museum,0.323
+activity,nat,United Kingdom,Sight-seeing tour by coach ¹,0.446
+activity,nat,United Kingdom,Whale watching,0.25
+activity,nat,United Kingdom,Glacier walking or ice climbing,0.164
+activity,nat,United Kingdom,Guided hiking or mountain trip,0.146
+activity,nat,United Kingdom,Swimming,0.277
+activity,nat,United Kingdom,Caving or ice caving,0.089
+activity,nat,United Kingdom,Northern lights tour,0.264
+activity,nat,United Kingdom,Seal watching,0.05
+activity,nat,United Kingdom,Meet the locals,0.138
+activity,nat,United Kingdom,Bird-watching,0.072
+activity,nat,United Kingdom,Boad trip²,0.058
+activity,nat,United Kingdom,Horse riding,0.058
+activity,nat,United Kingdom,Glacier snowmo-bile- and jeep tours,0.071
+activity,nat,United Kingdom,Cultural event ³,0.047
+activity,nat,United Kingdom,Diving or snorkeling,0.035
+activity,nat,United Kingdom,Local town festival,0.019
+activity,nat,United Kingdom,River rafting or kayaking tour,0.019
+activity,nat,United Kingdom,Sight-seeing flight,0.022
+activity,nat,United Kingdom,"Cycle-, 4-wheel- or segway tour",0.009
+activity,nat,United Kingdom,"Fishing, hunting",0.013
+activity,nat,United Kingdom,Golfing,0.008
+activity,nat,United Kingdom,Music festival,0.002
+activity,nat,United Kingdom,Skiing or snow-boarding,0.006
+activity,nat,United Kingdom,Other,0.167
+activity,nat,Denmark,Nature bath,0.486
+activity,nat,Denmark,Spa or wellness,0.414
+activity,nat,Denmark,Museum,0.339
+activity,nat,Denmark,Sight-seeing tour by coach ¹,0.288
+activity,nat,Denmark,Whale watching,0.291
+activity,nat,Denmark,Glacier walking or ice climbing,0.092
+activity,nat,Denmark,Guided hiking or mountain trip,0.053
+activity,nat,Denmark,Swimming,0.232
+activity,nat,Denmark,Caving or ice caving,0.154
+activity,nat,Denmark,Northern lights tour,0.124
+activity,nat,Denmark,Seal watching,0.051
+activity,nat,Denmark,Meet the locals,0.056
+activity,nat,Denmark,Bird-watching,0.172
+activity,nat,Denmark,Boad trip²,0.124
+activity,nat,Denmark,Horse riding,0.188
+activity,nat,Denmark,Glacier snowmo-bile- and jeep tours,0.031
+activity,nat,Denmark,Cultural event ³,0.06
+activity,nat,Denmark,Diving or snorkeling,0.049
+activity,nat,Denmark,Local town festival,0.024
+activity,nat,Denmark,River rafting or kayaking tour,0.028
+activity,nat,Denmark,Sight-seeing flight,0.005
+activity,nat,Denmark,"Cycle-, 4-wheel- or segway tour",0
+activity,nat,Denmark,"Fishing, hunting",0
+activity,nat,Denmark,Golfing,0
+activity,nat,Denmark,Music festival,0.004
+activity,nat,Denmark,Skiing or snow-boarding,0.014
+activity,nat,Denmark,Other,0.221
+activity,nat,France,Nature bath,0.429
+activity,nat,France,Spa or wellness,0.503
+activity,nat,France,Museum,0.319
+activity,nat,France,Sight-seeing tour by coach ¹,0.141
+activity,nat,France,Whale watching,0.406
+activity,nat,France,Glacier walking or ice climbing,0.258
+activity,nat,France,Guided hiking or mountain trip,0.407
+activity,nat,France,Swimming,0.137
+activity,nat,France,Caving or ice caving,0.075
+activity,nat,France,Northern lights tour,0.1
+activity,nat,France,Seal watching,0.312
+activity,nat,France,Meet the locals,0.014
+activity,nat,France,Bird-watching,0.184
+activity,nat,France,Boad trip²,0.12
+activity,nat,France,Horse riding,0.041
+activity,nat,France,Glacier snowmo-bile- and jeep tours,0.032
+activity,nat,France,Cultural event ³,0.032
+activity,nat,France,Diving or snorkeling,0.042
+activity,nat,France,Local town festival,0.025
+activity,nat,France,River rafting or kayaking tour,0.03
+activity,nat,France,Sight-seeing flight,0.001
+activity,nat,France,"Cycle-, 4-wheel- or segway tour",0.012
+activity,nat,France,"Fishing, hunting",0.002
+activity,nat,France,Golfing,0.001
+activity,nat,France,Music festival,0.008
+activity,nat,France,Skiing or snow-boarding,0.004
+activity,nat,France,Other,0.114
+activity,nat,Netherlands,Nature bath,0.661
+activity,nat,Netherlands,Spa or wellness,0.43
+activity,nat,Netherlands,Museum,0.251
+activity,nat,Netherlands,Sight-seeing tour by coach ¹,0.117
+activity,nat,Netherlands,Whale watching,0.27
+activity,nat,Netherlands,Glacier walking or ice climbing,0.149
+activity,nat,Netherlands,Guided hiking or mountain trip,0.186
+activity,nat,Netherlands,Swimming,0.225
+activity,nat,Netherlands,Caving or ice caving,0.188
+activity,nat,Netherlands,Northern lights tour,0.03
+activity,nat,Netherlands,Seal watching,0.184
+activity,nat,Netherlands,Meet the locals,0.072
+activity,nat,Netherlands,Bird-watching,0.132
+activity,nat,Netherlands,Boad trip²,0.103
+activity,nat,Netherlands,Horse riding,0.181
+activity,nat,Netherlands,Glacier snowmo-bile- and jeep tours,0.071
+activity,nat,Netherlands,Cultural event ³,0.025
+activity,nat,Netherlands,Diving or snorkeling,0.098
+activity,nat,Netherlands,Local town festival,0.01
+activity,nat,Netherlands,River rafting or kayaking tour,0.008
+activity,nat,Netherlands,Sight-seeing flight,0.018
+activity,nat,Netherlands,"Cycle-, 4-wheel- or segway tour",0
+activity,nat,Netherlands,"Fishing, hunting",0.012
+activity,nat,Netherlands,Golfing,0.006
+activity,nat,Netherlands,Music festival,0.01
+activity,nat,Netherlands,Skiing or snow-boarding,0.009
+activity,nat,Netherlands,Other,0.315
+activity,nat,India,Nature bath,0.381
+activity,nat,India,Spa or wellness,0.239
+activity,nat,India,Museum,0.342
+activity,nat,India,Sight-seeing tour by coach ¹,0.314
+activity,nat,India,Whale watching,0.231
+activity,nat,India,Glacier walking or ice climbing,0.266
+activity,nat,India,Guided hiking or mountain trip,0.143
+activity,nat,India,Swimming,0.092
+activity,nat,India,Caving or ice caving,0.295
+activity,nat,India,Northern lights tour,0.179
+activity,nat,India,Seal watching,0.258
+activity,nat,India,Meet the locals,0.265
+activity,nat,India,Bird-watching,0.19
+activity,nat,India,Boad trip²,0.136
+activity,nat,India,Horse riding,0.096
+activity,nat,India,Glacier snowmo-bile- and jeep tours,0.156
+activity,nat,India,Cultural event ³,0.085
+activity,nat,India,Diving or snorkeling,0.125
+activity,nat,India,Local town festival,0
+activity,nat,India,River rafting or kayaking tour,0.132
+activity,nat,India,Sight-seeing flight,0.115
+activity,nat,India,"Cycle-, 4-wheel- or segway tour",0.084
+activity,nat,India,"Fishing, hunting",0.062
+activity,nat,India,Golfing,0
+activity,nat,India,Music festival,0.064
+activity,nat,India,Skiing or snow-boarding,0.016
+activity,nat,India,Other,0.208
+activity,nat,Italy,Nature bath,0.509
+activity,nat,Italy,Spa or wellness,0.421
+activity,nat,Italy,Museum,0.148
+activity,nat,Italy,Sight-seeing tour by coach ¹,0.135
+activity,nat,Italy,Whale watching,0.406
+activity,nat,Italy,Glacier walking or ice climbing,0.262
+activity,nat,Italy,Guided hiking or mountain trip,0.413
+activity,nat,Italy,Swimming,0.064
+activity,nat,Italy,Caving or ice caving,0.189
+activity,nat,Italy,Northern lights tour,0.147
+activity,nat,Italy,Seal watching,0.385
+activity,nat,Italy,Meet the locals,0.031
+activity,nat,Italy,Bird-watching,0.091
+activity,nat,Italy,Boad trip²,0.064
+activity,nat,Italy,Horse riding,0.045
+activity,nat,Italy,Glacier snowmo-bile- and jeep tours,0.043
+activity,nat,Italy,Cultural event ³,0.036
+activity,nat,Italy,Diving or snorkeling,0.023
+activity,nat,Italy,Local town festival,0.023
+activity,nat,Italy,River rafting or kayaking tour,0.032
+activity,nat,Italy,Sight-seeing flight,0.004
+activity,nat,Italy,"Cycle-, 4-wheel- or segway tour",0.005
+activity,nat,Italy,"Fishing, hunting",0.007
+activity,nat,Italy,Golfing,0.004
+activity,nat,Italy,Music festival,0.022
+activity,nat,Italy,Skiing or snow-boarding,0.001
+activity,nat,Italy,Other,0.103
+activity,nat,Canada,Nature bath,0.622
+activity,nat,Canada,Spa or wellness,0.481
+activity,nat,Canada,Museum,0.379
+activity,nat,Canada,Sight-seeing tour by coach ¹,0.289
+activity,nat,Canada,Whale watching,0.246
+activity,nat,Canada,Glacier walking or ice climbing,0.175
+activity,nat,Canada,Guided hiking or mountain trip,0.171
+activity,nat,Canada,Swimming,0.179
+activity,nat,Canada,Caving or ice caving,0.149
+activity,nat,Canada,Northern lights tour,0.097
+activity,nat,Canada,Seal watching,0.109
+activity,nat,Canada,Meet the locals,0.233
+activity,nat,Canada,Bird-watching,0.114
+activity,nat,Canada,Boad trip²,0.055
+activity,nat,Canada,Horse riding,0.079
+activity,nat,Canada,Glacier snowmo-bile- and jeep tours,0.011
+activity,nat,Canada,Cultural event ³,0.099
+activity,nat,Canada,Diving or snorkeling,0.034
+activity,nat,Canada,Local town festival,0.067
+activity,nat,Canada,River rafting or kayaking tour,0.035
+activity,nat,Canada,Sight-seeing flight,0.036
+activity,nat,Canada,"Cycle-, 4-wheel- or segway tour",0.013
+activity,nat,Canada,"Fishing, hunting",0.012
+activity,nat,Canada,Golfing,0.009
+activity,nat,Canada,Music festival,0.004
+activity,nat,Canada,Skiing or snow-boarding,0.01
+activity,nat,Canada,Other,0.187
+activity,nat,China,Nature bath,0.421
+activity,nat,China,Spa or wellness,0.148
+activity,nat,China,Museum,0.226
+activity,nat,China,Sight-seeing tour by coach ¹,0.354
+activity,nat,China,Whale watching,0.26
+activity,nat,China,Glacier walking or ice climbing,0.525
+activity,nat,China,Guided hiking or mountain trip,0.413
+activity,nat,China,Swimming,0.051
+activity,nat,China,Caving or ice caving,0.42
+activity,nat,China,Northern lights tour,0.296
+activity,nat,China,Seal watching,0.166
+activity,nat,China,Meet the locals,0.025
+activity,nat,China,Bird-watching,0.03
+activity,nat,China,Boad trip²,0.042
+activity,nat,China,Horse riding,0.041
+activity,nat,China,Glacier snowmo-bile- and jeep tours,0.021
+activity,nat,China,Cultural event ³,0.058
+activity,nat,China,Diving or snorkeling,0.02
+activity,nat,China,Local town festival,0.003
+activity,nat,China,River rafting or kayaking tour,0.063
+activity,nat,China,Sight-seeing flight,0.031
+activity,nat,China,"Cycle-, 4-wheel- or segway tour",0.07
+activity,nat,China,"Fishing, hunting",0.031
+activity,nat,China,Golfing,0
+activity,nat,China,Music festival,0.01
+activity,nat,China,Skiing or snow-boarding,0
+activity,nat,China,Other,0.017
+activity,nat,Norway,Nature bath,0.393
+activity,nat,Norway,Spa or wellness,0.336
+activity,nat,Norway,Museum,0.305
+activity,nat,Norway,Sight-seeing tour by coach ¹,0.21
+activity,nat,Norway,Whale watching,0.156
+activity,nat,Norway,Glacier walking or ice climbing,0
+activity,nat,Norway,Guided hiking or mountain trip,0.052
+activity,nat,Norway,Swimming,0.267
+activity,nat,Norway,Caving or ice caving,0.034
+activity,nat,Norway,Northern lights tour,0.003
+activity,nat,Norway,Seal watching,0.101
+activity,nat,Norway,Meet the locals,0.186
+activity,nat,Norway,Bird-watching,0.052
+activity,nat,Norway,Boad trip²,0.052
+activity,nat,Norway,Horse riding,0.048
+activity,nat,Norway,Glacier snowmo-bile- and jeep tours,0
+activity,nat,Norway,Cultural event ³,0.094
+activity,nat,Norway,Diving or snorkeling,0
+activity,nat,Norway,Local town festival,0.014
+activity,nat,Norway,River rafting or kayaking tour,0.027
+activity,nat,Norway,Sight-seeing flight,0
+activity,nat,Norway,"Cycle-, 4-wheel- or segway tour",0
+activity,nat,Norway,"Fishing, hunting",0.034
+activity,nat,Norway,Golfing,0.057
+activity,nat,Norway,Music festival,0.006
+activity,nat,Norway,Skiing or snow-boarding,0.007
+activity,nat,Norway,Other,0.356
+activity,nat,Poland,Nature bath,0.586
+activity,nat,Poland,Spa or wellness,0.322
+activity,nat,Poland,Museum,0.211
+activity,nat,Poland,Sight-seeing tour by coach ¹,0.069
+activity,nat,Poland,Whale watching,0.338
+activity,nat,Poland,Glacier walking or ice climbing,0.348
+activity,nat,Poland,Guided hiking or mountain trip,0.223
+activity,nat,Poland,Swimming,0.233
+activity,nat,Poland,Caving or ice caving,0.16
+activity,nat,Poland,Northern lights tour,0.175
+activity,nat,Poland,Seal watching,0.375
+activity,nat,Poland,Meet the locals,0.075
+activity,nat,Poland,Bird-watching,0.352
+activity,nat,Poland,Boad trip²,0.054
+activity,nat,Poland,Horse riding,0.033
+activity,nat,Poland,Glacier snowmo-bile- and jeep tours,0.042
+activity,nat,Poland,Cultural event ³,0.028
+activity,nat,Poland,Diving or snorkeling,0.03
+activity,nat,Poland,Local town festival,0.041
+activity,nat,Poland,River rafting or kayaking tour,0.021
+activity,nat,Poland,Sight-seeing flight,0.018
+activity,nat,Poland,"Cycle-, 4-wheel- or segway tour",0.018
+activity,nat,Poland,"Fishing, hunting",0.005
+activity,nat,Poland,Golfing,0.022
+activity,nat,Poland,Music festival,0.008
+activity,nat,Poland,Skiing or snow-boarding,0.002
+activity,nat,Poland,Other,0.167
+activity,nat,Spain,Nature bath,0.768
+activity,nat,Spain,Spa or wellness,0.412
+activity,nat,Spain,Museum,0.234
+activity,nat,Spain,Sight-seeing tour by coach ¹,0.269
+activity,nat,Spain,Whale watching,0.369
+activity,nat,Spain,Glacier walking or ice climbing,0.347
+activity,nat,Spain,Guided hiking or mountain trip,0.21
+activity,nat,Spain,Swimming,0.034
+activity,nat,Spain,Caving or ice caving,0.073
+activity,nat,Spain,Northern lights tour,0.061
+activity,nat,Spain,Seal watching,0.351
+activity,nat,Spain,Meet the locals,0.039
+activity,nat,Spain,Bird-watching,0.227
+activity,nat,Spain,Boad trip²,0.186
+activity,nat,Spain,Horse riding,0.008
+activity,nat,Spain,Glacier snowmo-bile- and jeep tours,0.048
+activity,nat,Spain,Cultural event ³,0.015
+activity,nat,Spain,Diving or snorkeling,0.016
+activity,nat,Spain,Local town festival,0.009
+activity,nat,Spain,River rafting or kayaking tour,0.017
+activity,nat,Spain,Sight-seeing flight,0.003
+activity,nat,Spain,"Cycle-, 4-wheel- or segway tour",0.024
+activity,nat,Spain,"Fishing, hunting",0.001
+activity,nat,Spain,Golfing,0
+activity,nat,Spain,Music festival,0.009
+activity,nat,Spain,Skiing or snow-boarding,0
+activity,nat,Spain,Other,0.22
+activity,nat,Switzerland,Nature bath,0.504
+activity,nat,Switzerland,Spa or wellness,0.553
+activity,nat,Switzerland,Museum,0.461
+activity,nat,Switzerland,Sight-seeing tour by coach ¹,0.155
+activity,nat,Switzerland,Whale watching,0.476
+activity,nat,Switzerland,Glacier walking or ice climbing,0.213
+activity,nat,Switzerland,Guided hiking or mountain trip,0.136
+activity,nat,Switzerland,Swimming,0.11
+activity,nat,Switzerland,Caving or ice caving,0.165
+activity,nat,Switzerland,Northern lights tour,0.079
+activity,nat,Switzerland,Seal watching,0.325
+activity,nat,Switzerland,Meet the locals,0.018
+activity,nat,Switzerland,Bird-watching,0.236
+activity,nat,Switzerland,Boad trip²,0.166
+activity,nat,Switzerland,Horse riding,0.128
+activity,nat,Switzerland,Glacier snowmo-bile- and jeep tours,0.035
+activity,nat,Switzerland,Cultural event ³,0.05
+activity,nat,Switzerland,Diving or snorkeling,0.024
+activity,nat,Switzerland,Local town festival,0.067
+activity,nat,Switzerland,River rafting or kayaking tour,0.086
+activity,nat,Switzerland,Sight-seeing flight,0.004
+activity,nat,Switzerland,"Cycle-, 4-wheel- or segway tour",0.024
+activity,nat,Switzerland,"Fishing, hunting",0
+activity,nat,Switzerland,Golfing,0.005
+activity,nat,Switzerland,Music festival,0.008
+activity,nat,Switzerland,Skiing or snow-boarding,0
+activity,nat,Switzerland,Other,0.119
+activity,nat,Sweden,Nature bath,0.404
+activity,nat,Sweden,Spa or wellness,0.309
+activity,nat,Sweden,Museum,0.309
+activity,nat,Sweden,Sight-seeing tour by coach ¹,0.188
+activity,nat,Sweden,Whale watching,0.22
+activity,nat,Sweden,Glacier walking or ice climbing,0.053
+activity,nat,Sweden,Guided hiking or mountain trip,0.038
+activity,nat,Sweden,Swimming,0.334
+activity,nat,Sweden,Caving or ice caving,0.006
+activity,nat,Sweden,Northern lights tour,0.139
+activity,nat,Sweden,Seal watching,0.061
+activity,nat,Sweden,Meet the locals,0.182
+activity,nat,Sweden,Bird-watching,0.132
+activity,nat,Sweden,Boad trip²,0.01
+activity,nat,Sweden,Horse riding,0.164
+activity,nat,Sweden,Glacier snowmo-bile- and jeep tours,0.005
+activity,nat,Sweden,Cultural event ³,0.019
+activity,nat,Sweden,Diving or snorkeling,0.009
+activity,nat,Sweden,Local town festival,0.004
+activity,nat,Sweden,River rafting or kayaking tour,0
+activity,nat,Sweden,Sight-seeing flight,0.048
+activity,nat,Sweden,"Cycle-, 4-wheel- or segway tour",0.006
+activity,nat,Sweden,"Fishing, hunting",0
+activity,nat,Sweden,Golfing,0.005
+activity,nat,Sweden,Music festival,0
+activity,nat,Sweden,Skiing or snow-boarding,0
+activity,nat,Sweden,Other,0.216
+activity,nat,Germany,Nature bath,0.632
+activity,nat,Germany,Spa or wellness,0.303
+activity,nat,Germany,Museum,0.364
+activity,nat,Germany,Sight-seeing tour by coach ¹,0.25
+activity,nat,Germany,Whale watching,0.387
+activity,nat,Germany,Glacier walking or ice climbing,0.164
+activity,nat,Germany,Guided hiking or mountain trip,0.135
+activity,nat,Germany,Swimming,0.244
+activity,nat,Germany,Caving or ice caving,0.189
+activity,nat,Germany,Northern lights tour,0.1
+activity,nat,Germany,Seal watching,0.15
+activity,nat,Germany,Meet the locals,0.081
+activity,nat,Germany,Bird-watching,0.176
+activity,nat,Germany,Boad trip²,0.044
+activity,nat,Germany,Horse riding,0.164
+activity,nat,Germany,Glacier snowmo-bile- and jeep tours,0.067
+activity,nat,Germany,Cultural event ³,0.027
+activity,nat,Germany,Diving or snorkeling,0.038
+activity,nat,Germany,Local town festival,0.043
+activity,nat,Germany,River rafting or kayaking tour,0.014
+activity,nat,Germany,Sight-seeing flight,0.015
+activity,nat,Germany,"Cycle-, 4-wheel- or segway tour",0.035
+activity,nat,Germany,"Fishing, hunting",0.007
+activity,nat,Germany,Golfing,0.001
+activity,nat,Germany,Music festival,0.01
+activity,nat,Germany,Skiing or snow-boarding,0.009
+activity,nat,Germany,Other,0.149
+activity,age,< 24 years,Nature bath,0.538
+activity,age,< 24 years,Spa or wellness,0.356
+activity,age,< 24 years,Museum,0.298
+activity,age,< 24 years,Sight-seeing tour by coach ¹,0.325
+activity,age,< 24 years,Whale watching,0.259
+activity,age,< 24 years,Glacier walking or ice climbing,0.247
+activity,age,< 24 years,Guided hiking or mountain trip,0.312
+activity,age,< 24 years,Swimming,0.246
+activity,age,< 24 years,Caving or ice caving,0.207
+activity,age,< 24 years,Northern lights tour,0.192
+activity,age,< 24 years,Seal watching,0.145
+activity,age,< 24 years,Meet the locals,0.122
+activity,age,< 24 years,Bird-watching,0.108
+activity,age,< 24 years,Boad trip²,0.056
+activity,age,< 24 years,Horse riding,0.079
+activity,age,< 24 years,Glacier snowmo-bile- and jeep tours,0.057
+activity,age,< 24 years,Cultural event ³,0.042
+activity,age,< 24 years,Diving or snorkeling,0.062
+activity,age,< 24 years,Local town festival,0.039
+activity,age,< 24 years,River rafting or kayaking tour,0.032
+activity,age,< 24 years,Sight-seeing flight,0.022
+activity,age,< 24 years,"Cycle-, 4-wheel- or segway tour",0.008
+activity,age,< 24 years,"Fishing, hunting",0.013
+activity,age,< 24 years,Golfing,0.002
+activity,age,< 24 years,Music festival,0.012
+activity,age,< 24 years,Skiing or snow-boarding,0.009
+activity,age,< 24 years,Other,0.136
+activity,age,25-34 years,Nature bath,0.574
+activity,age,25-34 years,Spa or wellness,0.442
+activity,age,25-34 years,Museum,0.273
+activity,age,25-34 years,Sight-seeing tour by coach ¹,0.236
+activity,age,25-34 years,Whale watching,0.263
+activity,age,25-34 years,Glacier walking or ice climbing,0.277
+activity,age,25-34 years,Guided hiking or mountain trip,0.254
+activity,age,25-34 years,Swimming,0.203
+activity,age,25-34 years,Caving or ice caving,0.171
+activity,age,25-34 years,Northern lights tour,0.17
+activity,age,25-34 years,Seal watching,0.18
+activity,age,25-34 years,Meet the locals,0.122
+activity,age,25-34 years,Bird-watching,0.126
+activity,age,25-34 years,Boad trip²,0.075
+activity,age,25-34 years,Horse riding,0.084
+activity,age,25-34 years,Glacier snowmo-bile- and jeep tours,0.056
+activity,age,25-34 years,Cultural event ³,0.048
+activity,age,25-34 years,Diving or snorkeling,0.058
+activity,age,25-34 years,Local town festival,0.031
+activity,age,25-34 years,River rafting or kayaking tour,0.037
+activity,age,25-34 years,Sight-seeing flight,0.024
+activity,age,25-34 years,"Cycle-, 4-wheel- or segway tour",0.029
+activity,age,25-34 years,"Fishing, hunting",0.021
+activity,age,25-34 years,Golfing,0.016
+activity,age,25-34 years,Music festival,0.012
+activity,age,25-34 years,Skiing or snow-boarding,0.007
+activity,age,25-34 years,Other,0.172
+activity,age,35-44 years,Nature bath,0.536
+activity,age,35-44 years,Spa or wellness,0.425
+activity,age,35-44 years,Museum,0.276
+activity,age,35-44 years,Sight-seeing tour by coach ¹,0.262
+activity,age,35-44 years,Whale watching,0.27
+activity,age,35-44 years,Glacier walking or ice climbing,0.207
+activity,age,35-44 years,Guided hiking or mountain trip,0.194
+activity,age,35-44 years,Swimming,0.246
+activity,age,35-44 years,Caving or ice caving,0.173
+activity,age,35-44 years,Northern lights tour,0.141
+activity,age,35-44 years,Seal watching,0.184
+activity,age,35-44 years,Meet the locals,0.155
+activity,age,35-44 years,Bird-watching,0.134
+activity,age,35-44 years,Boad trip²,0.071
+activity,age,35-44 years,Horse riding,0.113
+activity,age,35-44 years,Glacier snowmo-bile- and jeep tours,0.052
+activity,age,35-44 years,Cultural event ³,0.034
+activity,age,35-44 years,Diving or snorkeling,0.05
+activity,age,35-44 years,Local town festival,0.029
+activity,age,35-44 years,River rafting or kayaking tour,0.039
+activity,age,35-44 years,Sight-seeing flight,0.022
+activity,age,35-44 years,"Cycle-, 4-wheel- or segway tour",0.015
+activity,age,35-44 years,"Fishing, hunting",0.01
+activity,age,35-44 years,Golfing,0.007
+activity,age,35-44 years,Music festival,0.007
+activity,age,35-44 years,Skiing or snow-boarding,0.008
+activity,age,35-44 years,Other,0.181
+activity,age,45-54 years,Nature bath,0.57
+activity,age,45-54 years,Spa or wellness,0.379
+activity,age,45-54 years,Museum,0.318
+activity,age,45-54 years,Sight-seeing tour by coach ¹,0.309
+activity,age,45-54 years,Whale watching,0.235
+activity,age,45-54 years,Glacier walking or ice climbing,0.213
+activity,age,45-54 years,Guided hiking or mountain trip,0.225
+activity,age,45-54 years,Swimming,0.187
+activity,age,45-54 years,Caving or ice caving,0.137
+activity,age,45-54 years,Northern lights tour,0.113
+activity,age,45-54 years,Seal watching,0.089
+activity,age,45-54 years,Meet the locals,0.149
+activity,age,45-54 years,Bird-watching,0.146
+activity,age,45-54 years,Boad trip²,0.091
+activity,age,45-54 years,Horse riding,0.078
+activity,age,45-54 years,Glacier snowmo-bile- and jeep tours,0.05
+activity,age,45-54 years,Cultural event ³,0.045
+activity,age,45-54 years,Diving or snorkeling,0.021
+activity,age,45-54 years,Local town festival,0.027
+activity,age,45-54 years,River rafting or kayaking tour,0.024
+activity,age,45-54 years,Sight-seeing flight,0.013
+activity,age,45-54 years,"Cycle-, 4-wheel- or segway tour",0.013
+activity,age,45-54 years,"Fishing, hunting",0.002
+activity,age,45-54 years,Golfing,0.007
+activity,age,45-54 years,Music festival,0.01
+activity,age,45-54 years,Skiing or snow-boarding,0.002
+activity,age,45-54 years,Other,0.168
+activity,age,> 55 years,Nature bath,0.499
+activity,age,> 55 years,Spa or wellness,0.281
+activity,age,> 55 years,Museum,0.413
+activity,age,> 55 years,Sight-seeing tour by coach ¹,0.416
+activity,age,> 55 years,Whale watching,0.27
+activity,age,> 55 years,Glacier walking or ice climbing,0.161
+activity,age,> 55 years,Guided hiking or mountain trip,0.151
+activity,age,> 55 years,Swimming,0.126
+activity,age,> 55 years,Caving or ice caving,0.127
+activity,age,> 55 years,Northern lights tour,0.131
+activity,age,> 55 years,Seal watching,0.11
+activity,age,> 55 years,Meet the locals,0.157
+activity,age,> 55 years,Bird-watching,0.146
+activity,age,> 55 years,Boad trip²,0.148
+activity,age,> 55 years,Horse riding,0.066
+activity,age,> 55 years,Glacier snowmo-bile- and jeep tours,0.06
+activity,age,> 55 years,Cultural event ³,0.059
+activity,age,> 55 years,Diving or snorkeling,0.017
+activity,age,> 55 years,Local town festival,0.045
+activity,age,> 55 years,River rafting or kayaking tour,0.011
+activity,age,> 55 years,Sight-seeing flight,0.024
+activity,age,> 55 years,"Cycle-, 4-wheel- or segway tour",0.02
+activity,age,> 55 years,"Fishing, hunting",0.024
+activity,age,> 55 years,Golfing,0.008
+activity,age,> 55 years,Music festival,0.002
+activity,age,> 55 years,Skiing or snow-boarding,0.002
+activity,age,> 55 years,Other,0.175

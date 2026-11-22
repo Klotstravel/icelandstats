@@ -135,6 +135,25 @@
 .is-mu .down{color:var(--color-bad)}
 .is-mu .up{color:var(--color-ok)}
 .is-cp .sum{font-weight:var(--cds-font-weight-medium);border-top:2px solid var(--color-border-line)}
+.is-v49,.is-tr,.is-fr{display:grid;gap:6px;align-items:center;padding:4px 0;border-bottom:1px solid var(--color-border-line)}
+.is-v49{grid-template-columns:56px 110px 80px}
+.is-tr{grid-template-columns:48px 110px 80px 90px 90px}
+.is-fr{grid-template-columns:minmax(210px,1.6fr) repeat(8,74px)}
+.is-tbl-v49{min-width:260px;max-width:420px}.is-tbl-tr{min-width:440px}.is-tbl-fr{min-width:830px}
+.is-v49.h,.is-tr.h,.is-fr.h{color:var(--color-fg-muted);font-weight:var(--cds-font-weight-medium);align-items:end}
+.is-v49.h > div,.is-tr.h > div,.is-fr.h > div{white-space:normal !important;line-height:1.2}
+.is-v49 > div:nth-child(n+2),.is-tr > div:nth-child(n+2),.is-fr > div:nth-child(n+2){text-align:right;white-space:nowrap}
+.is-v49 > div:nth-child(1),.is-tr > div:nth-child(1),.is-fr > div:nth-child(1){position:sticky;left:0;background:var(--color-panel);z-index:1;box-shadow:6px 0 0 var(--color-panel);font-weight:var(--cds-font-weight-medium)}
+.is-fr > div:nth-child(1) small{display:block;color:var(--color-fg-muted);font-weight:normal}
+.is-v49 .p,.is-tr .p,.is-fr .p{color:var(--color-fg-muted)}
+.is-v49 .up,.is-tr .up{color:var(--color-ok)}.is-v49 .down,.is-tr .down{color:var(--color-bad)}
+.is-fr .avg{font-weight:var(--cds-font-weight-medium)}
+.is-hb{display:grid;grid-template-columns:minmax(120px,240px) 1fr 76px;gap:8px;align-items:center;padding:3px 0}
+.is-hb .bar{height:14px;border-radius:3px;background:var(--cds-chart-muted);overflow:hidden}
+.is-hb .bar > span{display:block;height:100%;background:var(--chart-1, #3b6fd4);border-radius:3px}
+.is-hb .v{text-align:right;font-variant-numeric:tabular-nums}
+.is-hb .cmp{color:var(--color-fg-muted);font-size:12px;white-space:nowrap}
+@media (max-width:600px){.is-hb{grid-template-columns:44% 1fr 64px;gap:6px}}
 </style>
 <div class="is-wrap">
   <header id="top">
@@ -273,6 +292,74 @@
         </div>
       </div>
       <p class="is-note">Млрд ISK без НДС, по декларациям НДС компаний; каждая компания отнесена к своей основной отрасли. «Изм.» — изменение оборота «Всего» к прошлому году. «Прокат» — прокат машин и снаряжения; «Турфирмы (за рубеж)» — продажа поездок за границу. Не входят отрасли, освобождённые от НДС: внутренние регулярные авиарейсы, общественный транспорт, такси, паромы. 2026* — январь–август, предварительно. Источник: Statistics Iceland, таблица SAM08050.</p>
+    </div>
+  </details>
+
+  <details class="is-card" id="visitors-1949">
+    <summary><h2 class="is-h">Иностранные туристы с 1949 года</h2></summary>
+    <div class="is-body">
+      <p class="is-take" data-draw="vtake49" data-source="visitors49">—</p>
+      <div class="is-tw">
+        <div class="is-tbl is-tbl-v49">
+          <div class="is-v49 h"><div>Год</div><div>Туристов</div><div>Изм.</div></div>
+          <div data-draw="vtable49" data-source="visitors49"></div>
+        </div>
+      </div>
+      <p class="is-more"><button type="button" class="is-yb" data-v49all="1"><span data-v49lbl="more">Показать всю историю (с 1949 года)</span><span data-v49lbl="less" hidden>Показать с 2000 года</span></button></p>
+      <p class="is-note">Иностранцы, прилетевшие самолётом (все аэропорты) или приплывшие паромом Norröna; без круизных пассажиров. 1949–2000 — данные иммиграционной службы, с 2002 — подсчёт Туристического совета в Кеблавике плюс оценки по другим аэропортам и парому; 2001* — оценка. 1960*: в источнике записано 1 280 — это явная опечатка, показано значение, рассчитанное по росту 1961 года (+5,5%). Источник: Ferðamálastofa (Туристический совет Исландии), таблица «Fjöldi erlendra farþega til Íslands 1949–2025».</p>
+    </div>
+  </details>
+
+  <details class="is-card" id="border-survey">
+    <summary><h2 class="is-h">Кто такие иностранные туристы: опрос на границе</h2></summary>
+    <div class="is-body">
+      <div class="is-yearbar" role="group" aria-label="Кто" style="flex-wrap:wrap" data-draw="bswho" data-source="border"></div>
+      <p class="is-take" data-draw="bstake" data-source="border">—</p>
+      <h3 class="is-h3">Сколько ночей провели в Исландии</h3>
+      <div data-draw="bsnights" data-source="border"></div>
+      <h3 class="is-h3">Какие регионы посетили</h3>
+      <div data-draw="bsregions" data-source="border"></div>
+      <h3 class="is-h3">Чем занимались</h3>
+      <div data-draw="bsact" data-source="border"></div>
+      <p class="is-note">Опрос иностранцев при вылете из Кеблавика, 2025 год (Landamærakönnun). Доли — от ответивших, с весами по числу туристов; в регионах и занятиях один человек может отметить несколько ответов. Регионы — побывал хотя бы проездом. «Обзорная экскурсия на автобусе» — кроме туров за северным сиянием, «Морская прогулка» — кроме наблюдения за китами, «Культурное событие» — концерт, театр, выставка. Израиля среди отдельно показанных стран нет. Источник: Ferðamálastofa, таблицы опроса 2025 года (toflusett-2025-en.xlsx).</p>
+    </div>
+  </details>
+
+  <h2 class="is-group" id="group-roads">Дороги</h2>
+
+  <details class="is-card" id="traffic-ring">
+    <summary><h2 class="is-h">Движение по Кольцевой дороге по месяцам</h2></summary>
+    <div class="is-body">
+      <div class="is-yearbar" role="group" aria-label="Счётчик" style="flex-wrap:wrap" data-draw="tcnt" data-source="traffic"></div>
+      <div class="is-yearbar">
+        <button type="button" class="is-arrow" data-tstep="-1" aria-label="Назад">‹</button>
+        <div class="is-years" data-draw="tbtns" data-source="traffic" role="group" aria-label="Год"></div>
+        <button type="button" class="is-arrow" data-tstep="1" aria-label="Вперёд">›</button>
+      </div>
+      <p class="is-take" data-draw="ttake" data-source="traffic">—</p>
+      <div class="is-chart" data-draw="tchart" data-source="traffic"></div>
+      <h3 class="is-h3">По годам</h3>
+      <div class="is-tw">
+        <div class="is-tbl is-tbl-tr">
+          <div class="is-tr h"><div>Год</div><div>Машин в сутки</div><div>Изм.</div><div>В июле</div><div>В январе</div></div>
+          <div data-draw="ttable" data-source="traffic"></div>
+        </div>
+      </div>
+      <p class="is-note">Среднее число машин в сутки (в обе стороны) по 16 постоянным счётчикам на Кольцевой дороге (Hringvegur). «Все 16 счётчиков» — сумма по ним, так Дорожная служба следит за общим движением. «Машин в сутки» за год — среднее из 12 месячных значений (только для полных лет). В подсказке — тот же месяц прошлого года. Источник: Vegagerðin (Дорожная служба Исландии), таблица «Hringvegur — tafla 1».</p>
+    </div>
+  </details>
+
+  <details class="is-card" id="f-roads">
+    <summary><h2 class="is-h">Когда открываются горные дороги (F-дороги)</h2></summary>
+    <div class="is-body">
+      <p class="is-take" data-draw="ftake" data-source="froads">—</p>
+      <div class="is-tw">
+        <div class="is-tbl is-tbl-fr">
+          <div class="is-fr h" data-draw="fhead" data-source="froads"></div>
+          <div data-draw="ftable" data-source="froads"></div>
+        </div>
+      </div>
+      <p class="is-note">Даты, когда дорога открылась для движения после зимы. «Раньше всего», «позже всего» и «в среднем» посчитаны по этим пяти годам (в таблице на сайте Дорожной службы в этих столбцах есть расхождения с датами по годам). Каждый год даты зависят от снега и влажности почвы; актуальное состояние — на umferdin.is и по телефону 1777. Источник: Vegagerðin, страница «Opnun fjallvega».</p>
     </div>
   </details>
 
@@ -1706,5 +1793,181 @@ dash.draw('cptable', el => {
     tr.title = 'Во сколько раз выросли цены с 1997 по ' + full[full.length - 1].year + ' год';
     el.appendChild(tr);
   }
+});
+// --- иностранные туристы с 1949 года ---
+isState.v49all = isState.v49all || false;
+document.querySelectorAll('[data-v49all]').forEach(btn => btn.addEventListener('click', () => {
+  isState.v49all = !isState.v49all;
+  document.querySelectorAll('[data-v49lbl]').forEach(sp => { sp.hidden = (sp.dataset.v49lbl === 'more') === isState.v49all; });
+  dash.draw('vtable49');
+}));
+window.isV49 = function() {
+  const s = dash.data('visitors49'); if (s.status !== 'ok') return null;
+  const r = s.data.map(d => ({year: +d.year, v: +d.visitors, est: +d.estimate === 1, fix: false})).sort((a, b) => a.year - b.year);
+  // опечатка источника: 1960 = 1 280 при 1959 = 12 300 и росте 1961 года +5,5%
+  const i = r.findIndex(d => d.year === 1960), n = r.find(d => d.year === 1961);
+  if (i >= 0 && n && r[i].v < 2000) { r[i].v = Math.round(n.v / 1.055 / 100) * 100; r[i].fix = true; }
+  return r;
+};
+dash.draw('vtake49', el => {
+  const r = isV49(); if (!r) { el.textContent = '—'; return; }
+  const l = r[r.length - 1], f = r[0], mx = r.reduce((a, b) => b.v > a.v ? b : a);
+  el.replaceChildren();
+  const b1 = document.createElement('b'); b1.textContent = l.year; const b2 = document.createElement('b'); b2.textContent = isTI(l.v);
+  const k = Math.round(l.v / f.v), k10 = k % 10, k100 = k % 100; el.append(b1, ': ', b2, ' иностранных туристов — в ' + isTI(k) + ((k10 >= 2 && k10 <= 4 && (k100 < 12 || k100 > 14)) ? ' раза' : ' раз') + ' больше, чем в ' + f.year + ' году (' + isTI(f.v) + '). Рекорд — ' + mx.year + ' год (' + isTI(mx.v) + ').');
+});
+dash.draw('vtable49', el => {
+  const r = isV49(); el.replaceChildren();
+  const s = dash.data('visitors49');
+  if (s.status === 'error') { const p = document.createElement('p'); p.className = 'is-err'; p.textContent = 'Не удалось загрузить данные.'; el.appendChild(p); return; }
+  if (!r) { el.textContent = '—'; return; }
+  const by = new Map(r.map(d => [d.year, d]));
+  r.slice().reverse().filter(d => isState.v49all || d.year >= 2000).forEach(d => {
+    const tr = document.createElement('div'); tr.className = 'is-v49'; const p = by.get(d.year - 1);
+    isCell(tr, d.year + (d.est || d.fix ? '*' : '')); isCell(tr, isTI(d.v));
+    if (p && p.v > 0) { const ch = (d.v / p.v - 1) * 100; isCell(tr, (ch > 0 ? '+' : ch < 0 ? '−' : '') + Math.abs(ch).toFixed(1).replace('.', ',') + '%', ch > 0 ? 'up' : (ch < 0 ? 'down' : 'p')); }
+    else isCell(tr, '—', 'p');
+    el.appendChild(tr);
+  });
+});
+// --- опрос на границе ---
+window.isBSWho = [['all', 'All', 'Все туристы'], ['nat', 'USA', 'США'], ['nat', 'United Kingdom', 'Великобритания'], ['nat', 'Germany', 'Германия'], ['nat', 'China', 'Китай'], ['nat', 'France', 'Франция'], ['nat', 'Italy', 'Италия'], ['nat', 'Canada', 'Канада'], ['nat', 'Spain', 'Испания'], ['nat', 'Denmark', 'Дания'], ['nat', 'Netherlands', 'Нидерланды'], ['nat', 'Poland', 'Польша'], ['nat', 'India', 'Индия'], ['nat', 'Switzerland', 'Швейцария'], ['nat', 'Sweden', 'Швеция'], ['nat', 'Australia', 'Австралия'], ['nat', 'Norway', 'Норвегия'], ['age', '< 24 years', 'До 24 лет'], ['age', '25-34 years', '25–34 года'], ['age', '35-44 years', '35–44 года'], ['age', '45-54 years', '45–54 года'], ['age', '> 55 years', '55 лет и старше']];
+window.isBSN = {'Did not stay overnight': 'Без ночёвки', '1 night': '1 ночь', '2-3 nights': '2–3 ночи', '4-5 nights': '4–5 ночей', '6-8 nights': '6–8 ночей', '9-12 nights': '9–12 ночей', '>13 nights': '13 и больше'};
+window.isBSR = {'Reykjavík capital area': 'Рейкьявик и окрестности', 'Reykjanes': 'Рейкьянес', 'South Iceland': 'Юг', 'West Iceland': 'Запад', 'North Iceland': 'Север', 'East Iceland': 'Восток', 'West-fjords': 'Вестфирдир'};
+window.isBSA = {'Nature bath': 'Природные горячие источники, лагуны', 'Spa or wellness': 'Спа', 'Museum': 'Музеи', 'Sight-seeing tour by coach ¹': 'Обзорная экскурсия на автобусе', 'Whale watching': 'Наблюдение за китами', 'Glacier walking or ice climbing': 'Прогулка по леднику, ледолазание', 'Guided hiking or mountain trip': 'Поход с гидом', 'Swimming': 'Бассейн', 'Caving or ice caving': 'Пещеры, ледяные пещеры', 'Northern lights tour': 'Тур за северным сиянием', 'Seal watching': 'Наблюдение за тюленями', 'Meet the locals': 'Общение с местными', 'Bird-watching': 'Наблюдение за птицами', 'Boad trip²': 'Морская прогулка', 'Horse riding': 'Верховая езда', 'Glacier snowmo-bile- and jeep tours': 'Снегоходы и джипы на леднике', 'Cultural event ³': 'Культурное событие', 'Diving or snorkeling': 'Дайвинг, снорклинг', 'Local town festival': 'Местный праздник', 'River rafting or kayaking tour': 'Рафтинг, каяки', 'Sight-seeing flight': 'Обзорный полёт', 'Cycle-, 4-wheel- or segway tour': 'Велосипед, квадроцикл, сегвей', 'Fishing, hunting': 'Рыбалка, охота', 'Golfing': 'Гольф', 'Music festival': 'Музыкальный фестиваль', 'Skiing or snow-boarding': 'Лыжи, сноуборд', 'Other': 'Другое'};
+isState.bsw = isState.bsw || 0;
+window.isBSGet = function(dim, w) { const s = dash.data('border'); if (s.status !== 'ok') return null; const [g, who] = isBSWho[w];
+  const m = new Map(); s.data.filter(d => d.dim === dim && d.grp === g && d.who.trim() === who).forEach(d => m.set(d.key, +d.value)); return m; };
+window.isBSRedraw = function() { ['bswho', 'bstake', 'bsnights', 'bsregions', 'bsact'].forEach(n => dash.draw(n)); };
+window.isHBars = function(el, items, fmt) {
+  // items: [{label, v, cmp}] — горизонтальные полоски; cmp — значение «все туристы» для сравнения
+  el.replaceChildren(); const mx = d3.max(items, d => Math.max(d.v, d.cmp || 0)) || 1;
+  items.forEach(d => {
+    const row = document.createElement('div'); row.className = 'is-hb';
+    const l = document.createElement('div'); l.textContent = d.label;
+    const bar = document.createElement('div'); bar.className = 'bar'; const sp = document.createElement('span'); sp.style.width = (d.v / mx * 100) + '%'; sp.style.background = dash.colors[0]; bar.appendChild(sp);
+    const v = document.createElement('div'); v.className = 'v'; v.textContent = fmt(d.v);
+    if (d.cmp != null) { const c = document.createElement('div'); c.className = 'cmp'; c.textContent = 'все: ' + fmt(d.cmp); v.appendChild(c); }
+    row.append(l, bar, v); el.appendChild(row);
+  });
+};
+window.isBSPct = v => Math.round(v * 100) + '%';
+dash.draw('bswho', el => {
+  el.replaceChildren();
+  isBSWho.forEach((w, i) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'is-yb'; b.textContent = w[2];
+    b.setAttribute('aria-pressed', i === isState.bsw ? 'true' : 'false'); b.addEventListener('click', () => { isState.bsw = i; isBSRedraw(); }); el.appendChild(b); });
+});
+dash.draw('bstake', el => {
+  const n = isBSGet('nights', isState.bsw), a = isBSGet('activity', isState.bsw), r = isBSGet('regions', isState.bsw);
+  if (!n) { el.textContent = '—'; return; }
+  el.replaceChildren();
+  const b1 = document.createElement('b'); b1.textContent = isBSWho[isState.bsw][2] + ', 2025'; el.append(b1, ': ');
+  if (n.has('Average')) { const b2 = document.createElement('b'); const nv = +n.get('Average'), n10 = nv % 10, n100 = nv % 100; b2.textContent = String(nv).replace('.', ',') + (!Number.isInteger(nv) || (n10 >= 2 && n10 <= 4 && (n100 < 12 || n100 > 14)) ? ' ночи' : (n10 === 1 && n100 !== 11 ? ' ночь' : ' ночей')); el.append('в среднем ', b2, ' в Исландии. '); }
+  if (r && r.size) { const top = [...r].filter(([k]) => k !== 'Reykjavík capital area').sort((x, y) => y[1] - x[1])[0]; if (top) el.append('Кроме столицы, чаще всего ездят на ' + {'Reykjanes': 'Рейкьянес', 'South Iceland': 'юг', 'West Iceland': 'запад', 'North Iceland': 'север', 'East Iceland': 'восток', 'West-fjords': 'Вестфирдир'}[top[0]] + ' (' + isBSPct(top[1]) + '). '); }
+  if (a && a.size) { const top = [...a].filter(([k]) => k !== 'Other').sort((x, y) => y[1] - x[1])[0]; el.append('Самое популярное занятие — ' + (isBSA[top[0]] || top[0]).toLowerCase() + ' (' + isBSPct(top[1]) + ').'); }
+});
+dash.draw('bsnights', el => {
+  const n = isBSGet('nights', isState.bsw), all = isBSGet('nights', 0); if (!n) { el.textContent = '—'; return; }
+  isHBars(el, Object.keys(isBSN).filter(k => n.has(k)).map(k => ({label: isBSN[k], v: n.get(k), cmp: isState.bsw ? all.get(k) : null})), isBSPct);
+});
+dash.draw('bsregions', el => {
+  const r = isBSGet('regions', isState.bsw), all = isBSGet('regions', 0); if (!r) { el.textContent = '—'; return; }
+  isHBars(el, Object.keys(isBSR).filter(k => r.has(k)).map(k => ({label: isBSR[k], v: r.get(k), cmp: isState.bsw ? all.get(k) : null})).sort((a, b) => b.v - a.v), isBSPct);
+});
+dash.draw('bsact', el => {
+  const a = isBSGet('activity', isState.bsw), all = isBSGet('activity', 0); if (!a) { el.textContent = '—'; return; }
+  isHBars(el, [...a].filter(([k]) => k !== 'Other').map(([k, v]) => ({label: isBSA[k] || k, v, cmp: isState.bsw ? all.get(k) : null})).sort((x, y) => y.v - x.v).slice(0, 15), isBSPct);
+});
+// --- движение по Кольцевой ---
+window.isTCnt = [['all', 'Все 16 счётчиков'], ['1-d8', 'Хеллисхейди (Рейкьявик — юг)'], ['1-c2', 'Хвольсвёдлюр'], ['1-b1', 'Мирдальссандюр (у Вика)'], ['1-x2', 'Хвальнес (юго-восток)'], ['1-t6', 'Фаградалюр (восток)'], ['1-s4', 'Мёдрюдальсёрайви (восток)'], ['1-r3', 'Миватнсёрайви'], ['1-q9', 'Миватнсхейди'], ['1-p6', 'Крайклингахлид (Акюрейри)'], ['1-p2', 'Эксадалюр'], ['1-k7', 'Глювюрау (северо-запад)'], ['1-j1', 'Холтаверзюхейди'], ['1-g4', 'Хабнарфьядль (Боргарнес)'], ['1-f8', 'Тоннель Хвальфьордюр'], ['1-f3', 'Ульварсфедль (Рейкьявик)'], ['1-e2', 'Гейтхаульс (Рейкьявик)']];
+isState.tc = isState.tc || 'all';
+window.isTMap = function() {
+  // Map: year -> [13] (0 = за год, 1..12 = месяцы) для выбранного счётчика; для «all» — сумма, если есть все 16
+  const s = dash.data('traffic'); if (s.status !== 'ok') return null;
+  const m = new Map(), cnt = new Map();
+  s.data.forEach(d => { if (isState.tc !== 'all' && d.code !== isState.tc) return; const y = +d.year, k = +d.m;
+    if (!m.has(y)) { m.set(y, new Array(13).fill(0)); cnt.set(y, new Array(13).fill(0)); }
+    m.get(y)[k] += +d.adt; cnt.get(y)[k] += 1; });
+  const need = isState.tc === 'all' ? 16 : 1;
+  m.forEach((a, y) => a.forEach((v, k) => { if (cnt.get(y)[k] < need) a[k] = null; }));
+  // за год — среднее из 12 месяцев (только если есть все 12)
+  m.forEach(a => { const mm = a.slice(1); a[0] = mm.every(v => v != null) ? Math.round(d3.mean(mm)) : null; });
+  return m;
+};
+window.isTYears = function() { const m = isTMap(); if (!m) return []; const ys = [...m.keys()].filter(y => m.get(y).slice(1).some(v => v != null)).sort().map(String);
+  if (ys.indexOf(isState.ty) < 0) { const full = ys.filter(y => m.get(+y).slice(1).every(v => v != null)); isState.ty = full.length ? full[full.length - 1] : ys[ys.length - 1]; } return ys; };
+window.isTRedraw = function() { ['tcnt', 'tbtns', 'ttake', 'tchart', 'ttable'].forEach(n => dash.draw(n)); };
+document.querySelectorAll('.is-arrow[data-tstep]').forEach(btn => btn.addEventListener('click', () => {
+  const ys = isTYears(); if (!ys.length) return; const i = ys.indexOf(isState.ty);
+  isState.ty = ys[Math.min(ys.length - 1, Math.max(0, i + (+btn.dataset.tstep)))]; isTRedraw();
+}));
+dash.draw('tcnt', el => {
+  el.replaceChildren();
+  isTCnt.forEach(([k, n]) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'is-yb'; b.textContent = n;
+    b.setAttribute('aria-pressed', k === isState.tc ? 'true' : 'false'); b.addEventListener('click', () => { isState.tc = k; isTRedraw(); }); el.appendChild(b); });
+});
+dash.draw('tbtns', el => { const m = isTMap(), ys = isTYears(); isYearRibbon(el, ys, isState.ty, y => { isState.ty = y; isTRedraw(); }, y => m && m.get(+y).slice(1).some(v => v == null)); });
+dash.draw('ttake', el => {
+  const m = isTMap(); if (!m) { el.textContent = '—'; return; } isTYears();
+  const v = m.get(+isState.ty).slice(1), ok = v.map((x, i) => [x, i]).filter(p => p[0] != null);
+  el.replaceChildren(); if (!ok.length) { el.textContent = '—'; return; }
+  const mx = ok.reduce((a, b) => b[0] > a[0] ? b : a), mn = ok.reduce((a, b) => b[0] < a[0] ? b : a);
+  const b1 = document.createElement('b'); b1.textContent = (isTCnt.find(c => c[0] === isState.tc) || ['', ''])[1] + ', ' + isState.ty;
+  const b2 = document.createElement('b'); b2.textContent = isTI(mx[0]); const b3 = document.createElement('b'); b3.textContent = isTI(mn[0]);
+  el.append(b1, ': больше всего машин в ' + isMonIn[mx[1]] + ' — ', b2, ' в сутки, меньше всего в ' + isMonIn[mn[1]] + ' — ', b3, ' (в ' + (mx[0] / mn[0]).toFixed(1).replace('.', ',') + ' раза меньше).');
+});
+dash.draw('tchart', el => {
+  const s = dash.data('traffic');
+  if (s.status === 'error') { el.replaceChildren(); const p = document.createElement('p'); p.className = 'is-err'; p.textContent = 'Не удалось загрузить данные.'; el.appendChild(p); return; }
+  const m = isTMap(); if (!m) { el.textContent = '—'; return; } isTYears();
+  const v = m.get(+isState.ty).slice(1), pv = m.has(+isState.ty - 1) ? m.get(+isState.ty - 1).slice(1) : new Array(12).fill(null);
+  let mx = 0; m.forEach(a => a.slice(1).forEach(x => { if (x != null && x > mx) mx = x; }));
+  const div = mx >= 10000 ? 1000 : 1;
+  isMonthBars(el, {vals: v, ymax: mx, fmt: x => div > 1 ? isNum(x, 1000) : isTI(x), axisFmt: x => div > 1 ? String(x / 1000) : String(x), unit: div > 1 ? 'тыс. машин в сутки' : 'машин в сутки',
+    aria: 'Столбчатая диаграмма: машин в сутки по месяцам ' + isState.ty,
+    tip: i => { const L = [isMonFull[i] + ' ' + isState.ty, isTI(v[i]) + ' машин в сутки']; if (pv[i] != null && pv[i] > 0) { const ch = (v[i] / pv[i] - 1) * 100; L.push((+isState.ty - 1) + ': ' + isTI(pv[i]) + ' (' + (ch >= 0 ? '+' : '−') + Math.abs(ch).toFixed(1).replace('.', ',') + '%)'); } return L; }});
+});
+dash.draw('ttable', el => {
+  const m = isTMap(); el.replaceChildren(); if (!m) { el.textContent = '—'; return; }
+  const ys = [...m.keys()].sort((a, b) => b - a);
+  ys.forEach(y => { const a = m.get(y), p = m.get(y - 1); if (a[0] == null && a.slice(1).every(v => v == null)) return;
+    const tr = document.createElement('div'); tr.className = 'is-tr';
+    isCell(tr, String(y)); isCell(tr, a[0] == null ? '—' : isTI(a[0]), a[0] == null ? 'p' : '');
+    if (a[0] != null && p && p[0] != null && p[0] > 0) { const ch = (a[0] / p[0] - 1) * 100; isCell(tr, (ch > 0 ? '+' : ch < 0 ? '−' : '') + Math.abs(ch).toFixed(1).replace('.', ',') + '%', ch > 0 ? 'up' : (ch < 0 ? 'down' : 'p')); }
+    else isCell(tr, '—', 'p');
+    isCell(tr, a[7] == null ? '—' : isTI(a[7])); isCell(tr, a[1] == null ? '—' : isTI(a[1]), 'p');
+    el.appendChild(tr); });
+});
+// --- горные дороги ---
+window.isFRu = {'Kjalvegur, 35': 'Кьёлюр (Kjölur), 35', 'Sprengisandur, F26': 'Спренгисандюр, F26', 'Skagafjarðarleið, F752': 'Скагафьордюр, F752', 'Eyjafjarðarleið, F821': 'Эйяфьордюр, F821', 'Öskjuleið, F88': 'К Аскье, F88', 'Öskjuvatnsvegur, F894': 'К озеру Эскьюватн, F894', 'Hólsfjallavegur, 864': 'Хоульсфьядль (к Деттифоссу), 864', 'Kverkfjalaleið, F902': 'Кверкфьёдль, F902', 'Arnardalsleið, F905': 'Арнардалюр, F905', 'Austurleið, F910': 'Восточная дорога, F910', 'Uxahryggjavegur, 52': 'Уксахрюггир, 52', 'Kaldadalsvegur, 550': 'Кальдидалюр, 550', 'Lakagígar, F206': 'Лакагигар, F206', 'Fjallabaksleið nyrðri, F208': 'Фьядлабак северная (Ландманналёйгар), F208', 'Fjallabaksleið syðri, F210': 'Фьядлабак южная, F210', 'Landmannaleið (Dómad.), F225': 'Ландманналейд (Домадалюр), F225', 'Emstruleið, F261': 'Эмструр, F261'};
+window.isFMon = ['', 'января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+window.isFDoy = s => { const [m, d] = s.split('-').map(Number); return Math.round((Date.UTC(2001, m - 1, d) - Date.UTC(2001, 0, 1)) / 864e5); };
+window.isFDate = doy => { const t = new Date(Date.UTC(2001, 0, 1) + Math.round(doy) * 864e5); return t.getUTCDate() + ' ' + isFMon[t.getUTCMonth() + 1]; };
+window.isFYears = function() { const s = dash.data('froads'); if (s.status !== 'ok' || !s.data.length) return []; return Object.keys(s.data[0]).filter(k => /^y\d{4}$/.test(k)).map(k => k.slice(1)).sort(); };
+dash.draw('fhead', el => {
+  el.replaceChildren(); const ys = isFYears(); if (!ys.length) return;
+  [['Дорога']].concat(ys.map(y => [y]), [['Раньше всего'], ['Позже всего'], ['В среднем']]).forEach(([t]) => { const d = document.createElement('div'); d.textContent = t; el.appendChild(d); });
+});
+dash.draw('ftake', el => {
+  const s = dash.data('froads'); if (s.status !== 'ok') { el.textContent = '—'; return; } const ys = isFYears();
+  const avg = s.data.map(d => ({d, a: d3.mean(ys, y => isFDoy(d['y' + y]))})).sort((a, b) => a.a - b.a);
+  const lm = s.data.find(d => d.road.indexOf('F208') >= 0 && d.section.indexOf('Landmannalaugar') >= 0), sp = s.data.find(d => d.road.indexOf('F26') >= 0);
+  el.replaceChildren();
+  el.append('В среднем за ' + ys[0] + '–' + ys[ys.length - 1] + ' годы раньше всех открывается ' + (isFRu[avg[0].d.road] || avg[0].d.road) + ' (' + isFDate(avg[0].a) + '), позже всех — ' + (isFRu[avg[avg.length - 1].d.road] || avg[avg.length - 1].d.road) + ' (' + isFDate(avg[avg.length - 1].a) + ').');
+  if (lm) el.append(' Дорога к Ландманналёйгару — в среднем ' + isFDate(d3.mean(ys, y => isFDoy(lm['y' + y]))) + '.');
+  if (sp) el.append(' Спренгисандюр — ' + isFDate(d3.mean(ys, y => isFDoy(sp['y' + y]))) + '.');
+});
+dash.draw('ftable', el => {
+  const s = dash.data('froads'); el.replaceChildren();
+  if (s.status === 'error') { const p = document.createElement('p'); p.className = 'is-err'; p.textContent = 'Не удалось загрузить данные.'; el.appendChild(p); return; }
+  if (s.status !== 'ok') { el.textContent = '—'; return; } const ys = isFYears();
+  s.data.forEach(d => {
+    const tr = document.createElement('div'); tr.className = 'is-fr';
+    const c = document.createElement('div'); c.textContent = isFRu[d.road] || d.road; if (d.section) { const sm = document.createElement('small'); sm.textContent = d.section; c.appendChild(sm); } tr.appendChild(c);
+    const dd = ys.map(y => d['y' + y]).filter(Boolean).map(isFDoy);
+    ys.forEach(y => isCell(tr, d['y' + y] ? isFDate(isFDoy(d['y' + y])) : '—', d['y' + y] ? '' : 'p'));
+    isCell(tr, isFDate(d3.min(dd)), 'p'); isCell(tr, isFDate(d3.max(dd)), 'p'); isCell(tr, isFDate(d3.mean(dd)), 'avg');
+    el.appendChild(tr);
+  });
 });
 </script>

@@ -30,6 +30,10 @@ DATASETS = {
     'museums': 'museums.csv',
     'energy': 'energy.csv',
     'cpi': 'cpi_groups.csv',
+    'traffic': 'traffic_ring.csv',
+    'froads': 'froads.csv',
+    'border': 'border_survey.csv',
+    'visitors49': 'visitors_1949.csv',
 }
 
 THEME = """
@@ -122,7 +126,7 @@ def main(page_path, csv_dir, out_dir):
 </head>
 <body>
 {page_body}
-<footer class="site-foot">Данные: <a href="https://www.statice.is/">Statistics Iceland (Hagstofa Íslands)</a>. Страница обновлена {today}.</footer>
+<footer class="site-foot">Данные: <a href="https://www.statice.is/">Statistics Iceland (Hagstofa Íslands)</a>, <a href="https://www.ferdamalastofa.is/">Ferðamálastofa</a>, <a href="https://www.vegagerdin.is/">Vegagerðin</a>, <a href="https://hms.is/">HMS</a>, Eurostat. Страница обновлена {today}.</footer>
 <script>{d3js}</script>
 <script>{data_js}</script>
 <script>{SHIM}</script>
