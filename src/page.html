@@ -161,12 +161,12 @@
 .is-el > div:nth-child(n+2){text-align:right;white-space:nowrap}
 .is-el > div:nth-child(1){position:sticky;left:0;background:var(--color-panel);z-index:1;box-shadow:6px 0 0 var(--color-panel);font-weight:var(--cds-font-weight-medium)}
 .is-el .p{color:var(--color-fg-muted)}.is-el .up{color:var(--color-ok)}.is-el .down{color:var(--color-bad)}
-.is-wh{display:grid;grid-template-columns:48px 80px 96px 72px 64px minmax(140px,1fr);gap:6px;align-items:center;padding:4px 0;border-bottom:1px solid var(--color-border-line)}
-.is-tbl-wh{min-width:540px}
+.is-wh{display:grid;grid-template-columns:48px 80px 96px 72px 64px 150px minmax(190px,1fr);gap:6px;align-items:center;padding:4px 0;border-bottom:1px solid var(--color-border-line)}
+.is-tbl-wh{min-width:760px}
 .is-wh.h{color:var(--color-fg-muted);font-weight:var(--cds-font-weight-medium);align-items:end}
 .is-wh.h > div{white-space:normal !important;line-height:1.2}
 .is-wh > div:nth-child(n+2):nth-child(-n+5){text-align:right;white-space:nowrap}
-.is-wh > div:nth-child(6){color:var(--color-fg-muted);padding-left:12px}
+.is-wh > div:nth-child(n+6){color:var(--color-fg-muted);padding-left:12px}
 .is-wh > div:nth-child(1){position:sticky;left:0;background:var(--color-panel);z-index:1;box-shadow:6px 0 0 var(--color-panel);font-weight:var(--cds-font-weight-medium)}
 .is-wh .p{color:var(--color-fg-muted)}
 </style>
@@ -652,11 +652,11 @@
       <p class="is-take" data-draw="whtake" data-source="whales">—</p>
       <div class="is-tw">
         <div class="is-tbl is-tbl-wh">
-          <div class="is-wh h"><div>Год</div><div>Финвалы</div><div>Малые полосатики</div><div>Сейвалы</div><div>Всего</div><div>Промысел</div></div>
+          <div class="is-wh h"><div>Год</div><div>Финвалы</div><div>Малые полосатики</div><div>Сейвалы</div><div>Всего</div><div>Промысел</div><div>Куда шло мясо</div></div>
           <div data-draw="whtable" data-source="whales"></div>
         </div>
       </div>
-      <p class="is-note">Сколько китов добыла Исландия за год (вместе с ранеными и потерянными). С 1986 года действует мораторий Международной китобойной комиссии (IWC) на коммерческий промысел: в 1986–1989 и 2003–2007 Исландия добывала китов по научной программе, с 2006 года — коммерчески, заявив оговорку к мораторию. В 1990–2002 годах промысла не было. Финвалов добывает одна компания — Hvalur hf.; в 2007–2008, 2011–2012, 2016–2017, 2019–2021, 2024 и 2025 годах она не выходила на промысел. Ловят только финвалов и малых полосатиков, остальные виды под защитой. «—» — данных нет: за 2023–2026 годы по малым полосатикам у меня нет сводки. Источники: IWC, таблица «Total catches» (1986–2022); 2023 и 2026 — сообщения Hvalur hf. и прессы (24 и 93 финвала).</p>
+      <p class="is-note">Сколько китов добыла Исландия за год (вместе с ранеными и потерянными). С 1986 года действует мораторий Международной китобойной комиссии (IWC) на коммерческий промысел: в 1986–1989 и 2003–2007 Исландия добывала китов по научной программе, с 2006 года — коммерчески, заявив оговорку к мораторию. В 1990–2002 годах промысла не было. Финвалов добывает одна компания — Hvalur hf.; в 2007–2008, 2011–2012, 2016–2017, 2019–2021, 2024 и 2025 годах она не выходила на промысел. Ловят только финвалов и малых полосатиков, остальные виды под защитой. «—» — данных нет: за 2023–2026 годы по малым полосатикам у меня нет сводки. «Куда шло мясо»: мясо финвалов почти целиком идёт на экспорт в Японию (в 1986–1989 годах туда же шла большая часть продукции), в самой Исландии его почти не едят; мясо малых полосатиков продавали внутри страны, в основном в рестораны для туристов. Это общая картина по годам, а не таможенные данные за каждый год: экспорт мог задерживаться — например, по словам посла Японии (2021), последняя к тому времени партия ушла в Японию в 2019 году. Последние годы рынок в Японии сужается, часть мяса, по данным Iceland Review, идёт на корм для домашних животных. Источники: IWC, таблица «Total catches» (1986–2022); 2023 и 2026 — сообщения Hvalur hf. и прессы (24 и 93 финвала); куда шло мясо — National Geographic, посольство Японии в Исландии, Iceland Review, AWI.</p>
     </div>
   </details>
 
@@ -2095,6 +2095,7 @@ dash.draw('whtable', el => {
     const parts = [d.fin, d.minke, d.sei].map(isWhN), tot = parts.some(v => v == null) ? (parts.filter(v => v != null).reduce((a, b) => a + b, 0) || null) : parts.reduce((a, b) => a + b, 0);
     isCell(tr, String(d.year)); isCell(tr, f(d.fin), +d.fin ? '' : 'p'); isCell(tr, f(d.minke), +d.minke ? '' : 'p'); isCell(tr, f(d.sei), +d.sei ? '' : 'p');
     isCell(tr, tot == null ? '—' : isTI(tot) + (parts.some(v => v == null) ? '+' : ''), tot ? '' : 'p'); isCell(tr, isWhT[d.type] || '');
+    const dest = []; if ((+d.fin || 0) + (+d.sei || 0) > 0) dest.push((+d.sei ? 'финвалы и сейвалы' : 'финвалы') + ' — на экспорт в Японию'); if (+d.minke > 0) dest.push('полосатики — внутри Исландии'); isCell(tr, dest.join('; '));
     el.appendChild(tr);
   });
 });
