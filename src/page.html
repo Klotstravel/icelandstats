@@ -154,6 +154,13 @@
 .is-hb .v{text-align:right;font-variant-numeric:tabular-nums}
 .is-hb .cmp{color:var(--color-fg-muted);font-size:12px;white-space:nowrap}
 @media (max-width:600px){.is-hb{grid-template-columns:44% 1fr 64px;gap:6px}}
+.is-el{display:grid;grid-template-columns:48px 96px 72px 64px 104px 56px 64px 96px 92px;gap:6px;align-items:center;padding:4px 0;border-bottom:1px solid var(--color-border-line)}
+.is-tbl-el{min-width:740px}
+.is-el.h{color:var(--color-fg-muted);font-weight:var(--cds-font-weight-medium);align-items:end}
+.is-el.h > div{white-space:normal !important;line-height:1.2}
+.is-el > div:nth-child(n+2){text-align:right;white-space:nowrap}
+.is-el > div:nth-child(1){position:sticky;left:0;background:var(--color-panel);z-index:1;box-shadow:6px 0 0 var(--color-panel);font-weight:var(--cds-font-weight-medium)}
+.is-el .p{color:var(--color-fg-muted)}.is-el .up{color:var(--color-ok)}.is-el .down{color:var(--color-bad)}
 </style>
 <div class="is-wrap">
   <header id="top">
@@ -589,7 +596,7 @@
   </details>
 
   <details class="is-card" id="energy">
-    <summary><h2 class="is-h">Откуда Исландия берёт энергию</h2></summary>
+    <summary><h2 class="is-h">Откуда Исландия берёт энергию (вся энергия, не только электричество)</h2></summary>
     <div class="is-body">
       <p class="is-take" data-draw="etake" data-source="energy">—</p>
       <div class="is-tw">
@@ -600,6 +607,21 @@
       </div>
       <p class="is-more"><button type="button" class="is-yb" data-eall="1"><span data-elbl="more">Показать все годы</span><span data-elbl="less" hidden>Показать каждый пятый год</span></button></p>
       <p class="is-note">Доли в общем потреблении первичной энергии, %. Геотермальная энергия — отопление домов, бассейны и электростанции; гидро — электричество. «Возобновляемая» — геотермальная + гидро + ветер. Почти вся нефть — топливо для машин, судов и самолётов: электричество и отопление в Исландии почти полностью «зелёные». Данные по 2020 год. Источник: Statistics Iceland, таблица IDN02102.</p>
+    </div>
+  </details>
+
+  <details class="is-card" id="electricity">
+    <summary><h2 class="is-h">Электроэнергия: ГЭС, геотермальные станции, ветер</h2></summary>
+    <div class="is-body">
+      <p class="is-take" data-draw="eltake" data-source="electricity pop_hist">—</p>
+      <div class="is-tw">
+        <div class="is-tbl is-tbl-el">
+          <div class="is-el h"><div>Год</div><div>Выработка, ГВт·ч</div><div>Изм.</div><div>ГЭС</div><div>Геотермальные</div><div>Ветер</div><div>Топливо</div><div>кВт·ч на жителя</div><div>Мощность, МВт</div></div>
+          <div data-draw="eltable" data-source="electricity pop_hist"></div>
+        </div>
+      </div>
+      <p class="is-more"><button type="button" class="is-yb" data-elall="1"><span data-ellbl="more">Показать с 1976 года</span><span data-ellbl="less" hidden>Показать с 2000 года</span></button></p>
+      <p class="is-note">Сколько электроэнергии выработали все электростанции страны за год, и доли источников, %. Около 70% даёт вода (ГЭС), около 30% — геотермальные станции; ветер и топливо (резервные дизельные станции) — доли процента. В 2019 году 80% потреблённого электричества ушло на крупную промышленность, в том числе 66% — на алюминиевые заводы (таблица IDN02103), поэтому на жителя выходит так много. «кВт·ч на жителя» — выработка, делённая на население на 1 января следующего года. Мощность электростанций — на конец года, есть по 2019 год. Источники: Statistics Iceland, таблицы IDN02101 (1976–2019) и IDN02103; Eurostat, таблица nrg_bal_peh (2020–2024).</p>
     </div>
   </details>
 
@@ -1744,7 +1766,8 @@ dash.draw('etake', el => {
   el.replaceChildren();
   const b1 = document.createElement('b'); b1.textContent = l.year; const b2 = document.createElement('b'); b2.textContent = isEP(ren);
   const b3 = document.createElement('b'); b3.textContent = isEP(l.geo);
-  el.append(b1, ': ', b2, ' энергии — из возобновляемых источников, из них ', b3, ' — геотермальная. В 1940 году больше двух третей давал уголь.');
+  const b4 = document.createElement('b'); b4.textContent = isEP(l.hydro); const b5 = document.createElement('b'); b5.textContent = isEP(l.oil);
+  el.append(b1, ': ', b2, ' всей энергии — из возобновляемых источников: геотермальная — ', b3, ', гидро — ', b4, '. Нефть — ', b5, ' (в основном транспорт, суда и самолёты). В 1940 году больше двух третей давал уголь.');
 });
 dash.draw('etable', el => {
   const s = dash.data('energy'); el.replaceChildren();
@@ -1993,6 +2016,38 @@ dash.draw('ftable', el => {
     const dd = ys.map(y => d['y' + y]).filter(Boolean).map(isFDoy);
     ys.forEach(y => isCell(tr, d['y' + y] ? isFDate(isFDoy(d['y' + y])) : '—', d['y' + y] ? '' : 'p'));
     isCell(tr, isFDate(d3.min(dd)), 'p'); isCell(tr, isFDate(d3.max(dd)), 'p'); isCell(tr, isFDate(d3.mean(dd)), 'avg');
+    el.appendChild(tr);
+  });
+});
+// --- электроэнергия ---
+isState.elall = isState.elall || false;
+document.querySelectorAll('[data-elall]').forEach(btn => btn.addEventListener('click', () => {
+  isState.elall = !isState.elall;
+  document.querySelectorAll('[data-ellbl]').forEach(sp => { sp.hidden = (sp.dataset.ellbl === 'more') === isState.elall; });
+  dash.draw('eltable');
+}));
+window.isElN = v => (v === '' || v == null || !isFinite(+v)) ? null : +v;
+window.isElPct = (v, t) => { const a = isElN(v), b = isElN(t); if (a == null || !b) return '—'; const p = a / b * 100; return (p > 0 && p < 0.1 ? p.toFixed(2) : p.toFixed(1)).replace('.', ',') + '%'; };
+dash.draw('eltake', el => {
+  const s = dash.data('electricity'); if (s.status !== 'ok') { el.textContent = '—'; return; }
+  const r = s.data.slice().sort((a, b) => +a.year - +b.year), l = r[r.length - 1], pop = isLPop().get(+l.year + 1);
+  el.replaceChildren();
+  const b1 = document.createElement('b'); b1.textContent = l.year; const b2 = document.createElement('b'); b2.textContent = isTI(Math.round(+l.total)) + ' ГВт·ч';
+  el.append(b1, ': выработано ', b2, '; ГЭС — ' + isElPct(l.hydro, l.total) + ', геотермальные станции — ' + isElPct(l.geo, l.total) + ', ветер — ' + isElPct(l.wind, l.total) + '.');
+  if (pop) { const b3 = document.createElement('b'); b3.textContent = isTI(Math.round(+l.total * 1e6 / pop)) + ' кВт·ч'; el.append(' На жителя — ', b3, ' в год.'); }
+});
+dash.draw('eltable', el => {
+  const s = dash.data('electricity'); el.replaceChildren();
+  if (s.status === 'error') { const p = document.createElement('p'); p.className = 'is-err'; p.textContent = 'Не удалось загрузить данные.'; el.appendChild(p); return; }
+  if (s.status !== 'ok') { el.textContent = '—'; return; }
+  const pop = isLPop(), by = new Map(s.data.map(d => [+d.year, d]));
+  s.data.slice().sort((a, b) => +b.year - +a.year).filter(d => isState.elall || +d.year >= 2000).forEach(d => {
+    const tr = document.createElement('div'); tr.className = 'is-el'; const p = by.get(+d.year - 1), pp = pop.get(+d.year + 1);
+    isCell(tr, String(d.year)); isCell(tr, isTI(Math.round(+d.total)));
+    if (p && +p.total > 0) { const ch = (+d.total / +p.total - 1) * 100; isCell(tr, (ch > 0 ? '+' : ch < 0 ? '−' : '') + Math.abs(ch).toFixed(1).replace('.', ',') + '%', ch > 0 ? 'up' : (ch < 0 ? 'down' : 'p')); } else isCell(tr, '—', 'p');
+    isCell(tr, isElPct(d.hydro, d.total)); isCell(tr, isElPct(d.geo, d.total)); isCell(tr, isElPct(d.wind, d.total), 'p'); isCell(tr, isElPct(d.fuel, d.total), 'p');
+    isCell(tr, pp ? isTI(Math.round(+d.total * 1e6 / pp)) : '—', pp ? '' : 'p');
+    isCell(tr, isElN(d.cap_total) == null ? '—' : isTI(Math.round(+d.cap_total)), isElN(d.cap_total) == null ? 'p' : '');
     el.appendChild(tr);
   });
 });
