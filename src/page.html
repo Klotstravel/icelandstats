@@ -109,6 +109,15 @@
 .is-tt .up{color:var(--color-ok)}
 .is-tt .down{color:var(--color-bad)}
 .is-tt .p{color:var(--color-fg-muted)}
+.is-ts{display:grid;grid-template-columns:48px 96px 72px 72px 80px 96px 72px 72px;gap:6px;align-items:center;padding:4px 0;border-bottom:1px solid var(--color-border-line)}
+.is-tbl-ts{min-width:660px}
+.is-ts.h{color:var(--color-fg-muted);font-weight:var(--cds-font-weight-medium);align-items:end}
+.is-ts.h > div{white-space:normal !important;line-height:1.2}
+.is-ts > div:nth-child(n+2){text-align:right;white-space:nowrap}
+.is-ts > div:nth-child(1){position:sticky;left:0;background:var(--color-panel);z-index:1;box-shadow:6px 0 0 var(--color-panel);font-weight:var(--cds-font-weight-medium)}
+.is-ts .up{color:var(--color-ok)}
+.is-ts .down{color:var(--color-bad)}
+.is-ts .p{color:var(--color-fg-muted)}
 </style>
 <div class="is-wrap">
   <header id="top">
@@ -187,6 +196,35 @@
       <p class="is-take" data-draw="otake" data-source="hotel_occ">—</p>
       <div class="is-chart" data-draw="ochart" data-source="hotel_occ"></div>
       <p class="is-note">Доля занятых номеров в гостиницах за месяц, в процентах; в подсказке — также доля занятых мест (кроватей) и тот же месяц прошлого года. Только гостиницы (hotels), без гестхаусов, апартаментов и Airbnb. Регионы «Рейкьянес» (Suðurnes) и «Запад и Вестфирдир» считаются отдельно с 2007 года. 2026 — предварительные данные, по сентябрь. Источник: Statistics Iceland, таблица SAM01104.</p>
+    </div>
+  </details>
+
+  <details class="is-card" id="accommodation-supply">
+    <summary><h2 class="is-h">Гостиницы и другое жильё для туристов по годам</h2></summary>
+    <div class="is-body">
+      <div class="is-yearbar" role="group" aria-label="Регион" style="flex-wrap:wrap">
+        <button type="button" class="is-yb" data-sreg="all" aria-pressed="true">Вся Исландия</button>
+        <button type="button" class="is-yb" data-sreg="cap" aria-pressed="false">Столичный регион</button>
+        <button type="button" class="is-yb" data-sreg="south" aria-pressed="false">Юг</button>
+        <button type="button" class="is-yb" data-sreg="sw" aria-pressed="false">Рейкьянес</button>
+        <button type="button" class="is-yb" data-sreg="west" aria-pressed="false">Запад</button>
+        <button type="button" class="is-yb" data-sreg="wf" aria-pressed="false">Вестфирдир</button>
+        <button type="button" class="is-yb" data-sreg="nw" aria-pressed="false">Северо-запад</button>
+        <button type="button" class="is-yb" data-sreg="ne" aria-pressed="false">Северо-восток</button>
+        <button type="button" class="is-yb" data-sreg="east" aria-pressed="false">Восток</button>
+      </div>
+      <div class="is-legend">
+        <span><i class="is-sw" data-draw="ssw"></i>Номера в гостиницах и гестхаусах</span>
+        <span><i class="is-sw" style="background:var(--cds-chart-muted)"></i>Номера в прочем жилье</span>
+      </div>
+      <div class="is-chart" data-draw="schart" data-source="supply"></div>
+      <div class="is-tw" style="margin-top:12px">
+        <div class="is-tbl is-tbl-ts">
+          <div class="is-ts h"><div>Год</div><div>Гостиниц и гестхаусов</div><div>Номеров</div><div>Мест</div><div>Изм. номеров</div><div>Прочее жильё: объектов</div><div>Номеров</div><div>Мест</div></div>
+          <div data-draw="stable" data-source="supply"></div>
+        </div>
+      </div>
+      <p class="is-note">Сколько объектов, номеров и мест (кроватей) предлагалось в июле — в пик сезона, когда открыто больше всего. «Гостиницы и гестхаусы» статистика считает вместе. «Прочее жильё» — зарегистрированные гостевые дома, апартаменты, хостелы, частное жильё и т. п. (места в нём — в основном кровати в хостелах и спальных местах). Квартиры и дома, которые сдают через Airbnb и похожие сайты без регистрации, сюда не входят. «Изм. номеров» — к июлю прошлого года. Над столбцом — всего номеров. Данные по 2025 год. Источник: Statistics Iceland, таблица SAM01602.</p>
     </div>
   </details>
 
@@ -1221,6 +1259,75 @@ dash.draw('tttable', el => {
     if (p && +r.periods === 6 && +p.periods === 6 && +p.total > 0) { const ch = (+r.total / +p.total - 1) * 100; isCell(tr, (ch > 0 ? '+' : ch < 0 ? '−' : '') + Math.abs(ch).toFixed(1).replace('.', ',') + '%', ch > 0 ? 'up' : (ch < 0 ? 'down' : 'p')); }
     else isCell(tr, '—', 'p');
     ['air', 'accom', 'food', 'agency_is', 'agency_abroad', 'rental', 'land', 'sea', 'spa'].forEach(k => isCell(tr, isB(r[k])));
+    el.appendChild(tr);
+  });
+});
+// --- гостиницы и другое жильё по годам ---
+isState.sreg = isState.sreg || 'all';
+window.isSRows = function() {
+  const s = dash.data('supply'); if (s.status !== 'ok') return null;
+  const by = new Map();
+  s.data.filter(d => d.region === isState.sreg).forEach(d => { const k = String(d.year); if (!by.has(k)) by.set(k, {year: k}); by.get(k)[d.type] = d; });
+  return Array.from(by.values()).sort((a, b) => +a.year - +b.year);
+};
+document.querySelectorAll('.is-yb[data-sreg]').forEach(btn => btn.addEventListener('click', () => {
+  isState.sreg = btn.dataset.sreg;
+  document.querySelectorAll('.is-yb[data-sreg]').forEach(b => b.setAttribute('aria-pressed', b.dataset.sreg === isState.sreg ? 'true' : 'false'));
+  ['schart', 'stable'].forEach(n => dash.draw(n));
+}));
+dash.draw('ssw', el => { el.style.background = dash.colors[0]; });
+dash.draw('schart', el => {
+  const s = dash.data('supply'); el.replaceChildren();
+  if (s.status === 'error') { const p = document.createElement('p'); p.className = 'is-err'; p.textContent = 'Не удалось загрузить данные.'; el.appendChild(p); return; }
+  const rows0 = isSRows(); if (!rows0) { el.textContent = '—'; return; }
+  const num = v => (v === '' || v == null || !isFinite(+v)) ? 0 : +v;
+  const rows = rows0.map(r => ({year: r.year, hg: num(r.hg && r.hg.rooms), ot: num(r.other && r.other.rooms)})).filter(r => r.hg + r.ot > 0);
+  const W = Math.max(280, el.clientWidth), H = 320, narrow = W / rows.length < 26;
+  const m = {top: narrow ? 46 : 30, right: 4, bottom: 34, left: 30};
+  const x = d3.scaleBand().domain(rows.map(d => d.year)).range([m.left, W - m.right]).padding(0.2);
+  const y = d3.scaleLinear().domain([0, d3.max(rows, d => d.hg + d.ot) || 1]).nice().range([H - m.bottom, m.top]);
+  const big = y.domain()[1] >= 2000, k = big ? 1000 : 1;
+  const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Столбчатая диаграмма: число номеров для туристов в июле по годам');
+  svg.append('g').attr('transform', `translate(${m.left},0)`).call(d3.axisLeft(y).ticks(5).tickSize(-(W - m.left - m.right)).tickFormat(v => v === 0 ? '0' : (big ? String(+(v / 1000).toFixed(1)).replace('.', ',') : String(v))))
+    .call(g => g.select('.domain').remove()).call(g => g.selectAll('line').style('stroke', 'var(--cds-chart-grid)'));
+  isUnit(svg, big ? 'тыс. номеров' : 'номеров');
+  const every = Math.max(1, Math.ceil(rows.length / Math.floor((W - m.left - m.right) / 36)));
+  svg.append('g').attr('transform', `translate(0,${H - m.bottom})`).call(d3.axisBottom(x).tickSize(0).tickPadding(8).tickValues(rows.map(d => d.year).filter((_, i) => (rows.length - 1 - i) % every === 0)))
+    .call(g => g.select('.domain').style('stroke', 'var(--cds-chart-axis)'));
+  const bw = x.bandwidth(), r = Math.min(3, bw / 2);
+  const bar = (x0, y0) => `M${x0},${y(0)}V${y0 + r}Q${x0},${y0} ${x0 + r},${y0}H${x0 + bw - r}Q${x0 + bw},${y0} ${x0 + bw},${y0 + r}V${y(0)}Z`;
+  const g = svg.append('g'), lab = svg.append('g').style('font-size', '11px').style('font-variant-numeric', 'tabular-nums').style('fill', 'var(--color-fg)');
+  rows.forEach(d => {
+    const x0 = x(d.year), tot = d.hg + d.ot;
+    g.append('path').attr('d', bar(x0, Math.min(y(tot), y(0) - 0.5))).style('fill', 'var(--cds-chart-muted)');
+    g.append('rect').attr('x', x0).attr('width', bw).attr('y', Math.min(y(d.hg), y(0) - 0.5)).attr('height', Math.max(0.5, y(0) - y(d.hg))).style('fill', dash.colors[0]);
+    const t = big ? (tot / 1000).toFixed(1).replace('.', ',') : String(tot), cx = x0 + bw / 2;
+    if (narrow) lab.append('text').attr('transform', `translate(${cx + 4},${y(tot) - 4}) rotate(-90)`).attr('text-anchor', 'start').text(t);
+    else lab.append('text').attr('x', cx).attr('y', y(tot) - 5).attr('text-anchor', 'middle').text(t);
+  });
+  const tip = document.createElement('div'); tip.className = 'is-tip'; tip.hidden = true; el.appendChild(tip);
+  svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', d => x(d.year) - x.step() * x.paddingInner() / 2).attr('width', x.step()).attr('y', m.top).attr('height', H - m.top - m.bottom).style('fill', 'transparent')
+    .on('pointerenter pointermove', (ev, d) => {
+      tip.replaceChildren();
+      [['Июль ' + d.year], ['Гостиницы и гестхаусы: ' + isTI(d.hg) + ' номеров'], ['Прочее жильё: ' + isTI(d.ot) + ' номеров']].forEach(([t]) => { const q = document.createElement('div'); q.textContent = t; tip.appendChild(q); });
+      tip.hidden = false; const [px, py] = d3.pointer(ev, el); const tw = tip.offsetWidth;
+      tip.style.left = Math.min(Math.max(0, px - tw / 2), el.clientWidth - tw) + 'px'; tip.style.top = Math.max(0, py - 72) + 'px';
+    }).on('pointerleave', () => { tip.hidden = true; });
+});
+dash.draw('stable', el => {
+  const s = dash.data('supply'); el.replaceChildren();
+  if (s.status === 'error') { const p = document.createElement('p'); p.className = 'is-err'; p.textContent = 'Не удалось загрузить данные.'; el.appendChild(p); return; }
+  const rows = isSRows(); if (!rows) { el.textContent = '—'; return; }
+  const has = v => v !== '' && v != null && isFinite(+v);
+  const f = v => has(v) ? isTI(v) : '—';
+  const by = new Map(rows.map(r => [+r.year, r]));
+  rows.slice().reverse().forEach(r => {
+    const tr = document.createElement('div'), h = r.hg || {}, o = r.other || {}; tr.className = 'is-ts';
+    isCell(tr, r.year); isCell(tr, f(h.objects)); isCell(tr, f(h.rooms)); isCell(tr, f(h.beds), 'p');
+    const p = by.get(+r.year - 1), ph = p && p.hg;
+    if (ph && has(ph.rooms) && has(h.rooms) && +ph.rooms > 0) { const ch = (+h.rooms / +ph.rooms - 1) * 100; isCell(tr, (ch > 0 ? '+' : ch < 0 ? '−' : '') + Math.abs(ch).toFixed(1).replace('.', ',') + '%', ch > 0 ? 'up' : (ch < 0 ? 'down' : 'p')); }
+    else isCell(tr, '—', 'p');
+    isCell(tr, f(o.objects)); isCell(tr, f(o.rooms)); isCell(tr, f(o.beds), 'p');
     el.appendChild(tr);
   });
 });

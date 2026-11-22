@@ -22,6 +22,7 @@ DATASETS = {
     'hotel_occ': 'hotel_occupancy.csv',
     'rentals': 'rental_cars.csv',
     'turnover': 'tourism_turnover.csv',
+    'supply': 'accommodation_supply.csv',
 }
 
 THEME = """
