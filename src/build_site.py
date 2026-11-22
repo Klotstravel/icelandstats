@@ -23,6 +23,13 @@ DATASETS = {
     'rentals': 'rental_cars.csv',
     'turnover': 'tourism_turnover.csv',
     'supply': 'accommodation_supply.csv',
+    'climate': 'climate.csv',
+    'protected': 'protected_areas.csv',
+    'livestock': 'livestock.csv',
+    'salmon': 'salmon_hunting.csv',
+    'museums': 'museums.csv',
+    'energy': 'energy.csv',
+    'cpi': 'cpi_groups.csv',
 }
 
 THEME = """
