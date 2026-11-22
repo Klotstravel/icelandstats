@@ -34,6 +34,7 @@ DATASETS = {
     'froads': 'froads.csv',
     'border': 'border_survey.csv',
     'visitors49': 'visitors_1949.csv',
+    'temp': 'temperature.csv',
 }
 
 THEME = """

@@ -541,22 +541,23 @@
   <h2 class="is-group" id="group-nature">Природа и погода</h2>
 
   <details class="is-card" id="climate">
-    <summary><h2 class="is-h">Солнце, дожди и ветер по месяцам</h2></summary>
+    <summary><h2 class="is-h">Погода по месяцам: температура, солнце, дожди, ветер</h2></summary>
     <div class="is-body">
-      <div class="is-yearbar" role="group" aria-label="Показатель">
-        <button type="button" class="is-yb" data-cmet="sun" aria-pressed="true">Солнечные часы</button>
+      <div class="is-yearbar" role="group" aria-label="Показатель" style="flex-wrap:wrap">
+        <button type="button" class="is-yb" data-cmet="temp" aria-pressed="true">Температура</button>
+        <button type="button" class="is-yb" data-cmet="sun" aria-pressed="false">Солнечные часы</button>
         <button type="button" class="is-yb" data-cmet="precip" aria-pressed="false">Осадки</button>
         <button type="button" class="is-yb" data-cmet="wind" aria-pressed="false">Ветер</button>
       </div>
-      <div class="is-yearbar" style="flex-wrap:wrap" role="group" aria-label="Метеостанция" data-draw="cstations" data-source="climate"></div>
+      <div class="is-yearbar" style="flex-wrap:wrap" role="group" aria-label="Метеостанция" data-draw="cstations" data-source="climate temp"></div>
       <div class="is-yearbar">
         <button type="button" class="is-arrow" data-cstep="-1" aria-label="Назад">‹</button>
-        <div class="is-years" data-draw="cbtns" data-source="climate" role="group" aria-label="Год"></div>
+        <div class="is-years" data-draw="cbtns" data-source="climate temp" role="group" aria-label="Год"></div>
         <button type="button" class="is-arrow" data-cstep="1" aria-label="Вперёд">›</button>
       </div>
-      <p class="is-take" data-draw="ctake" data-source="climate">—</p>
-      <div class="is-chart" data-draw="cchart" data-source="climate"></div>
-      <p class="is-note">«Норма» — среднее за 30 лет, 1995–2024; можно выбрать и любой год с 1949-го. Солнечные часы — сколько часов за месяц светило солнце (измеряется только в Рейкьявике и Акюрейри). Осадки — сумма за месяц, мм. Ветер — средняя скорость за месяц, м/с. В подсказке — норма для сравнения. Источник: Statistics Iceland (данные Метеорологической службы Исландии), таблицы UMH11165, UMH11120, UMH11150.</p>
+      <p class="is-take" data-draw="ctake" data-source="climate temp">—</p>
+      <div class="is-chart" data-draw="cchart" data-source="climate temp"></div>
+      <p class="is-note">«Норма» — среднее за 30 лет, 1995–2024; можно выбрать и любой год с 1949-го. Температура — средняя за месяц, °C; в подсказке — средний дневной максимум и ночной минимум, а также самая высокая и самая низкая температура месяца (у нормы — рекорды 1995–2024). Солнечные часы — сколько часов за месяц светило солнце (измеряется только в Рейкьявике и Акюрейри). Осадки — сумма за месяц, мм. Ветер — средняя скорость за месяц, м/с. В подсказке — норма для сравнения. Источник: Statistics Iceland (данные Метеорологической службы Исландии), таблицы UMH11165, UMH11120, UMH11150; температура — Метеорологическая служба Исландии (Veðurstofa Íslands), помесячные данные станций, по октябрь 2026 года.</p>
     </div>
   </details>
 
@@ -1353,7 +1354,7 @@ window.isMonthBars = function(el, o) {
   const narrow = W / 12 < 30;
   const m = {top: narrow ? 46 : 30, right: 4, bottom: 30, left: 30};
   const x = d3.scaleBand().domain(isMonNames).range([m.left, W - m.right]).padding(0.22);
-  const y = d3.scaleLinear().domain([0, o.ymax]).nice().range([H - m.bottom, m.top]);
+  const y = d3.scaleLinear().domain([Math.min(0, o.ymin || 0), o.ymax]).nice().range([H - m.bottom, m.top]);
   const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', o.aria);
   svg.append('g').attr('transform', `translate(${m.left},0)`)
     .call(d3.axisLeft(y).ticks(5).tickSize(-(W - m.left - m.right)).tickFormat(o.axisFmt))
@@ -1367,6 +1368,9 @@ window.isMonthBars = function(el, o) {
   o.vals.forEach((v, i) => {
     const cx = x(isMonNames[i]) + bw / 2;
     if (v == null || !isFinite(v)) { lab.append('text').attr('x', cx).attr('y', y(0) - 6).attr('text-anchor', 'middle').style('fill', 'var(--color-fg-muted)').text('нет'); return; }
+    if (v < 0) { g.append('rect').attr('x', x(isMonNames[i])).attr('width', bw).attr('y', y(0)).attr('height', Math.max(0.5, y(v) - y(0))).style('fill', dash.colors[0]);
+      if (narrow) lab.append('text').attr('transform', `translate(${cx + 4},${y(v) + 4}) rotate(-90)`).attr('text-anchor', 'end').text(o.fmt(v));
+      else lab.append('text').attr('x', cx).attr('y', y(v) + 13).attr('text-anchor', 'middle').text(o.fmt(v)); return; }
     const top = o.base && o.base[i] != null ? o.base[i] : v;
     if (o.base && o.base[i] != null) g.append('path').attr('d', bar(x(isMonNames[i]), Math.min(y(top), y(0) - 0.5))).style('fill', 'var(--cds-chart-muted)');
     if (o.base) g.append('rect').attr('x', x(isMonNames[i])).attr('width', bw).attr('y', Math.min(y(v), y(0) - 0.5)).attr('height', Math.max(0.5, y(0) - y(v))).style('fill', dash.colors[0]);
@@ -1375,6 +1379,7 @@ window.isMonthBars = function(el, o) {
     if (narrow) lab.append('text').attr('transform', `translate(${cx + 4},${ty - 4}) rotate(-90)`).attr('text-anchor', 'start').text(t);
     else lab.append('text').attr('x', cx).attr('y', ty - 5).attr('text-anchor', 'middle').text(t);
   });
+  if (y.domain()[0] < 0) svg.append('line').attr('x1', m.left).attr('x2', W - m.right).attr('y1', y(0)).attr('y2', y(0)).style('stroke', 'var(--cds-chart-axis)');
   const tip = document.createElement('div'); tip.className = 'is-tip'; tip.hidden = true; el.appendChild(tip);
   svg.append('g').selectAll('rect').data(d3.range(12).filter(i => o.vals[i] != null && isFinite(o.vals[i]))).join('rect')
     .attr('x', i => x(isMonNames[i]) - x.step() * x.paddingInner() / 2).attr('width', x.step()).attr('y', m.top).attr('height', H - m.top - m.bottom).style('fill', 'transparent')
@@ -1560,12 +1565,16 @@ dash.draw('stable', el => {
   });
 });
 // --- погода: солнце, осадки, ветер ---
-window.isCST = {rvk: 'Рейкьявик', aku: 'Акюрейри', sty: 'Стиккисхоульмюр', aed: 'Айдей (Вестфирдир)', bol: 'Болунгарвик', gri: 'Гримсстадир (высокогорье)', dal: 'Далатанги (восток)', kir: 'Киркьюбайярклёйстюр (юг)', sto: 'Стоурхёвди (Вестманнаэйяр)', kef: 'Кеблавик'};
-window.isCMET = {sun: {u: 'ч', unit: 'часов', w: 'солнечных часов', agg: 'sum', fmt: v => String(Math.round(v))},
+window.isCST = {rvk: 'Рейкьявик', aku: 'Акюрейри', vat: 'Ватнсскардсхоулар (у Вика)', sty: 'Стиккисхоульмюр', aed: 'Айдей (Вестфирдир)', bol: 'Болунгарвик', gri: 'Гримсстадир (высокогорье)', dal: 'Далатанги (восток)', kir: 'Киркьюбайярклёйстюр (юг)', sto: 'Стоурхёвди (Вестманнаэйяр)', kef: 'Кеблавик'};
+window.isCMET = {temp: {u: '°C', unit: '°C', w: 'температура', agg: 'mean', fmt: v => (v > 0.05 ? '+' : v < -0.05 ? '−' : '') + Math.abs(+v).toFixed(1).replace('.', ',')},
+  sun: {u: 'ч', unit: 'часов', w: 'солнечных часов', agg: 'sum', fmt: v => String(Math.round(v))},
   precip: {u: 'мм', unit: 'мм', w: 'осадков', agg: 'sum', fmt: v => String(Math.round(v))},
   wind: {u: 'м/с', unit: 'м/с', w: 'средний ветер', agg: 'mean', fmt: v => (+v).toFixed(1).replace('.', ',')}};
-isState.cmet = isState.cmet || 'sun'; isState.cst = isState.cst || 'rvk'; isState.cyear = isState.cyear || 'norm';
-window.isCRows = function() { const s = dash.data('climate'); return s.status === 'ok' ? s.data.filter(d => d.metric === isState.cmet) : null; };
+isState.cmet = isState.cmet || 'temp'; isState.cst = isState.cst || 'rvk'; isState.cyear = isState.cyear || 'norm';
+window.isCRows = function() {
+  if (isState.cmet === 'temp') { const t = dash.data('temp'); return t.status === 'ok' ? t.data.map(d => ({metric: 'temp', station: d.station, year: d.year, m: d.m, value: d.t, tx: d.tx, tn: d.tn, txx: d.txx, tnn: d.tnn})) : null; }
+  const s = dash.data('climate'); return s.status === 'ok' ? s.data.filter(d => d.metric === isState.cmet) : null; };
+window.isCRow = function(year, m) { const r = isCRows(); return r ? r.find(d => d.station === isState.cst && String(d.year) === year && +d.m === m) : null; };
 window.isCStations = function() {
   const r = isCRows(); if (!r) return [];
   const have = new Set(r.map(d => d.station)); const st = Object.keys(isCST).filter(k => have.has(k));
@@ -1618,14 +1627,20 @@ dash.draw('ctake', el => {
     const b2 = document.createElement('b'); b2.textContent = M.fmt(tot) + ' ' + M.unit;
     if (isState.cmet === 'sun') el.append('солнце светило ', b2, ' за год');
     else if (isState.cmet === 'precip') el.append('за год выпало ', b2, ' осадков');
+    else if (isState.cmet === 'temp') el.append('средняя температура за год ', b2);
     else el.append('средняя скорость ветра за год — ', b2);
-    if (isState.cyear !== 'norm' && ntot) { const ch = (tot / ntot - 1) * 100; el.append(' (' + (ch >= 0 ? 'на ' + Math.round(ch) + '% больше' : 'на ' + Math.round(-ch) + '% меньше') + ' нормы)'); }
+    if (isState.cmet === 'temp' && isState.cyear !== 'norm' && ntot != null) { const dt = tot - ntot; el.append(' (' + (Math.abs(dt) < 0.05 ? 'как в норме' : (dt > 0 ? 'на ' + Math.abs(dt).toFixed(1).replace('.', ',') + '° теплее' : 'на ' + Math.abs(dt).toFixed(1).replace('.', ',') + '° холоднее') + ' нормы') + ')'); }
+    else if (isState.cyear !== 'norm' && ntot) { const ch = (tot / ntot - 1) * 100; el.append(' (' + (ch >= 0 ? 'на ' + Math.round(ch) + '% больше' : 'на ' + Math.round(-ch) + '% меньше') + ' нормы)'); }
     el.append('. ');
   }
   const ok = v.map((x, i) => [x, i]).filter(p => p[0] != null);
   if (ok.length) {
     const mx = ok.reduce((a, b) => b[0] > a[0] ? b : a), mn = ok.reduce((a, b) => b[0] < a[0] ? b : a);
-    el.append('Больше всего — в ' + isMonIn[mx[1]] + ' (' + M.fmt(mx[0]) + ' ' + M.u + '), меньше всего — в ' + isMonIn[mn[1]] + ' (' + M.fmt(mn[0]) + ' ' + M.u + ').');
+    if (isState.cmet === 'temp') {
+      el.append('Теплее всего — в ' + isMonIn[mx[1]] + ' (' + M.fmt(mx[0]) + ' °C), холоднее всего — в ' + isMonIn[mn[1]] + ' (' + M.fmt(mn[0]) + ' °C).');
+      const rr = d3.range(1, 13).map(k => isCRow(isState.cyear, k)).filter(Boolean), hx = d3.max(rr, d => d.txx === '' ? null : +d.txx), lx = d3.min(rr, d => d.tnn === '' ? null : +d.tnn);
+      if (hx != null && lx != null) el.append(' ' + (isState.cyear === 'norm' ? 'Рекорды 1995–2024' : 'За год') + ': от ' + M.fmt(lx) + ' до ' + M.fmt(hx) + ' °C.');
+    } else el.append('Больше всего — в ' + isMonIn[mx[1]] + ' (' + M.fmt(mx[0]) + ' ' + M.u + '), меньше всего — в ' + isMonIn[mn[1]] + ' (' + M.fmt(mn[0]) + ' ' + M.u + ').');
   } else el.append('нет данных.');
 });
 dash.draw('cchart', el => {
@@ -1633,10 +1648,12 @@ dash.draw('cchart', el => {
   if (s.status === 'error') { el.replaceChildren(); const p = document.createElement('p'); p.className = 'is-err'; p.textContent = 'Не удалось загрузить данные.'; el.appendChild(p); return; }
   const r = isCRows(); if (!r) { el.textContent = '—'; return; } isCYears();
   const M = isCMET[isState.cmet], v = isCVals(isState.cyear), n = isCVals('norm');
-  const mx = d3.max(r.filter(d => d.station === isState.cst && d.value !== ''), d => +d.value);
-  isMonthBars(el, {vals: v, ymax: mx, fmt: M.fmt, axisFmt: v => String(v), unit: M.u,
+  const mx = d3.max(r.filter(d => d.station === isState.cst && d.value !== ''), d => +d.value), mn0 = d3.min(r.filter(d => d.station === isState.cst && d.value !== ''), d => +d.value);
+  isMonthBars(el, {vals: v, ymax: mx, ymin: isState.cmet === 'temp' ? Math.min(0, mn0) : 0, fmt: M.fmt, axisFmt: v => String(v), unit: M.u,
     aria: 'Столбчатая диаграмма: ' + M.w + ' по месяцам, ' + isCST[isState.cst],
-    tip: i => { const L = [isMonFull[i] + (isState.cyear === 'norm' ? ', норма' : ' ' + isState.cyear), M.fmt(v[i]) + ' ' + M.u]; if (isState.cyear !== 'norm' && n[i] != null) L.push('Норма: ' + M.fmt(n[i]) + ' ' + M.u); return L; }});
+    tip: i => { const L = [isMonFull[i] + (isState.cyear === 'norm' ? ', норма' : ' ' + isState.cyear), (isState.cmet === 'temp' ? 'в среднем ' : '') + M.fmt(v[i]) + ' ' + M.u];
+      if (isState.cmet === 'temp') { const d = isCRow(isState.cyear, i + 1); if (d) { if (d.tx !== '' && d.tn !== '') L.push('днём ' + M.fmt(+d.tx) + ', ночью ' + M.fmt(+d.tn) + ' °C'); if (d.txx !== '' && d.tnn !== '') L.push((isState.cyear === 'norm' ? 'рекорды: от ' : 'от ') + M.fmt(+d.tnn) + ' до ' + M.fmt(+d.txx) + ' °C'); } }
+      if (isState.cyear !== 'norm' && n[i] != null) L.push('Норма: ' + M.fmt(n[i]) + ' ' + M.u); return L; }});
 });
 // --- охраняемые территории ---
 window.isPAT = [['np', 'Национальные парки'], ['reserve', 'Заповедники'], ['monument', 'Памятники природы'], ['country', 'Парки отдыха (fólkvangar)'], ['habitat', 'Охраняемые местообитания'], ['landscape', 'Охраняемые ландшафты'], ['sectoral', 'По отдельным законам (Тингвеллир, Миватн и др.)'], ['masterplan', 'По генплану охраны природы и энергетики']];
